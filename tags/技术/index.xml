@@ -9,11 +9,85 @@
       <url>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.147.9</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>See this site&amp;rsquo;s source code here, licensed under GPLv3 ·</copyright>
-    <lastBuildDate>Mon, 07 Jul 2025 21:59:22 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 22 Feb 2026 09:43:54 +0800</lastBuildDate>
     <atom:link href="https://lyapple2008.github.io/tags/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【置顶】2026</title>
+      <link>https://lyapple2008.github.io/posts/2026-todo/</link>
+      <pubDate>Sun, 22 Feb 2026 09:43:54 +0800</pubDate>
+      <guid>https://lyapple2008.github.io/posts/2026-todo/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;记录跟踪2026年要做的事情和正在做的事情。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;目标&#34;&gt;目标&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;健康生活&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 体重减到60kg&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;探索可能&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 英语能力，熟练3篇演讲短文&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 独立开发，目标完成4个独立项目&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 公众号输出，目标输出文章10篇&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;正在做的项目&#34;&gt;正在做的项目&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; iOS双语字幕App&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<blockquote>
+<p>记录跟踪2026年要做的事情和正在做的事情。</p>
+</blockquote>
+<h1 id="目标">目标</h1>
+<ul>
+<li>
+<p>健康生活</p>
+<ul>
+<li><input disabled="" type="checkbox"> 体重减到60kg</li>
+</ul>
+</li>
+<li>
+<p>探索可能</p>
+<ul>
+<li><input disabled="" type="checkbox"> 英语能力，熟练3篇演讲短文</li>
+<li><input disabled="" type="checkbox"> 独立开发，目标完成4个独立项目</li>
+<li><input disabled="" type="checkbox"> 公众号输出，目标输出文章10篇</li>
+</ul>
+</li>
+</ul>
+<h1 id="正在做的项目">正在做的项目</h1>
+<ul>
+<li>
+<p><input disabled="" type="checkbox"> iOS双语字幕App</p>
+</li>
+<li>
+<p><input disabled="" type="checkbox"> 30天每天一万步（2026.02.22~2026.03.22）</p>
+</li>
+<li>
+<p><input disabled="" type="checkbox"> 五万资产配置计划</p>
+</li>
+</ul>
+<!--
+---
+一些想法
+1. 普通绘本变成点读书，或者可交互的书
+2. 就某一个主题与GPT的多轮对话，经常会思路分叉，做一个工具汇总整理这些对话
+3. 电子书阅读器支持TTS
+4. 照片管理应用，如何方便的整理和管理大量照片
+5. 拼了还拼小游戏外挂
+
+---
+-->
+]]></content:encoded>
+    </item>
     <item>
       <title>WebRTC语音降噪之Wiener滤波</title>
       <link>https://lyapple2008.github.io/posts/202507/2025-07-13-webrtc%E8%AF%AD%E9%9F%B3%E9%99%8D%E5%99%AA%E4%B9%8Bwiener%E6%BB%A4%E6%B3%A2/</link>
@@ -70,7 +144,8 @@ $$</p>
 </div>
 </div>
 <blockquote>
-<p>spectrum_prev_process_[i] 为前一帧信号的幅度谱，filter_[i]为前帧的Wiener滤波器增益，两者相乘后就是估计的纯净语音信号，因此prev_tsa就是前一帧的TSA (time-smoothed a priori SNR)</p></blockquote>
+<p>spectrum_prev_process_[i] 为前一帧信号的幅度谱，filter_[i]为前帧的Wiener滤波器增益，两者相乘后就是估计的纯净语音信号，因此prev_tsa就是前一帧的TSA (time-smoothed a priori SNR)</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -90,7 +165,8 @@ $$</p>
 </div>
 </div>
 <blockquote>
-<p>只有当信号幅度大于噪声幅度时，才认为有语音信号存在，避免负增益</p></blockquote>
+<p>只有当信号幅度大于噪声幅度时，才认为有语音信号存在，避免负增益</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -100,7 +176,8 @@ $$</p>
 </div>
 </div>
 <blockquote>
-<p>0.98 是平滑因子，表示以历史先验估计为主，防止突变</p></blockquote>
+<p>0.98 是平滑因子，表示以历史先验估计为主，防止突变</p>
+</blockquote>
 <ol start="2">
 <li>基本增益计算</li>
 </ol>
@@ -587,7 +664,8 @@ $$</p>
 <li>语音信号：存在能量集中（共振峰），几何均值 ≪ 算数均值，Flatness 接近 0</li>
 </ol>
 <blockquote>
-<p>因此谱平坦度 = 能量分布的“均匀性量尺” → 能直接用来做语音/噪声分类特征！</p></blockquote>
+<p>因此谱平坦度 = 能量分布的“均匀性量尺” → 能直接用来做语音/噪声分类特征！</p>
+</blockquote>
 <ul>
 <li>代码实现</li>
 </ul>
@@ -665,7 +743,8 @@ $$</p>
 <h2 id="indicator2-spectral-difference-谱模板差异">indicator2: Spectral Difference 谱模板差异</h2>
 <p>Spectral Difference频谱差异是用于衡量当前帧的频谱与已学习噪声模板之间的差异程度。其基本思想是：</p>
 <blockquote>
-<p>如果当前帧的频谱结构与噪声模板相似，则可能是噪声；如果差异大，则可能是语音。</p></blockquote>
+<p>如果当前帧的频谱结构与噪声模板相似，则可能是噪声；如果差异大，则可能是语音。</p>
+</blockquote>
 <ol>
 <li>总体计算公式
 $$
@@ -1038,7 +1117,8 @@ $$</p>
 <p>考虑连续观察大量值 {x₁, x₂, &hellip;, xₙ}，估计值 Q 如果在一个固定位置附近波动，那它一定满足：
 平均上调量 ≈ 平均下调量，也就是说，在那个点：</p>
 <blockquote>
-<p>上调概率 × 上调步长 = 下调概率 × 下调步长</p></blockquote>
+<p>上调概率 × 上调步长 = 下调概率 × 下调步长</p>
+</blockquote>
 <p>其中：</p>
 <ul>
 <li>上调概率 p_up = P(x &gt; Q)</li>
@@ -1049,7 +1129,8 @@ $$</p>
 </ul>
 <p>✅ 说明这个估计最终会逼近 25% 分位数！</p>
 <blockquote>
-<p>这个分位数的实现真是妙了呀，避免了常规分位计算需要排序的问题，同时还可以实时更新。👍</p></blockquote>
+<p>这个分位数的实现真是妙了呀，避免了常规分位计算需要排序的问题，同时还可以实时更新。👍</p>
+</blockquote>
 <h3 id="多分位数估计分时更新">多分位数估计分时更新</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1141,7 +1222,8 @@ $$</p>
 <h3 id="利用密度估计实现自适应步长">利用”密度“估计实现自适应步长</h3>
 <p>分位数估计器在更新的时候，其更新步长与这个density_变量直接相关，现在我们来看下webrtc的实现是如何做到自适应步长的。</p>
 <blockquote>
-<p>density_[j]表示: 当前分位数估计点附近的”局部密度估计“，近似表示这个log频谱点的概率密度函数值。</p></blockquote>
+<p>density_[j]表示: 当前分位数估计点附近的”局部密度估计“，近似表示这个log频谱点的概率密度函数值。</p>
+</blockquote>
 <p>现实场景中，噪声频点能量分布是变化的，当低噪声变化时，噪声频点能量分布密集；当语音变化时，噪声频点能量分布稀疏。因此需要估计分布密度，以调整步长动态性，防止在高密度或低密度区域过度抖动或者太慢反应</p>
 <ul>
 <li>density_是如何计算的</li>
@@ -1194,7 +1276,8 @@ $$</p>
   </tbody>
 </table>
 <blockquote>
-<p>density_[j] 趋近于“单位宽度窗口”内命中次数的平均值 —— 表示在分位点附近的信号频谱密集程度。</p></blockquote>
+<p>density_[j] 趋近于“单位宽度窗口”内命中次数的平均值 —— 表示在分位点附近的信号频谱密集程度。</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1658,12 +1741,14 @@ llvm-objdump -d 目标文件
       <guid>https://lyapple2008.github.io/posts/202208/2022-08-24-android%E4%B8%AD%E5%87%A0%E7%A7%8Dsdkversion%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
       <description>&lt;h1 id=&#34;android中几种sdkversion的区别&#34;&gt;Android中几种sdkVersion的区别&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;p&gt;最近遇到一个由于升级了targetSdkVersion而引起的线上crash，之前一直对于Android里面几个sdkVersion的含义和作用很模糊，正好这次把这几个不同的sdkVersion理清楚。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;最近遇到一个由于升级了targetSdkVersion而引起的线上crash，之前一直对于Android里面几个sdkVersion的含义和作用很模糊，正好这次把这几个不同的sdkVersion理清楚。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;!-- {% asset_img 001.png %} --&gt;
 &lt;img src=&#34;https://lyapple2008.github.io/images/2022-08-24-001.png&#34;/&gt;</description>
       <content:encoded><![CDATA[<h1 id="android中几种sdkversion的区别">Android中几种sdkVersion的区别</h1>
 <blockquote>
-<p>最近遇到一个由于升级了targetSdkVersion而引起的线上crash，之前一直对于Android里面几个sdkVersion的含义和作用很模糊，正好这次把这几个不同的sdkVersion理清楚。</p></blockquote>
+<p>最近遇到一个由于升级了targetSdkVersion而引起的线上crash，之前一直对于Android里面几个sdkVersion的含义和作用很模糊，正好这次把这几个不同的sdkVersion理清楚。</p>
+</blockquote>
 <!-- {% asset_img 001.png %} -->
 <img src="/images/2022-08-24-001.png"/>
 <ul>
@@ -1993,129 +2078,6 @@ WebRTC中的实现</p>
 <!-- {% asset_img 005.png %} -->
 <img src="/images/2021-12-22-005.png"/>
 <p>到这里WebRTC中跟音频相关的技术模块都简单的过了一遍，这样大家对于WebRTC音频处理有个大概的印象，这里的每个模块值得深入去学习，后面也把自己学习的一些心得记录在这里，大家一起学习呀。</p>]]></content:encoded>
-    </item>
-    <item>
-      <title>WebRTC系列-WebRTC_Android源码编译</title>
-      <link>https://lyapple2008.github.io/posts/202009/2020-09-07-webrtc-android%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91/</link>
-      <pubDate>Mon, 07 Sep 2020 23:19:37 +0000</pubDate>
-      <guid>https://lyapple2008.github.io/posts/202009/2020-09-07-webrtc-android%E6%BA%90%E7%A0%81%E7%BC%96%E8%AF%91/</guid>
-      <description>&lt;h1 id=&#34;webrtc-android源码编译&#34;&gt;WebRTC Android源码编译&lt;/h1&gt;
-&lt;p&gt;对于WebRTC的学习来说，首先需要搞定的是源码的编译，由于国内的特殊环境和WebRTC本身的复杂性，导致WebRTC源码编译成了WebRTC学习的第一道门槛。这里把自己在编译WebRTC源码过程中遇到的一些坑进行总结分享，希望对大家有帮助。主要参考官网和WebRTC的编译配置脚本，整个操作过程需要具备科学上学的环境，第一次下载好环境和源码后，后面就不需要了。这里以Android端为例，编译环境为Ubuntu 18.04（再高版本会提示不支持），WebRTC官网有提到Android端暂时只支持在Linux下编译。虽然网上也有资源介绍在Mac环境下编译的，但是用虚拟机装个Ubuntu还是挺方便的，咱就不折腾了。&lt;/p&gt;</description>
-      <content:encoded><![CDATA[<h1 id="webrtc-android源码编译">WebRTC Android源码编译</h1>
-<p>对于WebRTC的学习来说，首先需要搞定的是源码的编译，由于国内的特殊环境和WebRTC本身的复杂性，导致WebRTC源码编译成了WebRTC学习的第一道门槛。这里把自己在编译WebRTC源码过程中遇到的一些坑进行总结分享，希望对大家有帮助。主要参考官网和WebRTC的编译配置脚本，整个操作过程需要具备科学上学的环境，第一次下载好环境和源码后，后面就不需要了。这里以Android端为例，编译环境为Ubuntu 18.04（再高版本会提示不支持），WebRTC官网有提到Android端暂时只支持在Linux下编译。虽然网上也有资源介绍在Mac环境下编译的，但是用虚拟机装个Ubuntu还是挺方便的，咱就不折腾了。</p>
-<h1 id="安装depots_tools工具包">安装depots_tools工具包</h1>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git</span></span></code></pre></td></tr></table>
-</div>
-</div>
-<p>将depot_tools目录添加到环境变量PATH中</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vim ~/.profile
-</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="s2">&#34;</span><span class="nv">$PATH</span><span class="s2">:/path/to/depot_tools&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="nb">source</span> ~/.profile</span></span></code></pre></td></tr></table>
-</div>
-</div>
-<h1 id="下载webrtc源码">下载WebRTC源码</h1>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">fetch --nohooks webrtc_android</span></span></code></pre></td></tr></table>
-</div>
-</div>
-<blockquote>
-<p>由于WebRTC源码比较大，中间网络问题可能会出错，出错的时候用gclient sync继续就可以了</p></blockquote>
-<h1 id="下载编译所需依赖包和工具">下载编译所需依赖包和工具</h1>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./build/install-build-deps.sh --no-chromeos-fonts
-</span></span><span class="line"><span class="cl">. /build/install-build-deps-android.sh</span></span></code></pre></td></tr></table>
-</div>
-</div>
-<h2 id="下载指定分支">下载指定分支</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ git checkout -b my_branch refs/remotes/branch-heads/83
-</span></span><span class="line"><span class="cl">$ gclient sync</span></span></code></pre></td></tr></table>
-</div>
-</div>
-<h1 id="源码编译">源码编译</h1>
-<p>第一条命令是生成编译工程的，可以添加一些参数来控制编译生成，这里可以研究下源码里的webrtc.gni文件，里面有可以指定的参数，这里主要介绍三个：</p>
-<blockquote>
-<p>target_os：因为是在Android平台上运行的，因此这里指定为&quot;android&quot;
-target_cpu: 这里指定运行的硬件平台，arm平台则是&quot;arm&quot;，如果是arm64平台则是&quot;arm64&quot;
-is_debug：表示生成是否是debug包</p></blockquote>
-<p>第二条命令是启动ninja开始编译，编译成功后，会在out_arm/debug目录生成对应的jar包和so库文件</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gn gen out_arm/debug --args<span class="o">=</span><span class="s1">&#39;is_debug=true target_os=&#34;android&#34; target_cpu=&#34;arm&#34; rtc_include_tests=false rtc_build_tools=false rtc_build_examples=false&#39;</span>
-</span></span><span class="line"><span class="cl">ninja -C out_arm/debug</span></span></code></pre></td></tr></table>
-</div>
-</div>
-<h1 id="编译问题解决">编译问题解决</h1>
-<ul>
-<li>问题一：gn.py运行失败</li>
-</ul>
-<blockquote>
-<p>gn.py: Could not find checkout in any parent of the current path.
-This must be run inside a checkout.</p></blockquote>
-<p>这个问题通常发生在，移动了WebRTC源码目录的时候。这里需要看下是否已经把下载的WebRTC源码都完整拷贝了，进到下载WebRTC源码的目录可以看到这个目录还有几个隐藏目录和文件，这几个文件也是需要一起拷贝过去的，后面用gn命令生成编译工程的时候会去检查这几个文件。</p>
-<blockquote>
-<p>.cipd
-.gclient
-.gclient_entries</p></blockquote>
-<ul>
-<li>问题二：</li>
-</ul>
-<p>chromium style问题
-clang.gni中关闭chromium style检查，这里只是暂时关闭，为了代码风格的统一介绍还是按照chromium style还添加自己的代码</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">declare_args() {
-</span></span><span class="line"><span class="cl">  # Indicates if the build should use the Chrome-specific plugins for enforcing
-</span></span><span class="line"><span class="cl">  # coding guidelines, etc. Only used when compiling with Clang.
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">  clang_use_chrome_plugins = false # is_clang &amp;&amp; !is_nacl &amp;&amp; !use_xcode_clang
-</span></span><span class="line"><span class="cl">  clang_base_path = default_clang_base_path
-</span></span><span class="line"><span class="cl">}</span></span></code></pre></td></tr></table>
-</div>
-</div>
-<p>参考：</p>
-<ol>
-<li><a href="https://webrtc.github.io/webrtc-org/native-code/development/">WebRTC官网</a></li>
-</ol>]]></content:encoded>
     </item>
   </channel>
 </rss>

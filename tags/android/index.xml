@@ -9,7 +9,7 @@
       <url>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.147.9</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>See this site&amp;rsquo;s source code here, licensed under GPLv3 ·</copyright>
     <lastBuildDate>Sat, 24 Sep 2022 17:03:48 +0000</lastBuildDate>
@@ -21,12 +21,14 @@
       <guid>https://lyapple2008.github.io/posts/202208/2022-08-24-android%E4%B8%AD%E5%87%A0%E7%A7%8Dsdkversion%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
       <description>&lt;h1 id=&#34;android中几种sdkversion的区别&#34;&gt;Android中几种sdkVersion的区别&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;p&gt;最近遇到一个由于升级了targetSdkVersion而引起的线上crash，之前一直对于Android里面几个sdkVersion的含义和作用很模糊，正好这次把这几个不同的sdkVersion理清楚。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;最近遇到一个由于升级了targetSdkVersion而引起的线上crash，之前一直对于Android里面几个sdkVersion的含义和作用很模糊，正好这次把这几个不同的sdkVersion理清楚。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;!-- {% asset_img 001.png %} --&gt;
 &lt;img src=&#34;https://lyapple2008.github.io/images/2022-08-24-001.png&#34;/&gt;</description>
       <content:encoded><![CDATA[<h1 id="android中几种sdkversion的区别">Android中几种sdkVersion的区别</h1>
 <blockquote>
-<p>最近遇到一个由于升级了targetSdkVersion而引起的线上crash，之前一直对于Android里面几个sdkVersion的含义和作用很模糊，正好这次把这几个不同的sdkVersion理清楚。</p></blockquote>
+<p>最近遇到一个由于升级了targetSdkVersion而引起的线上crash，之前一直对于Android里面几个sdkVersion的含义和作用很模糊，正好这次把这几个不同的sdkVersion理清楚。</p>
+</blockquote>
 <!-- {% asset_img 001.png %} -->
 <img src="/images/2022-08-24-001.png"/>
 <ul>
@@ -99,7 +101,8 @@
 </div>
 </div>
 <blockquote>
-<p>由于WebRTC源码比较大，中间网络问题可能会出错，出错的时候用gclient sync继续就可以了</p></blockquote>
+<p>由于WebRTC源码比较大，中间网络问题可能会出错，出错的时候用gclient sync继续就可以了</p>
+</blockquote>
 <h1 id="下载编译所需依赖包和工具">下载编译所需依赖包和工具</h1>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -127,7 +130,8 @@
 <blockquote>
 <p>target_os：因为是在Android平台上运行的，因此这里指定为&quot;android&quot;
 target_cpu: 这里指定运行的硬件平台，arm平台则是&quot;arm&quot;，如果是arm64平台则是&quot;arm64&quot;
-is_debug：表示生成是否是debug包</p></blockquote>
+is_debug：表示生成是否是debug包</p>
+</blockquote>
 <p>第二条命令是启动ninja开始编译，编译成功后，会在out_arm/debug目录生成对应的jar包和so库文件</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -145,12 +149,14 @@ is_debug：表示生成是否是debug包</p></blockquote>
 </ul>
 <blockquote>
 <p>gn.py: Could not find checkout in any parent of the current path.
-This must be run inside a checkout.</p></blockquote>
+This must be run inside a checkout.</p>
+</blockquote>
 <p>这个问题通常发生在，移动了WebRTC源码目录的时候。这里需要看下是否已经把下载的WebRTC源码都完整拷贝了，进到下载WebRTC源码的目录可以看到这个目录还有几个隐藏目录和文件，这几个文件也是需要一起拷贝过去的，后面用gn命令生成编译工程的时候会去检查这几个文件。</p>
 <blockquote>
 <p>.cipd
 .gclient
-.gclient_entries</p></blockquote>
+.gclient_entries</p>
+</blockquote>
 <ul>
 <li>问题二：</li>
 </ul>
@@ -191,23 +197,27 @@ clang.gni中关闭chromium style检查，这里只是暂时关闭，为了代码
 &lt;li&gt;&lt;a href=&#34;https://webrtc.org/&#34;&gt;WebRTC&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;WebRTC是google开源的实时音视频通讯项目，其中的AudioProcess模块包括了AGC/AEC/ANS算法，非常值得学习。同时WebRTC还是一个跨平台项目，代码中对各个平台（Android/Ios/Windows/Linux）硬件接口的封装和抽象可以直接拿来应用到自己的项目中。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;WebRTC是google开源的实时音视频通讯项目，其中的AudioProcess模块包括了AGC/AEC/ANS算法，非常值得学习。同时WebRTC还是一个跨平台项目，代码中对各个平台（Android/Ios/Windows/Linux）硬件接口的封装和抽象可以直接拿来应用到自己的项目中。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/google/oboe&#34;&gt;Oboe&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Oboe是Google家开源一个高性能C++库，这个库封装了Android底层OpenSLES和AAudio接口，通过这个库可以方便地在Android实现Low Latency Audio，只需一套代码就可以了。&lt;/p&gt;&lt;/blockquote&gt;</description>
+&lt;p&gt;Oboe是Google家开源一个高性能C++库，这个库封装了Android底层OpenSLES和AAudio接口，通过这个库可以方便地在Android实现Low Latency Audio，只需一套代码就可以了。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
       <content:encoded><![CDATA[<p>记录一些音频开发过程中会用到的优质资源</p>
 <ul>
 <li><a href="https://webrtc.org/">WebRTC</a></li>
 </ul>
 <blockquote>
-<p>WebRTC是google开源的实时音视频通讯项目，其中的AudioProcess模块包括了AGC/AEC/ANS算法，非常值得学习。同时WebRTC还是一个跨平台项目，代码中对各个平台（Android/Ios/Windows/Linux）硬件接口的封装和抽象可以直接拿来应用到自己的项目中。</p></blockquote>
+<p>WebRTC是google开源的实时音视频通讯项目，其中的AudioProcess模块包括了AGC/AEC/ANS算法，非常值得学习。同时WebRTC还是一个跨平台项目，代码中对各个平台（Android/Ios/Windows/Linux）硬件接口的封装和抽象可以直接拿来应用到自己的项目中。</p>
+</blockquote>
 <ul>
 <li><a href="https://github.com/google/oboe">Oboe</a></li>
 </ul>
 <blockquote>
-<p>Oboe是Google家开源一个高性能C++库，这个库封装了Android底层OpenSLES和AAudio接口，通过这个库可以方便地在Android实现Low Latency Audio，只需一套代码就可以了。</p></blockquote>]]></content:encoded>
+<p>Oboe是Google家开源一个高性能C++库，这个库封装了Android底层OpenSLES和AAudio接口，通过这个库可以方便地在Android实现Low Latency Audio，只需一套代码就可以了。</p>
+</blockquote>]]></content:encoded>
     </item>
     <item>
       <title>JavaNativeInterface笔记</title>
@@ -378,7 +388,8 @@ clang.gni中关闭chromium style检查，这里只是暂时关闭，为了代码
 <li>生成jni native头文件</li>
 </ul>
 <blockquote>
-<p>javac -h &lt;头文件存放路径&gt; &lt;java类&gt;</p></blockquote>
+<p>javac -h &lt;头文件存放路径&gt; &lt;java类&gt;</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -788,13 +799,15 @@ clang.gni中关闭chromium style检查，这里只是暂时关闭，为了代码
 <li>通过gcc/g++ 生成动态库</li>
 </ul>
 <blockquote>
-<p>gcc -fPIC -I&quot;$JAVA_HOME/include&quot; -I&quot;$JAVA_HOME/include/linux&quot; -shared -o libjni.so Java2C.c</p></blockquote>
+<p>gcc -fPIC -I&quot;$JAVA_HOME/include&quot; -I&quot;$JAVA_HOME/include/linux&quot; -shared -o libjni.so Java2C.c</p>
+</blockquote>
 <ul>
 <li>运行进行测试</li>
 </ul>
 <blockquote>
 <p>java -Djava.library.path=. Java2C <br>
-这里需要使用-D指定前面生的动态库路径，否则运行的时候会提示找不到动态库的错误</p></blockquote>
+这里需要使用-D指定前面生的动态库路径，否则运行的时候会提示找不到动态库的错误</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -985,7 +998,8 @@ clang.gni中关闭chromium style检查，这里只是暂时关闭，为了代码
 <li>基本数据类型可以在native层直接使用</li>
 <li>引用数据类型则不能直接使用，需要根据JNI函数进行相应的转换才能使用</li>
 <li>多维数据（包括二维数组）都是引用类型，需要使用jobjectArray类型存取其值</li>
-</ol></blockquote>
+</ol>
+</blockquote>
 <ul>
 <li>JNI相关操作方法</li>
 </ul>
@@ -1123,7 +1137,8 @@ clang.gni中关闭chromium style检查，这里只是暂时关闭，为了代码
 <h3 id="cc调用java类中的成员方法">C/C++调用Java类中的成员方法</h3>
 <p>通过下面这条命令可以获取到java中方法的签名</p>
 <blockquote>
-<p>javas -s -p Java2C</p></blockquote>
+<p>javas -s -p Java2C</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1587,7 +1602,8 @@ clang.gni中关闭chromium style检查，这里只是暂时关闭，为了代码
 </ul>
 <blockquote>
 <p>javah com.hello.jni.HelloJNI
-这时在bin目录下会生成对应的头文件<em>com_hello_jni_HelloJNI.h</em></p></blockquote>
+这时在bin目录下会生成对应的头文件<em>com_hello_jni_HelloJNI.h</em></p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1684,7 +1700,8 @@ clang.gni中关闭chromium style检查，这里只是暂时关闭，为了代码
 <li>将生成的dll文件的路径添加到环境变量中，这样JAVA类就可以调用dll中的C实现方法了</li>
 </ul>
 <blockquote>
-<p>Hello World</p></blockquote>]]></content:encoded>
+<p>Hello World</p>
+</blockquote>]]></content:encoded>
     </item>
   </channel>
 </rss>

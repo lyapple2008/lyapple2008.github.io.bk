@@ -9,7 +9,7 @@
       <url>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.147.9</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>See this site&amp;rsquo;s source code here, licensed under GPLv3 ·</copyright>
     <lastBuildDate>Sat, 18 Aug 2018 12:19:55 +0000</lastBuildDate>
@@ -32,13 +32,15 @@
 <h4 id="二编译环境搭建">二、编译环境搭建</h4>
 <h5 id="1-安装msys2默认安装在cmsys64目录安装完成后打开msys2环境运行命令安装编译工具">1. 安装MSYS2，默认安装在C:\msys64目录，安装完成后打开msys2环境，运行命令安装编译工具</h5>
 <blockquote>
-<p>pacman -S make gcc diffutils</p></blockquote>
+<p>pacman -S make gcc diffutils</p>
+</blockquote>
 <p><em>注：安装过程中可能会出现某些包下载失败的情况，这时只需要多试几次就好，直到提示净更新大小为0就说明安装完整了。</em></p>
 <!-- ![image](https://user-images.githubusercontent.com/3350865/61180035-21679680-a642-11e9-9c9b-eff27aff2ffb.jpg) -->
 <p><img alt="Image Caption" loading="lazy" src="/images/2018-08-18-001.jpg"></p>
 <h5 id="2-修改cmsys64msys2_shellcmd文件修改下图红框里的部分这里是为了让msys2能继承vs的环境变量">2. 修改C:\msys64\msys2_shell.cmd文件，修改下图红框里的部分，这里是为了让msys2能继承VS的环境变量</h5>
 <blockquote>
-<p>set MSYS2_PATH_TYPE=inherit</p></blockquote>
+<p>set MSYS2_PATH_TYPE=inherit</p>
+</blockquote>
 <!-- ![image](https://user-images.githubusercontent.com/3350865/61180037-24fb1d80-a642-11e9-850c-263c5ca5e556.jpg) -->
 <p><img alt="Image Caption" loading="lazy" src="/images/2018-08-18-002.jpg"></p>
 <h5 id="3-将cmsys64usrbinlinkexe重命名为其它名字如link_bakexe这里是为了在链接的时候选择visual-studio的linkexe工具避免冲突">3. 将C:\msys64\usr\bin\link.exe重命名为其它名字，如link_bak.exe，这里是为了在链接的时候选择Visual Studio的link.exe工具，避免冲突</h5>
@@ -88,7 +90,8 @@
 </div>
 <h5 id="3-执行make命令这个过程可能会有一些错误提示可以根据提示上网进搜索相关问题">3. 执行make命令，这个过程可能会有一些错误提示，可以根据提示上网进搜索相关问题，</h5>
 <blockquote>
-<p>如编译ffmpeg4.0.1需要注释与变量CC_IDENT相关的语句，存在于cmdutils.c和ff_probe.c文件中</p></blockquote>
+<p>如编译ffmpeg4.0.1需要注释与变量CC_IDENT相关的语句，存在于cmdutils.c和ff_probe.c文件中</p>
+</blockquote>
 <h5 id="4-执行make-install命令将生成的动态库复制到configure时指定的目录中">4. 执行make install命令，将生成的动态库复制到configure时指定的目录中</h5>
 <h5 id="5-至此整个windows下的ffmpeg动态库编译完成">5. 至此整个windows下的ffmpeg动态库编译完成</h5>
 ]]></content:encoded>
@@ -101,7 +104,8 @@
       <description>&lt;p&gt;在做音视频相关的开发过程大体如下所示，对于其中的编码/解码，整个流程相对比较固定，使用ffmpeg可以很好的完成这部分的开发。对其中的帧数据处理（包括音频和视频数据）则相对要多样化一些，比如对视频做尺寸变换，进行音频音量均衡，直播中的美颜处理，多路流合成等等，这些都是属于流程中的帧数据处理。今天要介绍FFmpeg中的AVFilter模块进行帧数据处理的开发，AVFilter模块对帧数据处理进行了很好的抽象。AVFilter中的filter graph（滤波器图）概念非常适合帧数据处理中的多级滤波处理，同时对滤波器的接口进行了规定，后期添加一些自定义的滤波器也是很方便。网上关于AVFilter的介绍大多是基于ffmpeg的命令使用，基于代码实现的很少，最近项目中正好要使用到了AVFilter，写个小结，希望对有同样需求的小伙伴有帮助。&lt;/p&gt;</description>
       <content:encoded><![CDATA[<p>在做音视频相关的开发过程大体如下所示，对于其中的编码/解码，整个流程相对比较固定，使用ffmpeg可以很好的完成这部分的开发。对其中的帧数据处理（包括音频和视频数据）则相对要多样化一些，比如对视频做尺寸变换，进行音频音量均衡，直播中的美颜处理，多路流合成等等，这些都是属于流程中的帧数据处理。今天要介绍FFmpeg中的AVFilter模块进行帧数据处理的开发，AVFilter模块对帧数据处理进行了很好的抽象。AVFilter中的filter graph（滤波器图）概念非常适合帧数据处理中的多级滤波处理，同时对滤波器的接口进行了规定，后期添加一些自定义的滤波器也是很方便。网上关于AVFilter的介绍大多是基于ffmpeg的命令使用，基于代码实现的很少，最近项目中正好要使用到了AVFilter，写个小结，希望对有同样需求的小伙伴有帮助。</p>
 <blockquote>
-<p>原始音视频&ndash;&gt;解码&ndash;&gt;帧数据处理&ndash;&gt;编码&ndash;&gt;输出音视频</p></blockquote>
+<p>原始音视频&ndash;&gt;解码&ndash;&gt;帧数据处理&ndash;&gt;编码&ndash;&gt;输出音视频</p>
+</blockquote>
 <!---more--->
 <h2 id="1-主要结构体和api介绍">1. 主要结构体和API介绍</h2>
 <div class="highlight"><div class="chroma">
@@ -253,7 +257,8 @@
 </div>
 </div>
 <blockquote>
-<p><em>在AVFilter模块中定义了AVFilter结构，很个AVFilter都是具有独立功能的节点，如scale filter的作用就是进行图像尺寸变换，overlay filter的作用就是进行图像的叠加，这里需要重点提的是两个特别的filter，一个是buffer，一个是buffersink，滤波器buffer代表filter graph中的源头，原始数据就往这个filter节点输入的；而滤波器buffersink代表filter graph中的输出节点，处理完成的数据从这个filter节点输出。</em></p></blockquote>
+<p><em>在AVFilter模块中定义了AVFilter结构，很个AVFilter都是具有独立功能的节点，如scale filter的作用就是进行图像尺寸变换，overlay filter的作用就是进行图像的叠加，这里需要重点提的是两个特别的filter，一个是buffer，一个是buffersink，滤波器buffer代表filter graph中的源头，原始数据就往这个filter节点输入的；而滤波器buffersink代表filter graph中的输出节点，处理完成的数据从这个filter节点输出。</em></p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -756,7 +761,8 @@
 </div>
 </div>
 <blockquote>
-<p><a href="https://github.com/lyapple2008/FFmpegExams">github代码仓库</a></p></blockquote>
+<p><a href="https://github.com/lyapple2008/FFmpegExams">github代码仓库</a></p>
+</blockquote>
 <h2 id="4-建立定义filter滤波器">4. 建立定义Filter滤波器</h2>
 <p>这部分暂时还没有实践，参考ffmpeg源码中已有的filter和ffmpeg源码中的文档writing_filter.txt，应该实践起来也来难，等后面有时间再补上这部分介绍。</p>
 ]]></content:encoded>

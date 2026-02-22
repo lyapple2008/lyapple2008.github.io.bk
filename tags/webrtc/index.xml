@@ -9,7 +9,7 @@
       <url>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.147.9</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>See this site&amp;rsquo;s source code here, licensed under GPLv3 ·</copyright>
     <lastBuildDate>Mon, 07 Jul 2025 21:59:22 +0800</lastBuildDate>
@@ -70,7 +70,8 @@ $$</p>
 </div>
 </div>
 <blockquote>
-<p>spectrum_prev_process_[i] 为前一帧信号的幅度谱，filter_[i]为前帧的Wiener滤波器增益，两者相乘后就是估计的纯净语音信号，因此prev_tsa就是前一帧的TSA (time-smoothed a priori SNR)</p></blockquote>
+<p>spectrum_prev_process_[i] 为前一帧信号的幅度谱，filter_[i]为前帧的Wiener滤波器增益，两者相乘后就是估计的纯净语音信号，因此prev_tsa就是前一帧的TSA (time-smoothed a priori SNR)</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -90,7 +91,8 @@ $$</p>
 </div>
 </div>
 <blockquote>
-<p>只有当信号幅度大于噪声幅度时，才认为有语音信号存在，避免负增益</p></blockquote>
+<p>只有当信号幅度大于噪声幅度时，才认为有语音信号存在，避免负增益</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -100,7 +102,8 @@ $$</p>
 </div>
 </div>
 <blockquote>
-<p>0.98 是平滑因子，表示以历史先验估计为主，防止突变</p></blockquote>
+<p>0.98 是平滑因子，表示以历史先验估计为主，防止突变</p>
+</blockquote>
 <ol start="2">
 <li>基本增益计算</li>
 </ol>
@@ -587,7 +590,8 @@ $$</p>
 <li>语音信号：存在能量集中（共振峰），几何均值 ≪ 算数均值，Flatness 接近 0</li>
 </ol>
 <blockquote>
-<p>因此谱平坦度 = 能量分布的“均匀性量尺” → 能直接用来做语音/噪声分类特征！</p></blockquote>
+<p>因此谱平坦度 = 能量分布的“均匀性量尺” → 能直接用来做语音/噪声分类特征！</p>
+</blockquote>
 <ul>
 <li>代码实现</li>
 </ul>
@@ -665,7 +669,8 @@ $$</p>
 <h2 id="indicator2-spectral-difference-谱模板差异">indicator2: Spectral Difference 谱模板差异</h2>
 <p>Spectral Difference频谱差异是用于衡量当前帧的频谱与已学习噪声模板之间的差异程度。其基本思想是：</p>
 <blockquote>
-<p>如果当前帧的频谱结构与噪声模板相似，则可能是噪声；如果差异大，则可能是语音。</p></blockquote>
+<p>如果当前帧的频谱结构与噪声模板相似，则可能是噪声；如果差异大，则可能是语音。</p>
+</blockquote>
 <ol>
 <li>总体计算公式
 $$
@@ -1038,7 +1043,8 @@ $$</p>
 <p>考虑连续观察大量值 {x₁, x₂, &hellip;, xₙ}，估计值 Q 如果在一个固定位置附近波动，那它一定满足：
 平均上调量 ≈ 平均下调量，也就是说，在那个点：</p>
 <blockquote>
-<p>上调概率 × 上调步长 = 下调概率 × 下调步长</p></blockquote>
+<p>上调概率 × 上调步长 = 下调概率 × 下调步长</p>
+</blockquote>
 <p>其中：</p>
 <ul>
 <li>上调概率 p_up = P(x &gt; Q)</li>
@@ -1049,7 +1055,8 @@ $$</p>
 </ul>
 <p>✅ 说明这个估计最终会逼近 25% 分位数！</p>
 <blockquote>
-<p>这个分位数的实现真是妙了呀，避免了常规分位计算需要排序的问题，同时还可以实时更新。👍</p></blockquote>
+<p>这个分位数的实现真是妙了呀，避免了常规分位计算需要排序的问题，同时还可以实时更新。👍</p>
+</blockquote>
 <h3 id="多分位数估计分时更新">多分位数估计分时更新</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1141,7 +1148,8 @@ $$</p>
 <h3 id="利用密度估计实现自适应步长">利用”密度“估计实现自适应步长</h3>
 <p>分位数估计器在更新的时候，其更新步长与这个density_变量直接相关，现在我们来看下webrtc的实现是如何做到自适应步长的。</p>
 <blockquote>
-<p>density_[j]表示: 当前分位数估计点附近的”局部密度估计“，近似表示这个log频谱点的概率密度函数值。</p></blockquote>
+<p>density_[j]表示: 当前分位数估计点附近的”局部密度估计“，近似表示这个log频谱点的概率密度函数值。</p>
+</blockquote>
 <p>现实场景中，噪声频点能量分布是变化的，当低噪声变化时，噪声频点能量分布密集；当语音变化时，噪声频点能量分布稀疏。因此需要估计分布密度，以调整步长动态性，防止在高密度或低密度区域过度抖动或者太慢反应</p>
 <ul>
 <li>density_是如何计算的</li>
@@ -1194,7 +1202,8 @@ $$</p>
   </tbody>
 </table>
 <blockquote>
-<p>density_[j] 趋近于“单位宽度窗口”内命中次数的平均值 —— 表示在分位点附近的信号频谱密集程度。</p></blockquote>
+<p>density_[j] 趋近于“单位宽度窗口”内命中次数的平均值 —— 表示在分位点附近的信号频谱密集程度。</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1555,7 +1564,8 @@ WebRTC中的实现</p>
 </div>
 </div>
 <blockquote>
-<p>由于WebRTC源码比较大，中间网络问题可能会出错，出错的时候用gclient sync继续就可以了</p></blockquote>
+<p>由于WebRTC源码比较大，中间网络问题可能会出错，出错的时候用gclient sync继续就可以了</p>
+</blockquote>
 <h1 id="下载编译所需依赖包和工具">下载编译所需依赖包和工具</h1>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1583,7 +1593,8 @@ WebRTC中的实现</p>
 <blockquote>
 <p>target_os：因为是在Android平台上运行的，因此这里指定为&quot;android&quot;
 target_cpu: 这里指定运行的硬件平台，arm平台则是&quot;arm&quot;，如果是arm64平台则是&quot;arm64&quot;
-is_debug：表示生成是否是debug包</p></blockquote>
+is_debug：表示生成是否是debug包</p>
+</blockquote>
 <p>第二条命令是启动ninja开始编译，编译成功后，会在out_arm/debug目录生成对应的jar包和so库文件</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1601,12 +1612,14 @@ is_debug：表示生成是否是debug包</p></blockquote>
 </ul>
 <blockquote>
 <p>gn.py: Could not find checkout in any parent of the current path.
-This must be run inside a checkout.</p></blockquote>
+This must be run inside a checkout.</p>
+</blockquote>
 <p>这个问题通常发生在，移动了WebRTC源码目录的时候。这里需要看下是否已经把下载的WebRTC源码都完整拷贝了，进到下载WebRTC源码的目录可以看到这个目录还有几个隐藏目录和文件，这几个文件也是需要一起拷贝过去的，后面用gn命令生成编译工程的时候会去检查这几个文件。</p>
 <blockquote>
 <p>.cipd
 .gclient
-.gclient_entries</p></blockquote>
+.gclient_entries</p>
+</blockquote>
 <ul>
 <li>问题二：</li>
 </ul>

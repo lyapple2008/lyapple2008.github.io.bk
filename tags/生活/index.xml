@@ -9,11 +9,85 @@
       <url>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.147.9</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>See this site&amp;rsquo;s source code here, licensed under GPLv3 ·</copyright>
-    <lastBuildDate>Sun, 07 Apr 2019 20:20:38 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 22 Feb 2026 09:43:54 +0800</lastBuildDate>
     <atom:link href="https://lyapple2008.github.io/tags/%E7%94%9F%E6%B4%BB/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【置顶】2026</title>
+      <link>https://lyapple2008.github.io/posts/2026-todo/</link>
+      <pubDate>Sun, 22 Feb 2026 09:43:54 +0800</pubDate>
+      <guid>https://lyapple2008.github.io/posts/2026-todo/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;记录跟踪2026年要做的事情和正在做的事情。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;目标&#34;&gt;目标&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;健康生活&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 体重减到60kg&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;探索可能&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 英语能力，熟练3篇演讲短文&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 独立开发，目标完成4个独立项目&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 公众号输出，目标输出文章10篇&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;正在做的项目&#34;&gt;正在做的项目&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; iOS双语字幕App&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<blockquote>
+<p>记录跟踪2026年要做的事情和正在做的事情。</p>
+</blockquote>
+<h1 id="目标">目标</h1>
+<ul>
+<li>
+<p>健康生活</p>
+<ul>
+<li><input disabled="" type="checkbox"> 体重减到60kg</li>
+</ul>
+</li>
+<li>
+<p>探索可能</p>
+<ul>
+<li><input disabled="" type="checkbox"> 英语能力，熟练3篇演讲短文</li>
+<li><input disabled="" type="checkbox"> 独立开发，目标完成4个独立项目</li>
+<li><input disabled="" type="checkbox"> 公众号输出，目标输出文章10篇</li>
+</ul>
+</li>
+</ul>
+<h1 id="正在做的项目">正在做的项目</h1>
+<ul>
+<li>
+<p><input disabled="" type="checkbox"> iOS双语字幕App</p>
+</li>
+<li>
+<p><input disabled="" type="checkbox"> 30天每天一万步（2026.02.22~2026.03.22）</p>
+</li>
+<li>
+<p><input disabled="" type="checkbox"> 五万资产配置计划</p>
+</li>
+</ul>
+<!--
+---
+一些想法
+1. 普通绘本变成点读书，或者可交互的书
+2. 就某一个主题与GPT的多轮对话，经常会思路分叉，做一个工具汇总整理这些对话
+3. 电子书阅读器支持TTS
+4. 照片管理应用，如何方便的整理和管理大量照片
+5. 拼了还拼小游戏外挂
+
+---
+-->
+]]></content:encoded>
+    </item>
     <item>
       <title>算法工程师到底是做什么的</title>
       <link>https://lyapple2008.github.io/posts/201904/2019-04-07-%E7%AE%97%E6%B3%95%E5%B7%A5%E7%A8%8B%E5%B8%88%E5%88%B0%E5%BA%95%E6%98%AF%E5%81%9A%E4%BB%80%E4%B9%88%E7%9A%84/</link>
@@ -24,7 +98,8 @@
 <p>我觉得所谓的算法工程师应该叫算法应用工程师会更合适一些。因为算法工程师的工作流程大概是这样的（以我自身的经历为例，可能不同公司有不同的工作方式），接到一个功能需求，然后开始调研实现这个功能需要的算法，研究过程中挑选两三种可能的方案，对这些挑选的方案进行实现（也可能是github clone），分析对比这几种方案。最后从中选出一种方案，作为最后的方案。接下来就是对最终的算法方案针对自己的功能需求和业务场景进行做优化，这期间你会对这个算法方案进行原理研究，参数调整，性能优化等等，最终的目标就是尽可能满足业务需求方的要求。</p>
 <p>知乎上@Jackpop的回答应该是符合大多数算法工程师的实际工作状态，而我们毕业那会想象中的算法工程师，天天手推工式那种，应该叫科学家或者研究员更合适些。<strong>总结一下，我觉得一个优秀的算法工程师应该是能够针对不同的业务场景选择最优的算法方案，并能对现有的算法针对业务场景做一些微调和优化，以更进一步适合业务场景。因为对于企业来说不能落地的算法，是丝毫没有价值的。</strong></p>
 <blockquote>
-<p>以下转载自知乎：https://www.zhihu.com/question/310484101/answer/644079765</p></blockquote>
+<p>以下转载自知乎：https://www.zhihu.com/question/310484101/answer/644079765</p>
+</blockquote>
 <h3 id="算法工程师大致做什么的">算法工程师大致做什么的？</h3>
 <p>算法，对于大多数理工科学生并不陌生。无论是学计算机还是学数学，或者其他理工科，我们都会接触很多成熟、经过十几年甚至几十年考验的算法。
 算法工程师的关键点在“工程师”这三个字，日常所做的工作无非是选择一种或几种成熟、优秀的算法进行组合、验证，来解决特定场景下的问题。在大多数企业里面这一点体现更为明显，**在企业里作为算法工程师是不会创造算法，只是使用经过多年考验的成熟、稳定算法。**其实现在不仅是企业界，就连学术界，创新可用的新算法也是寥寥可数，就拿人工智能常用的优化算法来说：</p>
@@ -92,12 +167,14 @@
 <li>最近一次记录的体重是64.3Kg，距离55Kg还是有很大距离，初始体重是65.9Kg</li>
 </ul>
 <blockquote>
-<p>这一项完成度是<strong>14.68%</strong></p></blockquote>
+<p>这一项完成度是<strong>14.68%</strong></p>
+</blockquote>
 <ul>
 <li>跑里程达到400Km，这里有记录的数据是8.20Km</li>
 </ul>
 <blockquote>
-<p>太可怜了，我不算了，直接写**0%**好了</p></blockquote>
+<p>太可怜了，我不算了，直接写**0%**好了</p>
+</blockquote>
 <ol start="2">
 <li>小爱好</li>
 </ol>
@@ -105,23 +182,27 @@
 <li>现在连一首&laquo;纸短情长&raquo;都还没练会，太笨了。。。。</li>
 </ul>
 <blockquote>
-<p>完成度是<strong>0%</strong></p></blockquote>
+<p>完成度是<strong>0%</strong></p>
+</blockquote>
 <ul>
 <li>今年书是看了《小岛经济学》《九败一胜：美团创始人王兴》《跃迁：成为高手的技术》</li>
 </ul>
 <blockquote>
-<p>这个完成度也算是<strong>0%</strong>，没有输出的阅读，相当于是无效的努力</p></blockquote>
+<p>这个完成度也算是<strong>0%</strong>，没有输出的阅读，相当于是无效的努力</p>
+</blockquote>
 <ol start="3">
 <li>技术</li>
 </ol>
 <blockquote>
 <p>音视频应用开发：这个也没有继续跟进下去，然后最后还是逃不掉<br>
-深度学习方面：由于新工作的原因，开始接触实际项目，算是个入门吧</p></blockquote>
+深度学习方面：由于新工作的原因，开始接触实际项目，算是个入门吧</p>
+</blockquote>
 <ol start="4">
 <li>写博客</li>
 </ol>
 <blockquote>
-<p>2018一共写了7篇文章，也是一个远不及格的成绩，没有输出相当于没有成长。</p></blockquote>
+<p>2018一共写了7篇文章，也是一个远不及格的成绩，没有输出相当于没有成长。</p>
+</blockquote>
 <h1 id="2019新的flag">2019新的Flag</h1>
 <p>虽然脸已经被打肿了，但是flag还是不能倒呀，2019-猪年-新的flag还是要立起来。通过回顾2018年flag的完成情况，可以深刻的把自己定位为一个执行力弱不爆的人士了。作为一个立志成为海贼王的男人，怎么可以这样呢，2019必须成长了呀，才能成为海贼王的男人。在成为海贼王的男人前，先把2019年的flag完成好吗，脸真的痛好吗</p>
 <ol>
@@ -170,7 +251,8 @@
 <li>课程：Fit健身</li>
 </ul>
 <blockquote>
-<p>今天买了课程，花了大价钱，达不成目标就要打水漂了！！！</p></blockquote>
+<p>今天买了课程，花了大价钱，达不成目标就要打水漂了！！！</p>
+</blockquote>
 <center>
 <!-- <img src="https://user-images.githubusercontent.com/3350865/61180053-a357bf80-a642-11e9-914e-529f460e4445.jpg" width="50%" height="50%"/> -->
 <img src="/images/2018-10-15-001.jpg" width="50%" height="50%"/>
@@ -661,18 +743,22 @@
 <h2 id="1-健身">1. 健身</h2>
 <blockquote>
 <p>体重：55Kg
-跑步里程：400Km</p></blockquote>
+跑步里程：400Km</p>
+</blockquote>
 <h2 id="2-小爱好">2. 小爱好</h2>
 <blockquote>
 <p>Ukelele弹： 《活着》《带你去旅行》<br>
-阅读：5篇读书总结</p></blockquote>
+阅读：5篇读书总结</p>
+</blockquote>
 <h2 id="3-技术">3. 技术</h2>
 <blockquote>
 <p>短视频应用开发
-深度学习</p></blockquote>
+深度学习</p>
+</blockquote>
 <h2 id="4-写博客">4. 写博客</h2>
 <blockquote>
-<p>至少每月一篇博客</p></blockquote>]]></content:encoded>
+<p>至少每月一篇博客</p>
+</blockquote>]]></content:encoded>
     </item>
   </channel>
 </rss>

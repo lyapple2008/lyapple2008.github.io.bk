@@ -9,7 +9,7 @@
       <url>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.147.9</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>See this site&amp;rsquo;s source code here, licensed under GPLv3 ·</copyright>
     <lastBuildDate>Sat, 14 Feb 2026 17:59:07 +0800</lastBuildDate>
@@ -22,7 +22,8 @@
       <description>&lt;blockquote&gt;
 &lt;p&gt;这篇继续是开发日志，正在开发一款iOS端的实时双语字幕APP，由于需要用到语音识别，了解了下语音识别任务的现状和主流方案，为后面方案选择做准备。&lt;/p&gt;</description>
       <content:encoded><![CDATA[<blockquote>
-<p>这篇继续是开发日志，正在开发一款iOS端的实时双语字幕APP，由于需要用到语音识别，了解了下语音识别任务的现状和主流方案，为后面方案选择做准备。</p></blockquote>
+<p>这篇继续是开发日志，正在开发一款iOS端的实时双语字幕APP，由于需要用到语音识别，了解了下语音识别任务的现状和主流方案，为后面方案选择做准备。</p>
+</blockquote>
 <h3 id="模块流程">模块流程</h3>
 
 <div class="mermaid">graph LR
@@ -470,7 +471,8 @@
       <description>&lt;blockquote&gt;
 &lt;p&gt;这篇是iOS双语字幕软件的开发日志，目标是在iOS端实现，在观看视频时，实时对播放的内容进行识别和翻译，显示双语字幕，用于打破外语视频内容观看门槛。&lt;/p&gt;</description>
       <content:encoded><![CDATA[<blockquote>
-<p>这篇是iOS双语字幕软件的开发日志，目标是在iOS端实现，在观看视频时，实时对播放的内容进行识别和翻译，显示双语字幕，用于打破外语视频内容观看门槛。</p></blockquote>
+<p>这篇是iOS双语字幕软件的开发日志，目标是在iOS端实现，在观看视频时，实时对播放的内容进行识别和翻译，显示双语字幕，用于打破外语视频内容观看门槛。</p>
+</blockquote>
 <h3 id="模块流程">模块流程</h3>
 
 <div class="mermaid">graph LR

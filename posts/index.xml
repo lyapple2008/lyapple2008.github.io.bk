@@ -9,11 +9,85 @@
       <url>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.147.9</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>See this site&amp;rsquo;s source code here, licensed under GPLv3 ·</copyright>
-    <lastBuildDate>Sat, 14 Feb 2026 17:59:07 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 22 Feb 2026 09:43:54 +0800</lastBuildDate>
     <atom:link href="https://lyapple2008.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【置顶】2026</title>
+      <link>https://lyapple2008.github.io/posts/2026-todo/</link>
+      <pubDate>Sun, 22 Feb 2026 09:43:54 +0800</pubDate>
+      <guid>https://lyapple2008.github.io/posts/2026-todo/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;记录跟踪2026年要做的事情和正在做的事情。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;目标&#34;&gt;目标&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;健康生活&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 体重减到60kg&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;探索可能&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 英语能力，熟练3篇演讲短文&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 独立开发，目标完成4个独立项目&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 公众号输出，目标输出文章10篇&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;正在做的项目&#34;&gt;正在做的项目&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; iOS双语字幕App&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<blockquote>
+<p>记录跟踪2026年要做的事情和正在做的事情。</p>
+</blockquote>
+<h1 id="目标">目标</h1>
+<ul>
+<li>
+<p>健康生活</p>
+<ul>
+<li><input disabled="" type="checkbox"> 体重减到60kg</li>
+</ul>
+</li>
+<li>
+<p>探索可能</p>
+<ul>
+<li><input disabled="" type="checkbox"> 英语能力，熟练3篇演讲短文</li>
+<li><input disabled="" type="checkbox"> 独立开发，目标完成4个独立项目</li>
+<li><input disabled="" type="checkbox"> 公众号输出，目标输出文章10篇</li>
+</ul>
+</li>
+</ul>
+<h1 id="正在做的项目">正在做的项目</h1>
+<ul>
+<li>
+<p><input disabled="" type="checkbox"> iOS双语字幕App</p>
+</li>
+<li>
+<p><input disabled="" type="checkbox"> 30天每天一万步（2026.02.22~2026.03.22）</p>
+</li>
+<li>
+<p><input disabled="" type="checkbox"> 五万资产配置计划</p>
+</li>
+</ul>
+<!--
+---
+一些想法
+1. 普通绘本变成点读书，或者可交互的书
+2. 就某一个主题与GPT的多轮对话，经常会思路分叉，做一个工具汇总整理这些对话
+3. 电子书阅读器支持TTS
+4. 照片管理应用，如何方便的整理和管理大量照片
+5. 拼了还拼小游戏外挂
+
+---
+-->
+]]></content:encoded>
+    </item>
     <item>
       <title>ASR任务初体验</title>
       <link>https://lyapple2008.github.io/posts/202602/2026-02-14-asr%E4%BB%BB%E5%8A%A1%E5%88%9D%E4%BD%93%E9%AA%8C/</link>
@@ -22,7 +96,8 @@
       <description>&lt;blockquote&gt;
 &lt;p&gt;这篇继续是开发日志，正在开发一款iOS端的实时双语字幕APP，由于需要用到语音识别，了解了下语音识别任务的现状和主流方案，为后面方案选择做准备。&lt;/p&gt;</description>
       <content:encoded><![CDATA[<blockquote>
-<p>这篇继续是开发日志，正在开发一款iOS端的实时双语字幕APP，由于需要用到语音识别，了解了下语音识别任务的现状和主流方案，为后面方案选择做准备。</p></blockquote>
+<p>这篇继续是开发日志，正在开发一款iOS端的实时双语字幕APP，由于需要用到语音识别，了解了下语音识别任务的现状和主流方案，为后面方案选择做准备。</p>
+</blockquote>
 <h3 id="模块流程">模块流程</h3>
 
 <div class="mermaid">graph LR
@@ -470,7 +545,8 @@
       <description>&lt;blockquote&gt;
 &lt;p&gt;最近要说最热最火的话题，那一定是 AI，而其中 AI 应用场景 AI Coding 也是发展迅速，大有替代程序员的势头。最近几个月一直在使用 AI Coding，心态上经历了最初的「完了，失业要提前了」，到「稳了，还能苟几年」。下面就分享一些使用上的感受，以及面对 AI Coding 这股后浪，这个号后面的一些规划。&lt;/p&gt;</description>
       <content:encoded><![CDATA[<blockquote>
-<p>最近要说最热最火的话题，那一定是 AI，而其中 AI 应用场景 AI Coding 也是发展迅速，大有替代程序员的势头。最近几个月一直在使用 AI Coding，心态上经历了最初的「完了，失业要提前了」，到「稳了，还能苟几年」。下面就分享一些使用上的感受，以及面对 AI Coding 这股后浪，这个号后面的一些规划。</p></blockquote>
+<p>最近要说最热最火的话题，那一定是 AI，而其中 AI 应用场景 AI Coding 也是发展迅速，大有替代程序员的势头。最近几个月一直在使用 AI Coding，心态上经历了最初的「完了，失业要提前了」，到「稳了，还能苟几年」。下面就分享一些使用上的感受，以及面对 AI Coding 这股后浪，这个号后面的一些规划。</p>
+</blockquote>
 <p><img alt="程序员使用 AI 编码提升效率" loading="lazy" src="/images/2026-02-01/%E7%A8%8B%E5%BA%8F%E5%91%98%E4%BD%BF%E7%94%A8AI%E7%BC%96%E7%A0%81%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87.jpg"></p>
 <h3 id="1-ai-coding-非常有帮助收费的优于免费的">1. AI Coding 非常有帮助，收费的优于免费的</h3>
 <p>这几年 AI 发展迅速，早已不是当年的「人工智障」了，确实是可以作为生产力工具帮忙提升效率的。对于 AI Coding 来说，到底能提升多少效率，取决于多方面因素：比如 Coding 在日常开发中占的比重、使用 AI 的熟练程度、AI Coding 工具本身的性能等等。但不管怎么说，AI Coding 对于程序员来说都是有正向作用的，是值得花时间去用起来的。</p>
@@ -509,7 +585,8 @@
       <description>&lt;blockquote&gt;
 &lt;p&gt;这篇是iOS双语字幕软件的开发日志，目标是在iOS端实现，在观看视频时，实时对播放的内容进行识别和翻译，显示双语字幕，用于打破外语视频内容观看门槛。&lt;/p&gt;</description>
       <content:encoded><![CDATA[<blockquote>
-<p>这篇是iOS双语字幕软件的开发日志，目标是在iOS端实现，在观看视频时，实时对播放的内容进行识别和翻译，显示双语字幕，用于打破外语视频内容观看门槛。</p></blockquote>
+<p>这篇是iOS双语字幕软件的开发日志，目标是在iOS端实现，在观看视频时，实时对播放的内容进行识别和翻译，显示双语字幕，用于打破外语视频内容观看门槛。</p>
+</blockquote>
 <h3 id="模块流程">模块流程</h3>
 
 <div class="mermaid">graph LR
@@ -2989,7 +3066,8 @@
 </ul>
 <p>访问方式简单：在Hugging Face平台搜索并下载，或使用Python的datasets库加载。数据集设计覆盖不同噪声、混响和麦克风配置，确保评估的全面性。</p>
 <blockquote>
-<p>可以参考下面的代码将hugging face中的validataion数据集以wav形式保存在本地，方便后续不同算法进行处理后，对处理结果进行评估。</p></blockquote>
+<p>可以参考下面的代码将hugging face中的validataion数据集以wav形式保存在本地，方便后续不同算法进行处理后，对处理结果进行评估。</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -3100,7 +3178,8 @@
 <p>计算这些指标需要工具和脚本。URGENT挑战的GitHub仓库（https://github.com/urgent-challenge/urgent2024_challenge）提供了evaluation_metrics文件夹下的实用脚本，如calculate_intrusive_se_metrics.py（处理PESQ、ESTOI、SDR、MCD、LSD等侵入式指标，支持无限SDR值处理），calculate_nonintrusive_dnsmos.py和calculate_nonintrusive_nisqa.py分别计算DNSMOS和NISQA。</p>
 <p><strong>计算步骤示例</strong>：</p>
 <blockquote>
-<p>参考evaluation_metrics/README.md</p></blockquote>
+<p>参考evaluation_metrics/README.md</p>
+</blockquote>
 <ol>
 <li><strong>数据准备</strong>对validation数据集中的noisy数据进行处理，得到enhanced的数据，按下面的目录结构进行组织
 <div class="highlight"><div class="chroma">
@@ -3255,7 +3334,8 @@ $$</p>
 </div>
 </div>
 <blockquote>
-<p>spectrum_prev_process_[i] 为前一帧信号的幅度谱，filter_[i]为前帧的Wiener滤波器增益，两者相乘后就是估计的纯净语音信号，因此prev_tsa就是前一帧的TSA (time-smoothed a priori SNR)</p></blockquote>
+<p>spectrum_prev_process_[i] 为前一帧信号的幅度谱，filter_[i]为前帧的Wiener滤波器增益，两者相乘后就是估计的纯净语音信号，因此prev_tsa就是前一帧的TSA (time-smoothed a priori SNR)</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -3275,7 +3355,8 @@ $$</p>
 </div>
 </div>
 <blockquote>
-<p>只有当信号幅度大于噪声幅度时，才认为有语音信号存在，避免负增益</p></blockquote>
+<p>只有当信号幅度大于噪声幅度时，才认为有语音信号存在，避免负增益</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -3285,7 +3366,8 @@ $$</p>
 </div>
 </div>
 <blockquote>
-<p>0.98 是平滑因子，表示以历史先验估计为主，防止突变</p></blockquote>
+<p>0.98 是平滑因子，表示以历史先验估计为主，防止突变</p>
+</blockquote>
 <ol start="2">
 <li>基本增益计算</li>
 </ol>
@@ -3772,7 +3854,8 @@ $$</p>
 <li>语音信号：存在能量集中（共振峰），几何均值 ≪ 算数均值，Flatness 接近 0</li>
 </ol>
 <blockquote>
-<p>因此谱平坦度 = 能量分布的“均匀性量尺” → 能直接用来做语音/噪声分类特征！</p></blockquote>
+<p>因此谱平坦度 = 能量分布的“均匀性量尺” → 能直接用来做语音/噪声分类特征！</p>
+</blockquote>
 <ul>
 <li>代码实现</li>
 </ul>
@@ -3850,7 +3933,8 @@ $$</p>
 <h2 id="indicator2-spectral-difference-谱模板差异">indicator2: Spectral Difference 谱模板差异</h2>
 <p>Spectral Difference频谱差异是用于衡量当前帧的频谱与已学习噪声模板之间的差异程度。其基本思想是：</p>
 <blockquote>
-<p>如果当前帧的频谱结构与噪声模板相似，则可能是噪声；如果差异大，则可能是语音。</p></blockquote>
+<p>如果当前帧的频谱结构与噪声模板相似，则可能是噪声；如果差异大，则可能是语音。</p>
+</blockquote>
 <ol>
 <li>总体计算公式
 $$
@@ -4223,7 +4307,8 @@ $$</p>
 <p>考虑连续观察大量值 {x₁, x₂, &hellip;, xₙ}，估计值 Q 如果在一个固定位置附近波动，那它一定满足：
 平均上调量 ≈ 平均下调量，也就是说，在那个点：</p>
 <blockquote>
-<p>上调概率 × 上调步长 = 下调概率 × 下调步长</p></blockquote>
+<p>上调概率 × 上调步长 = 下调概率 × 下调步长</p>
+</blockquote>
 <p>其中：</p>
 <ul>
 <li>上调概率 p_up = P(x &gt; Q)</li>
@@ -4234,7 +4319,8 @@ $$</p>
 </ul>
 <p>✅ 说明这个估计最终会逼近 25% 分位数！</p>
 <blockquote>
-<p>这个分位数的实现真是妙了呀，避免了常规分位计算需要排序的问题，同时还可以实时更新。👍</p></blockquote>
+<p>这个分位数的实现真是妙了呀，避免了常规分位计算需要排序的问题，同时还可以实时更新。👍</p>
+</blockquote>
 <h3 id="多分位数估计分时更新">多分位数估计分时更新</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -4326,7 +4412,8 @@ $$</p>
 <h3 id="利用密度估计实现自适应步长">利用”密度“估计实现自适应步长</h3>
 <p>分位数估计器在更新的时候，其更新步长与这个density_变量直接相关，现在我们来看下webrtc的实现是如何做到自适应步长的。</p>
 <blockquote>
-<p>density_[j]表示: 当前分位数估计点附近的”局部密度估计“，近似表示这个log频谱点的概率密度函数值。</p></blockquote>
+<p>density_[j]表示: 当前分位数估计点附近的”局部密度估计“，近似表示这个log频谱点的概率密度函数值。</p>
+</blockquote>
 <p>现实场景中，噪声频点能量分布是变化的，当低噪声变化时，噪声频点能量分布密集；当语音变化时，噪声频点能量分布稀疏。因此需要估计分布密度，以调整步长动态性，防止在高密度或低密度区域过度抖动或者太慢反应</p>
 <ul>
 <li>density_是如何计算的</li>
@@ -4379,7 +4466,8 @@ $$</p>
   </tbody>
 </table>
 <blockquote>
-<p>density_[j] 趋近于“单位宽度窗口”内命中次数的平均值 —— 表示在分位点附近的信号频谱密集程度。</p></blockquote>
+<p>density_[j] 趋近于“单位宽度窗口”内命中次数的平均值 —— 表示在分位点附近的信号频谱密集程度。</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -4705,84 +4793,6 @@ llvm-objdump -d 目标文件
 </div>
 <p>注：@rpath 会根据不同应用的配置解析到对应的目录</p>
 ]]></content:encoded>
-    </item>
-    <item>
-      <title>MacOS M2 Tensorflow GPU环境搭建</title>
-      <link>https://lyapple2008.github.io/posts/202406/2024-06-10-macos-m2-tensorflow-gpu%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
-      <pubDate>Mon, 10 Jun 2024 22:20:31 +0000</pubDate>
-      <guid>https://lyapple2008.github.io/posts/202406/2024-06-10-macos-m2-tensorflow-gpu%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</guid>
-      <description>&lt;!-- {% asset_img title.gif %} --&gt;
-&lt;img src=&#34;https://lyapple2008.github.io/images/2024-06-10-title.gif&#34;/&gt;
-本文记录在mac mini m2 pro上搭建tensorflow gpu版本的过程，中间因为一些坑，导致环境搭建过程有点反复，希望对有相同需求的同学有帮助。</description>
-      <content:encoded><![CDATA[<!-- {% asset_img title.gif %} -->
-<img src="/images/2024-06-10-title.gif"/>
-本文记录在mac mini m2 pro上搭建tensorflow gpu版本的过程，中间因为一些坑，导致环境搭建过程有点反复，希望对有相同需求的同学有帮助。
-<h2 id="1-安装conda环境">1. 安装conda环境</h2>
-<p>这里创建conda环境的时候需要指定python版本为3.9，这是因为后面需要安装的tensorflow需要python 3.6~3.9</p>
-<!-- {% asset_img tensorflow_python_version.png %} -->
-<img src="/images/2024-06-10-tensorflow_python_version.png"/>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">conda create -n tf_gpu python=3.9</span></span></code></pre></td></tr></table>
-</div>
-</div>
-<h2 id="2-安装tensorflow">2. 安装tensorflow</h2>
-<p>安装tensorflow的时候，需要指定版本为2.14.1，这里是因为后面需要安装的tensorflow-metal，最新版本只支持2.14</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pip install tensorflow==2.14.1</span></span></code></pre></td></tr></table>
-</div>
-</div>
-<!-- {% asset_img tensorflow_metal.png %} -->
-<img src="/images/2024-06-10-tensorflow_metal.png"/>
-<h2 id="3-安装tensorflow-metal">3. 安装tensorflow-metal</h2>
-<p>目前tensorflow官方没有支持apple gpu，需要通过<a href="https://developer.apple.com/metal/tensorflow-plugin/">tensorflow-metal</a>插件来支持使用apple gpu</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">pip install tensorflow-metal==1.1.0</span></span></code></pre></td></tr></table>
-</div>
-</div>
-<h2 id="4-测试验证">4. 测试验证</h2>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">import tensorflow.keras
-</span></span><span class="line"><span class="cl">import tensorflow as tf
-</span></span><span class="line"><span class="cl">print(f&#34;Tensor Flow Version: {tf.__version__}&#34;)
-</span></span><span class="line"><span class="cl">gpu = len(tf.config.list_physical_devices(&#39;GPU&#39;))&gt;0
-</span></span><span class="line"><span class="cl">print(&#34;GPU is&#34;, &#34;available&#34; if gpu else &#34;NOT AVAILABLE&#34;)</span></span></code></pre></td></tr></table>
-</div>
-</div>
-<p>成功后会得到下面的输出</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Tensor Flow Version: 2.14.1
-</span></span><span class="line"><span class="cl">Scikit-Learn 1.5.0
-</span></span><span class="line"><span class="cl">SciPy 1.13.1
-</span></span><span class="line"><span class="cl">GPU is available</span></span></code></pre></td></tr></table>
-</div>
-</div>]]></content:encoded>
     </item>
   </channel>
 </rss>

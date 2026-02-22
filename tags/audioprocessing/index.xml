@@ -9,7 +9,7 @@
       <url>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.147.9</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>See this site&amp;rsquo;s source code here, licensed under GPLv3 ·</copyright>
     <lastBuildDate>Sun, 10 Mar 2019 10:16:27 +0000</lastBuildDate>
@@ -24,23 +24,27 @@
 &lt;li&gt;&lt;a href=&#34;https://webrtc.org/&#34;&gt;WebRTC&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;WebRTC是google开源的实时音视频通讯项目，其中的AudioProcess模块包括了AGC/AEC/ANS算法，非常值得学习。同时WebRTC还是一个跨平台项目，代码中对各个平台（Android/Ios/Windows/Linux）硬件接口的封装和抽象可以直接拿来应用到自己的项目中。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;WebRTC是google开源的实时音视频通讯项目，其中的AudioProcess模块包括了AGC/AEC/ANS算法，非常值得学习。同时WebRTC还是一个跨平台项目，代码中对各个平台（Android/Ios/Windows/Linux）硬件接口的封装和抽象可以直接拿来应用到自己的项目中。&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/google/oboe&#34;&gt;Oboe&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;blockquote&gt;
-&lt;p&gt;Oboe是Google家开源一个高性能C++库，这个库封装了Android底层OpenSLES和AAudio接口，通过这个库可以方便地在Android实现Low Latency Audio，只需一套代码就可以了。&lt;/p&gt;&lt;/blockquote&gt;</description>
+&lt;p&gt;Oboe是Google家开源一个高性能C++库，这个库封装了Android底层OpenSLES和AAudio接口，通过这个库可以方便地在Android实现Low Latency Audio，只需一套代码就可以了。&lt;/p&gt;
+&lt;/blockquote&gt;</description>
       <content:encoded><![CDATA[<p>记录一些音频开发过程中会用到的优质资源</p>
 <ul>
 <li><a href="https://webrtc.org/">WebRTC</a></li>
 </ul>
 <blockquote>
-<p>WebRTC是google开源的实时音视频通讯项目，其中的AudioProcess模块包括了AGC/AEC/ANS算法，非常值得学习。同时WebRTC还是一个跨平台项目，代码中对各个平台（Android/Ios/Windows/Linux）硬件接口的封装和抽象可以直接拿来应用到自己的项目中。</p></blockquote>
+<p>WebRTC是google开源的实时音视频通讯项目，其中的AudioProcess模块包括了AGC/AEC/ANS算法，非常值得学习。同时WebRTC还是一个跨平台项目，代码中对各个平台（Android/Ios/Windows/Linux）硬件接口的封装和抽象可以直接拿来应用到自己的项目中。</p>
+</blockquote>
 <ul>
 <li><a href="https://github.com/google/oboe">Oboe</a></li>
 </ul>
 <blockquote>
-<p>Oboe是Google家开源一个高性能C++库，这个库封装了Android底层OpenSLES和AAudio接口，通过这个库可以方便地在Android实现Low Latency Audio，只需一套代码就可以了。</p></blockquote>]]></content:encoded>
+<p>Oboe是Google家开源一个高性能C++库，这个库封装了Android底层OpenSLES和AAudio接口，通过这个库可以方便地在Android实现Low Latency Audio，只需一套代码就可以了。</p>
+</blockquote>]]></content:encoded>
     </item>
   </channel>
 </rss>

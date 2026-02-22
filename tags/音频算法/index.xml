@@ -9,7 +9,7 @@
       <url>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.147.9</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>See this site&amp;rsquo;s source code here, licensed under GPLv3 ·</copyright>
     <lastBuildDate>Mon, 03 Nov 2025 19:39:53 +0800</lastBuildDate>
@@ -1812,7 +1812,8 @@
 </ul>
 <p>访问方式简单：在Hugging Face平台搜索并下载，或使用Python的datasets库加载。数据集设计覆盖不同噪声、混响和麦克风配置，确保评估的全面性。</p>
 <blockquote>
-<p>可以参考下面的代码将hugging face中的validataion数据集以wav形式保存在本地，方便后续不同算法进行处理后，对处理结果进行评估。</p></blockquote>
+<p>可以参考下面的代码将hugging face中的validataion数据集以wav形式保存在本地，方便后续不同算法进行处理后，对处理结果进行评估。</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1923,7 +1924,8 @@
 <p>计算这些指标需要工具和脚本。URGENT挑战的GitHub仓库（https://github.com/urgent-challenge/urgent2024_challenge）提供了evaluation_metrics文件夹下的实用脚本，如calculate_intrusive_se_metrics.py（处理PESQ、ESTOI、SDR、MCD、LSD等侵入式指标，支持无限SDR值处理），calculate_nonintrusive_dnsmos.py和calculate_nonintrusive_nisqa.py分别计算DNSMOS和NISQA。</p>
 <p><strong>计算步骤示例</strong>：</p>
 <blockquote>
-<p>参考evaluation_metrics/README.md</p></blockquote>
+<p>参考evaluation_metrics/README.md</p>
+</blockquote>
 <ol>
 <li><strong>数据准备</strong>对validation数据集中的noisy数据进行处理，得到enhanced的数据，按下面的目录结构进行组织
 <div class="highlight"><div class="chroma">
@@ -2078,7 +2080,8 @@ $$</p>
 </div>
 </div>
 <blockquote>
-<p>spectrum_prev_process_[i] 为前一帧信号的幅度谱，filter_[i]为前帧的Wiener滤波器增益，两者相乘后就是估计的纯净语音信号，因此prev_tsa就是前一帧的TSA (time-smoothed a priori SNR)</p></blockquote>
+<p>spectrum_prev_process_[i] 为前一帧信号的幅度谱，filter_[i]为前帧的Wiener滤波器增益，两者相乘后就是估计的纯净语音信号，因此prev_tsa就是前一帧的TSA (time-smoothed a priori SNR)</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -2098,7 +2101,8 @@ $$</p>
 </div>
 </div>
 <blockquote>
-<p>只有当信号幅度大于噪声幅度时，才认为有语音信号存在，避免负增益</p></blockquote>
+<p>只有当信号幅度大于噪声幅度时，才认为有语音信号存在，避免负增益</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -2108,7 +2112,8 @@ $$</p>
 </div>
 </div>
 <blockquote>
-<p>0.98 是平滑因子，表示以历史先验估计为主，防止突变</p></blockquote>
+<p>0.98 是平滑因子，表示以历史先验估计为主，防止突变</p>
+</blockquote>
 <ol start="2">
 <li>基本增益计算</li>
 </ol>
@@ -2595,7 +2600,8 @@ $$</p>
 <li>语音信号：存在能量集中（共振峰），几何均值 ≪ 算数均值，Flatness 接近 0</li>
 </ol>
 <blockquote>
-<p>因此谱平坦度 = 能量分布的“均匀性量尺” → 能直接用来做语音/噪声分类特征！</p></blockquote>
+<p>因此谱平坦度 = 能量分布的“均匀性量尺” → 能直接用来做语音/噪声分类特征！</p>
+</blockquote>
 <ul>
 <li>代码实现</li>
 </ul>
@@ -2673,7 +2679,8 @@ $$</p>
 <h2 id="indicator2-spectral-difference-谱模板差异">indicator2: Spectral Difference 谱模板差异</h2>
 <p>Spectral Difference频谱差异是用于衡量当前帧的频谱与已学习噪声模板之间的差异程度。其基本思想是：</p>
 <blockquote>
-<p>如果当前帧的频谱结构与噪声模板相似，则可能是噪声；如果差异大，则可能是语音。</p></blockquote>
+<p>如果当前帧的频谱结构与噪声模板相似，则可能是噪声；如果差异大，则可能是语音。</p>
+</blockquote>
 <ol>
 <li>总体计算公式
 $$
@@ -3046,7 +3053,8 @@ $$</p>
 <p>考虑连续观察大量值 {x₁, x₂, &hellip;, xₙ}，估计值 Q 如果在一个固定位置附近波动，那它一定满足：
 平均上调量 ≈ 平均下调量，也就是说，在那个点：</p>
 <blockquote>
-<p>上调概率 × 上调步长 = 下调概率 × 下调步长</p></blockquote>
+<p>上调概率 × 上调步长 = 下调概率 × 下调步长</p>
+</blockquote>
 <p>其中：</p>
 <ul>
 <li>上调概率 p_up = P(x &gt; Q)</li>
@@ -3057,7 +3065,8 @@ $$</p>
 </ul>
 <p>✅ 说明这个估计最终会逼近 25% 分位数！</p>
 <blockquote>
-<p>这个分位数的实现真是妙了呀，避免了常规分位计算需要排序的问题，同时还可以实时更新。👍</p></blockquote>
+<p>这个分位数的实现真是妙了呀，避免了常规分位计算需要排序的问题，同时还可以实时更新。👍</p>
+</blockquote>
 <h3 id="多分位数估计分时更新">多分位数估计分时更新</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -3149,7 +3158,8 @@ $$</p>
 <h3 id="利用密度估计实现自适应步长">利用”密度“估计实现自适应步长</h3>
 <p>分位数估计器在更新的时候，其更新步长与这个density_变量直接相关，现在我们来看下webrtc的实现是如何做到自适应步长的。</p>
 <blockquote>
-<p>density_[j]表示: 当前分位数估计点附近的”局部密度估计“，近似表示这个log频谱点的概率密度函数值。</p></blockquote>
+<p>density_[j]表示: 当前分位数估计点附近的”局部密度估计“，近似表示这个log频谱点的概率密度函数值。</p>
+</blockquote>
 <p>现实场景中，噪声频点能量分布是变化的，当低噪声变化时，噪声频点能量分布密集；当语音变化时，噪声频点能量分布稀疏。因此需要估计分布密度，以调整步长动态性，防止在高密度或低密度区域过度抖动或者太慢反应</p>
 <ul>
 <li>density_是如何计算的</li>
@@ -3202,7 +3212,8 @@ $$</p>
   </tbody>
 </table>
 <blockquote>
-<p>density_[j] 趋近于“单位宽度窗口”内命中次数的平均值 —— 表示在分位点附近的信号频谱密集程度。</p></blockquote>
+<p>density_[j] 趋近于“单位宽度窗口”内命中次数的平均值 —— 表示在分位点附近的信号频谱密集程度。</p>
+</blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1

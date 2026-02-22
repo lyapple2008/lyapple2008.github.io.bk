@@ -9,7 +9,7 @@
       <url>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.147.9</generator>
+    <generator>Hugo -- 0.152.2</generator>
     <language>zh</language>
     <copyright>See this site&amp;rsquo;s source code here, licensed under GPLv3 ·</copyright>
     <lastBuildDate>Mon, 10 Jun 2024 22:20:31 +0000</lastBuildDate>
@@ -167,7 +167,8 @@
 <li>减少限制跟要求，降低门槛 ，覆盖更多群体</li>
 </ul>
 <blockquote>
-<p>在谷歌内部，打造AI应用有两条思路，一是让更多人受惠，二是尽可能减少限制和要求</p></blockquote>
+<p>在谷歌内部，打造AI应用有两条思路，一是让更多人受惠，二是尽可能减少限制和要求</p>
+</blockquote>
 <!-- ![image.png](https://user-images.githubusercontent.com/3350865/62418833-90666700-b6a5-11e9-88f9-760391e1fe61.PNG) -->
 <img src="/images/2019-08-04-002.png"/>
 <ul>
@@ -175,7 +176,8 @@
 </ul>
 <blockquote>
 <p>个人隐私越来越被重视，以往的云端处理方案存在局限性
-一些场景要求算法要有极低的延时，如实时通信项目</p></blockquote>
+一些场景要求算法要有极低的延时，如实时通信项目</p>
+</blockquote>
 <p><em><strong>Flag终极目标：让算法随手可得</strong></em>
 <a name="6a1p8"></a></p>
 <!---more--->
@@ -493,9 +495,11 @@ skip-connection使得每个节点在进行建模时，能够同时利用到本�
 <!-- ![image](https://user-images.githubusercontent.com/3350865/61180151-90de8580-a644-11e9-97ac-3e7b2fcce8c6.jpg) -->
 <img src="/images/2019-03-31-007.jpg">
 <blockquote>
-<p>UNet++网络结构将Skip-Connection发挥到了极致，每个节点不单单只跟同层相邻节点连接，而是跟同层所有节点进行相连。同时一个大的UNet++网络结构其内部又可以一层层拆分成小的UNet++网络结构，这个特点使得其在做剪枝优化的时候非常简单方便，如图UNet++ L4到UNet++ L1就是简化过程。</p></blockquote>
+<p>UNet++网络结构将Skip-Connection发挥到了极致，每个节点不单单只跟同层相邻节点连接，而是跟同层所有节点进行相连。同时一个大的UNet++网络结构其内部又可以一层层拆分成小的UNet++网络结构，这个特点使得其在做剪枝优化的时候非常简单方便，如图UNet++ L4到UNet++ L1就是简化过程。</p>
+</blockquote>
 <blockquote>
-<p>由于UNet++相对于UNet结构增加了大概20%的参数，而训练数据并没有相应增强，最后的效果还没达到UNet的结果。</p></blockquote>
+<p>由于UNet++相对于UNet结构增加了大概20%的参数，而训练数据并没有相应增强，最后的效果还没达到UNet的结果。</p>
+</blockquote>
 <ul>
 <li>
 <h4 id="结合相位信息">结合相位信息</h4>
@@ -540,13 +544,15 @@ skip-connection使得每个节点在进行建模时，能够同时利用到本�
   </tbody>
 </table>
 <blockquote>
-<p>相位对于音源分类任务的影响极小，更准确的幅度谱估计才能提升效果，相位沿用混合音频的相位就好。</p></blockquote>
+<p>相位对于音源分类任务的影响极小，更准确的幅度谱估计才能提升效果，相位沿用混合音频的相位就好。</p>
+</blockquote>
 <h3 id="一些可能的方向">一些可能的方向</h3>
 <ul>
 <li>WAVE U-Net直接在时域上进行分离</li>
 </ul>
 <blockquote>
-<p>WAVE U-Net分离的结果中伴奏都很弱</p></blockquote>
+<p>WAVE U-Net分离的结果中伴奏都很弱</p>
+</blockquote>
 <ul>
 <li>Multi-Scale Multi-band</li>
 </ul>
