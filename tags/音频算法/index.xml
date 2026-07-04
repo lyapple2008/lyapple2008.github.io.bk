@@ -9,7 +9,7 @@
       <url>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.152.2</generator>
+    <generator>Hugo -- 0.147.9</generator>
     <language>zh</language>
     <copyright>See this site&amp;rsquo;s source code here, licensed under GPLv3 ·</copyright>
     <lastBuildDate>Mon, 20 Apr 2026 15:02:03 +0800</lastBuildDate>
@@ -53,8 +53,7 @@
 <p><strong>核心结论 — Whittaker-Shannon 插值公式：</strong></p>
 <p>$$x_c(t) = \sum_{n=-\infty}^{\infty} x[n] \cdot \text{sinc}\left(\frac{t - nT}{T}\right)$$</p>
 <p>其中 $\text{sinc}(u) = \frac{\sin(\pi u)}{\pi u}$。
-<strong>这意味着：任意时刻的连续值 = 离散样本与 sinc 函数的卷积。</strong></p>
-</blockquote>
+<strong>这意味着：任意时刻的连续值 = 离散样本与 sinc 函数的卷积。</strong></p></blockquote>
 <h4 id="第一步采样定理的数学表达">第一步：采样定理的数学表达</h4>
 <p>设连续信号 $x_c(t)$ 的傅里叶变换为 $X_c(j\Omega)$，带宽限制在 $|\Omega| \leq \Omega_0$（即 bandlimited）。</p>
 <p><strong>采样</strong>（采样周期 $T$）等价于将 $x_c(t)$ 乘以冲激串：</p>
@@ -168,8 +167,7 @@
 <p>令 $\Omega_c = \pi/T$，则：</p>
 <p>$$h(t) = T \cdot \frac{\sin(\pi t/T)}{\pi t/T} = \text{sinc}\left(\frac{t}{T}\right)$$</p>
 <blockquote>
-<p><strong>这就是 sinc 函数！</strong></p>
-</blockquote>
+<p><strong>这就是 sinc 函数！</strong></p></blockquote>
 <h4 id="sinc-同时完成重建与低通">sinc 同时完成重建与低通</h4>
 <p>sinc 卷积在频域做了一件事：<strong>只保留目标频段，切除其余复制品</strong>。从不同角度看，它有两个名字：</p>
 <div class="highlight"><div class="chroma">
@@ -282,8 +280,7 @@
 <li>连续信号可以<strong>唯一地</strong>由其样本 ${x_c(nT)}$ 决定</li>
 <li>每个样本乘以一个 sinc 函数，所有这些 sinc 函数叠加即重建连续信号</li>
 <li>sinc 函数的峰值在 $t = nT$，在其他采样点为零（正交性）</li>
-</ul>
-</blockquote>
+</ul></blockquote>
 <hr>
 <h3 id="15-重采样过程">1.5 重采样过程</h3>
 <p>现在要将信号从采样率 $T_1$<strong>重采样</strong>到 $T_2$。</p>
@@ -326,8 +323,7 @@
   </tbody>
 </table>
 <blockquote>
-<p><strong>sinc 是唯一的：<strong>在采样定理框架下，只有 sinc 能实现</strong>理论上完美</strong>的连续信号重建。任何其他核都是对 sinc 的近似，代价是高频失真（Gibbs 现象 / 振铃效应）。</p>
-</blockquote>
+<p><strong>sinc 是唯一的：<strong>在采样定理框架下，只有 sinc 能实现</strong>理论上完美</strong>的连续信号重建。任何其他核都是对 sinc 的近似，代价是高频失真（Gibbs 现象 / 振铃效应）。</p></blockquote>
 <hr>
 <h3 id="17-物理直觉">1.7 物理直觉</h3>
 <div class="highlight"><div class="chroma">
@@ -435,8 +431,7 @@
 </div>
 </div>
 <blockquote>
-<p><strong>核心瓶颈：</strong> sin() 是很贵的运算，每次都要算。</p>
-</blockquote>
+<p><strong>核心瓶颈：</strong> sin() 是很贵的运算，每次都要算。</p></blockquote>
 <hr>
 <h3 id="22-第一步优化查表代替实时计算">2.2 第一步优化：查表代替实时计算</h3>
 <p>sinc 函数是固定的，可以<strong>预先计算好一张表</strong>，运行时直接查表。</p>
@@ -2713,8 +2708,7 @@
 </ul>
 <p>访问方式简单：在Hugging Face平台搜索并下载，或使用Python的datasets库加载。数据集设计覆盖不同噪声、混响和麦克风配置，确保评估的全面性。</p>
 <blockquote>
-<p>可以参考下面的代码将hugging face中的validataion数据集以wav形式保存在本地，方便后续不同算法进行处理后，对处理结果进行评估。</p>
-</blockquote>
+<p>可以参考下面的代码将hugging face中的validataion数据集以wav形式保存在本地，方便后续不同算法进行处理后，对处理结果进行评估。</p></blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -2825,8 +2819,7 @@
 <p>计算这些指标需要工具和脚本。URGENT挑战的GitHub仓库（https://github.com/urgent-challenge/urgent2024_challenge）提供了evaluation_metrics文件夹下的实用脚本，如calculate_intrusive_se_metrics.py（处理PESQ、ESTOI、SDR、MCD、LSD等侵入式指标，支持无限SDR值处理），calculate_nonintrusive_dnsmos.py和calculate_nonintrusive_nisqa.py分别计算DNSMOS和NISQA。</p>
 <p><strong>计算步骤示例</strong>：</p>
 <blockquote>
-<p>参考evaluation_metrics/README.md</p>
-</blockquote>
+<p>参考evaluation_metrics/README.md</p></blockquote>
 <ol>
 <li><strong>数据准备</strong>对validation数据集中的noisy数据进行处理，得到enhanced的数据，按下面的目录结构进行组织
 <div class="highlight"><div class="chroma">
@@ -2981,8 +2974,7 @@ $$</p>
 </div>
 </div>
 <blockquote>
-<p>spectrum_prev_process_[i] 为前一帧信号的幅度谱，filter_[i]为前帧的Wiener滤波器增益，两者相乘后就是估计的纯净语音信号，因此prev_tsa就是前一帧的TSA (time-smoothed a priori SNR)</p>
-</blockquote>
+<p>spectrum_prev_process_[i] 为前一帧信号的幅度谱，filter_[i]为前帧的Wiener滤波器增益，两者相乘后就是估计的纯净语音信号，因此prev_tsa就是前一帧的TSA (time-smoothed a priori SNR)</p></blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -3002,8 +2994,7 @@ $$</p>
 </div>
 </div>
 <blockquote>
-<p>只有当信号幅度大于噪声幅度时，才认为有语音信号存在，避免负增益</p>
-</blockquote>
+<p>只有当信号幅度大于噪声幅度时，才认为有语音信号存在，避免负增益</p></blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -3013,8 +3004,7 @@ $$</p>
 </div>
 </div>
 <blockquote>
-<p>0.98 是平滑因子，表示以历史先验估计为主，防止突变</p>
-</blockquote>
+<p>0.98 是平滑因子，表示以历史先验估计为主，防止突变</p></blockquote>
 <ol start="2">
 <li>基本增益计算</li>
 </ol>
@@ -3501,8 +3491,7 @@ $$</p>
 <li>语音信号：存在能量集中（共振峰），几何均值 ≪ 算数均值，Flatness 接近 0</li>
 </ol>
 <blockquote>
-<p>因此谱平坦度 = 能量分布的“均匀性量尺” → 能直接用来做语音/噪声分类特征！</p>
-</blockquote>
+<p>因此谱平坦度 = 能量分布的“均匀性量尺” → 能直接用来做语音/噪声分类特征！</p></blockquote>
 <ul>
 <li>代码实现</li>
 </ul>
@@ -3580,8 +3569,7 @@ $$</p>
 <h2 id="indicator2-spectral-difference-谱模板差异">indicator2: Spectral Difference 谱模板差异</h2>
 <p>Spectral Difference频谱差异是用于衡量当前帧的频谱与已学习噪声模板之间的差异程度。其基本思想是：</p>
 <blockquote>
-<p>如果当前帧的频谱结构与噪声模板相似，则可能是噪声；如果差异大，则可能是语音。</p>
-</blockquote>
+<p>如果当前帧的频谱结构与噪声模板相似，则可能是噪声；如果差异大，则可能是语音。</p></blockquote>
 <ol>
 <li>总体计算公式
 $$
@@ -3954,8 +3942,7 @@ $$</p>
 <p>考虑连续观察大量值 {x₁, x₂, &hellip;, xₙ}，估计值 Q 如果在一个固定位置附近波动，那它一定满足：
 平均上调量 ≈ 平均下调量，也就是说，在那个点：</p>
 <blockquote>
-<p>上调概率 × 上调步长 = 下调概率 × 下调步长</p>
-</blockquote>
+<p>上调概率 × 上调步长 = 下调概率 × 下调步长</p></blockquote>
 <p>其中：</p>
 <ul>
 <li>上调概率 p_up = P(x &gt; Q)</li>
@@ -3966,8 +3953,7 @@ $$</p>
 </ul>
 <p>✅ 说明这个估计最终会逼近 25% 分位数！</p>
 <blockquote>
-<p>这个分位数的实现真是妙了呀，避免了常规分位计算需要排序的问题，同时还可以实时更新。👍</p>
-</blockquote>
+<p>这个分位数的实现真是妙了呀，避免了常规分位计算需要排序的问题，同时还可以实时更新。👍</p></blockquote>
 <h3 id="多分位数估计分时更新">多分位数估计分时更新</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -4059,8 +4045,7 @@ $$</p>
 <h3 id="利用密度估计实现自适应步长">利用”密度“估计实现自适应步长</h3>
 <p>分位数估计器在更新的时候，其更新步长与这个density_变量直接相关，现在我们来看下webrtc的实现是如何做到自适应步长的。</p>
 <blockquote>
-<p>density_[j]表示: 当前分位数估计点附近的”局部密度估计“，近似表示这个log频谱点的概率密度函数值。</p>
-</blockquote>
+<p>density_[j]表示: 当前分位数估计点附近的”局部密度估计“，近似表示这个log频谱点的概率密度函数值。</p></blockquote>
 <p>现实场景中，噪声频点能量分布是变化的，当低噪声变化时，噪声频点能量分布密集；当语音变化时，噪声频点能量分布稀疏。因此需要估计分布密度，以调整步长动态性，防止在高密度或低密度区域过度抖动或者太慢反应</p>
 <ul>
 <li>density_是如何计算的</li>
@@ -4113,8 +4098,7 @@ $$</p>
   </tbody>
 </table>
 <blockquote>
-<p>density_[j] 趋近于“单位宽度窗口”内命中次数的平均值 —— 表示在分位点附近的信号频谱密集程度。</p>
-</blockquote>
+<p>density_[j] 趋近于“单位宽度窗口”内命中次数的平均值 —— 表示在分位点附近的信号频谱密集程度。</p></blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1

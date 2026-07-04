@@ -9,7 +9,7 @@
       <url>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.152.2</generator>
+    <generator>Hugo -- 0.147.9</generator>
     <language>zh</language>
     <copyright>See this site&amp;rsquo;s source code here, licensed under GPLv3 ·</copyright>
     <lastBuildDate>Mon, 20 Apr 2026 15:02:03 +0800</lastBuildDate>
@@ -20,8 +20,7 @@
       <pubDate>Sun, 22 Feb 2026 09:43:54 +0800</pubDate>
       <guid>https://lyapple2008.github.io/posts/2026-todo/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;记录跟踪2026年要做的事情和正在做的事情。&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;记录跟踪2026年要做的事情和正在做的事情。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;目标&#34;&gt;目标&lt;/h2&gt;
 &lt;ul&gt;
@@ -53,8 +52,7 @@ chart.setOption({
 &lt;li&gt;
 &lt;p&gt;探索可能&lt;/p&gt;</description>
       <content:encoded><![CDATA[<blockquote>
-<p>记录跟踪2026年要做的事情和正在做的事情。</p>
-</blockquote>
+<p>记录跟踪2026年要做的事情和正在做的事情。</p></blockquote>
 <hr>
 <h2 id="目标">目标</h2>
 <ul>
@@ -109,24 +107,26 @@ chart.setOption({
 </ul>
 <h2 id="一些随想">一些随想</h2>
 <blockquote>
-<p>记录一些生活工作中一些小感受和小想法</p>
-</blockquote>
+<p>记录一些生活工作中一些小感受和小想法</p></blockquote>
+<ul>
+<li>2026.07.04</li>
+</ul>
+<blockquote>
+<p>慢下来才能更快。</p></blockquote>
 <ul>
 <li>2026.05.24</li>
 </ul>
 <blockquote>
 <p>You can outsource your thinking, but you can&rsquo;t outsource your understanding.<br>
 思考可以外包，但理解不能外包<br>
-虽然现在AI进展神速，但是工作/学习的底层逻辑没有变化，AI只是加速了知识的获取和帮忙个人思考，对事情的理解过程还是存在于个人的大脑，这个是AI没法替你完成的。</p>
-</blockquote>
+虽然现在AI进展神速，但是工作/学习的底层逻辑没有变化，AI只是加速了知识的获取和帮忙个人思考，对事情的理解过程还是存在于个人的大脑，这个是AI没法替你完成的。</p></blockquote>
 <ul>
 <li>2026.03.29</li>
 </ul>
 <blockquote>
 <p>每天记录和量化进度，本身就是一种负担，而且对于效率提高帮助不大，也不利于长期任务，与其每天盯着任务进度，
 不如现在开始试下，里程碑式的工作方法，给自己一段时间设定一些目标，到期后来检查完成情况，中间如何只记录
-据有里程碑意义的事件。</p>
-</blockquote>
+据有里程碑意义的事件。</p></blockquote>
 ]]></content:encoded>
     </item>
     <item>
@@ -168,8 +168,7 @@ chart.setOption({
 <p><strong>核心结论 — Whittaker-Shannon 插值公式：</strong></p>
 <p>$$x_c(t) = \sum_{n=-\infty}^{\infty} x[n] \cdot \text{sinc}\left(\frac{t - nT}{T}\right)$$</p>
 <p>其中 $\text{sinc}(u) = \frac{\sin(\pi u)}{\pi u}$。
-<strong>这意味着：任意时刻的连续值 = 离散样本与 sinc 函数的卷积。</strong></p>
-</blockquote>
+<strong>这意味着：任意时刻的连续值 = 离散样本与 sinc 函数的卷积。</strong></p></blockquote>
 <h4 id="第一步采样定理的数学表达">第一步：采样定理的数学表达</h4>
 <p>设连续信号 $x_c(t)$ 的傅里叶变换为 $X_c(j\Omega)$，带宽限制在 $|\Omega| \leq \Omega_0$（即 bandlimited）。</p>
 <p><strong>采样</strong>（采样周期 $T$）等价于将 $x_c(t)$ 乘以冲激串：</p>
@@ -283,8 +282,7 @@ chart.setOption({
 <p>令 $\Omega_c = \pi/T$，则：</p>
 <p>$$h(t) = T \cdot \frac{\sin(\pi t/T)}{\pi t/T} = \text{sinc}\left(\frac{t}{T}\right)$$</p>
 <blockquote>
-<p><strong>这就是 sinc 函数！</strong></p>
-</blockquote>
+<p><strong>这就是 sinc 函数！</strong></p></blockquote>
 <h4 id="sinc-同时完成重建与低通">sinc 同时完成重建与低通</h4>
 <p>sinc 卷积在频域做了一件事：<strong>只保留目标频段，切除其余复制品</strong>。从不同角度看，它有两个名字：</p>
 <div class="highlight"><div class="chroma">
@@ -397,8 +395,7 @@ chart.setOption({
 <li>连续信号可以<strong>唯一地</strong>由其样本 ${x_c(nT)}$ 决定</li>
 <li>每个样本乘以一个 sinc 函数，所有这些 sinc 函数叠加即重建连续信号</li>
 <li>sinc 函数的峰值在 $t = nT$，在其他采样点为零（正交性）</li>
-</ul>
-</blockquote>
+</ul></blockquote>
 <hr>
 <h3 id="15-重采样过程">1.5 重采样过程</h3>
 <p>现在要将信号从采样率 $T_1$<strong>重采样</strong>到 $T_2$。</p>
@@ -441,8 +438,7 @@ chart.setOption({
   </tbody>
 </table>
 <blockquote>
-<p><strong>sinc 是唯一的：<strong>在采样定理框架下，只有 sinc 能实现</strong>理论上完美</strong>的连续信号重建。任何其他核都是对 sinc 的近似，代价是高频失真（Gibbs 现象 / 振铃效应）。</p>
-</blockquote>
+<p><strong>sinc 是唯一的：<strong>在采样定理框架下，只有 sinc 能实现</strong>理论上完美</strong>的连续信号重建。任何其他核都是对 sinc 的近似，代价是高频失真（Gibbs 现象 / 振铃效应）。</p></blockquote>
 <hr>
 <h3 id="17-物理直觉">1.7 物理直觉</h3>
 <div class="highlight"><div class="chroma">
@@ -550,8 +546,7 @@ chart.setOption({
 </div>
 </div>
 <blockquote>
-<p><strong>核心瓶颈：</strong> sin() 是很贵的运算，每次都要算。</p>
-</blockquote>
+<p><strong>核心瓶颈：</strong> sin() 是很贵的运算，每次都要算。</p></blockquote>
 <hr>
 <h3 id="22-第一步优化查表代替实时计算">2.2 第一步优化：查表代替实时计算</h3>
 <p>sinc 函数是固定的，可以<strong>预先计算好一张表</strong>，运行时直接查表。</p>
@@ -1041,8 +1036,7 @@ chart.setOption({
 <p>最近一直在重度使用 Claude Code，也一直被各种新名词轰炸：vibe coding、spec coding、agent、openclaw、harness 等等。刚好看到一个介绍 Claude Code 工程原理的教程，对Agent Engneer有了一些认识，记录总结一下。</p>
 <blockquote>
 <p>教程地址：https://learn.shareai.run/en/<br>
-项目仓库：https://github.com/shareAI-lab/learn-claude-code</p>
-</blockquote>
+项目仓库：https://github.com/shareAI-lab/learn-claude-code</p></blockquote>
 <h2 id="课程介绍">课程介绍</h2>
 <p>该课程包含12个递进式课程，从简单循环到隔离化的自治执行，每个课程添加一个 harness 机制，每个机制有一句格言，非常推荐大家去学习：</p>
 <blockquote>
@@ -1057,8 +1051,7 @@ chart.setOption({
 <p><strong>s09</strong>   <em>任务太大一个人干不完, 要能分给队友</em> — 持久化队友 + 异步邮箱</p>
 <p><strong>s10</strong>   <em>队友之间要有统一的沟通规矩</em> — 一个 request-response 模式驱动所有协商</p>
 <p><strong>s11</strong>   <em>队友自己看看板, 有活就认领</em> — 不需要领导逐个分配, 自组织</p>
-<p><strong>s12</strong>   <em>各干各的目录, 互不干扰</em> — 任务管目标, worktree 管目录, 按 ID 绑定</p>
-</blockquote>
+<p><strong>s12</strong>   <em>各干各的目录, 互不干扰</em> — 任务管目标, worktree 管目录, 按 ID 绑定</p></blockquote>
 <h2 id="什么是agentharness">什么是Agent/Harness</h2>
 <h2 id="如何开发适用于自己工作流的agentharness">如何开发适用于自己工作流的Agent/Harness</h2>
 <ol>
@@ -1079,8 +1072,7 @@ chart.setOption({
 <li><strong>Claude Code (agentic harness)</strong>：负责「赋能」和「执行」，提供工具接口、上下文管理、终端环境，让推理转化为实际操作</li>
 </ul>
 <blockquote>
-<p>关系模式：Claude Code 相当于「外壳/操作系统」，Claude 模型是其中的「智能核心」。模型提出计划，Claude Code 通过工具和环境落实这些计划。</p>
-</blockquote>
+<p>关系模式：Claude Code 相当于「外壳/操作系统」，Claude 模型是其中的「智能核心」。模型提出计划，Claude Code 通过工具和环境落实这些计划。</p></blockquote>
 <hr>
 <p>Agent 开发不过是将自身能力的一次实体化。如同那句话所说：大模型是放大器，自身能力决定了 Agent 的上限。这个时代对人的要求，反而更高了。只有人本身把工作流想清楚了，才有可以设计出高效合理的Agent流程。</p>
 <p>当整个系统的短板是人的时候，再也没有借口可找。</p>
@@ -1105,8 +1097,7 @@ chart.setOption({
 <p>问题在于：<strong>每次超时都要看30秒视频广告</strong>。人菜瘾又大的我，经常需要看广告才能过关。</p>
 <p>终于在某次看了第17遍&quot;是兄弟就来砍我&quot;之后，我一拍桌子——<strong>不行，我要搞点事情</strong>。</p>
 <blockquote>
-<p>📢 友情提示：本文不涉及游戏外挂或修改游戏本身，只是研究如何用程序自动操作已知的拼图图片。</p>
-</blockquote>
+<p>📢 友情提示：本文不涉及游戏外挂或修改游戏本身，只是研究如何用程序自动操作已知的拼图图片。</p></blockquote>
 <h2 id="二动手干">二、动手干</h2>
 <h3 id="21-拼图还原问题">2.1 拼图还原问题</h3>
 <p><strong>拼图还原问题（Jigsaw Puzzle Reassembly Problem）</strong> 是计算机视觉和图像处理领域的一个重要研究课题。简单来说，就是给定一幅被打碎的图像，如何让计算机自动识别各个碎片之间的关系，并将它们重新拼合成完整的原始图像。</p>
@@ -1222,8 +1213,7 @@ chart.setOption({
       <description>&lt;blockquote&gt;
 &lt;p&gt;这篇继续是开发日志，正在开发一款iOS端的实时双语字幕APP，由于需要用到语音识别，了解了下语音识别任务的现状和主流方案，为后面方案选择做准备。&lt;/p&gt;</description>
       <content:encoded><![CDATA[<blockquote>
-<p>这篇继续是开发日志，正在开发一款iOS端的实时双语字幕APP，由于需要用到语音识别，了解了下语音识别任务的现状和主流方案，为后面方案选择做准备。</p>
-</blockquote>
+<p>这篇继续是开发日志，正在开发一款iOS端的实时双语字幕APP，由于需要用到语音识别，了解了下语音识别任务的现状和主流方案，为后面方案选择做准备。</p></blockquote>
 <h3 id="模块流程">模块流程</h3>
 
 <div class="mermaid">graph LR
@@ -1671,8 +1661,7 @@ chart.setOption({
       <description>&lt;blockquote&gt;
 &lt;p&gt;最近要说最热最火的话题，那一定是 AI，而其中 AI 应用场景 AI Coding 也是发展迅速，大有替代程序员的势头。最近几个月一直在使用 AI Coding，心态上经历了最初的「完了，失业要提前了」，到「稳了，还能苟几年」。下面就分享一些使用上的感受，以及面对 AI Coding 这股后浪，这个号后面的一些规划。&lt;/p&gt;</description>
       <content:encoded><![CDATA[<blockquote>
-<p>最近要说最热最火的话题，那一定是 AI，而其中 AI 应用场景 AI Coding 也是发展迅速，大有替代程序员的势头。最近几个月一直在使用 AI Coding，心态上经历了最初的「完了，失业要提前了」，到「稳了，还能苟几年」。下面就分享一些使用上的感受，以及面对 AI Coding 这股后浪，这个号后面的一些规划。</p>
-</blockquote>
+<p>最近要说最热最火的话题，那一定是 AI，而其中 AI 应用场景 AI Coding 也是发展迅速，大有替代程序员的势头。最近几个月一直在使用 AI Coding，心态上经历了最初的「完了，失业要提前了」，到「稳了，还能苟几年」。下面就分享一些使用上的感受，以及面对 AI Coding 这股后浪，这个号后面的一些规划。</p></blockquote>
 <p><img alt="程序员使用 AI 编码提升效率" loading="lazy" src="/images/2026-02-01/%E7%A8%8B%E5%BA%8F%E5%91%98%E4%BD%BF%E7%94%A8AI%E7%BC%96%E7%A0%81%E6%8F%90%E5%8D%87%E6%95%88%E7%8E%87.jpg"></p>
 <h3 id="1-ai-coding-非常有帮助收费的优于免费的">1. AI Coding 非常有帮助，收费的优于免费的</h3>
 <p>这几年 AI 发展迅速，早已不是当年的「人工智障」了，确实是可以作为生产力工具帮忙提升效率的。对于 AI Coding 来说，到底能提升多少效率，取决于多方面因素：比如 Coding 在日常开发中占的比重、使用 AI 的熟练程度、AI Coding 工具本身的性能等等。但不管怎么说，AI Coding 对于程序员来说都是有正向作用的，是值得花时间去用起来的。</p>
@@ -1711,8 +1700,7 @@ chart.setOption({
       <description>&lt;blockquote&gt;
 &lt;p&gt;这篇是iOS双语字幕软件的开发日志，目标是在iOS端实现，在观看视频时，实时对播放的内容进行识别和翻译，显示双语字幕，用于打破外语视频内容观看门槛。&lt;/p&gt;</description>
       <content:encoded><![CDATA[<blockquote>
-<p>这篇是iOS双语字幕软件的开发日志，目标是在iOS端实现，在观看视频时，实时对播放的内容进行识别和翻译，显示双语字幕，用于打破外语视频内容观看门槛。</p>
-</blockquote>
+<p>这篇是iOS双语字幕软件的开发日志，目标是在iOS端实现，在观看视频时，实时对播放的内容进行识别和翻译，显示双语字幕，用于打破外语视频内容观看门槛。</p></blockquote>
 <h3 id="模块流程">模块流程</h3>
 
 <div class="mermaid">graph LR
@@ -4192,8 +4180,7 @@ chart.setOption({
 </ul>
 <p>访问方式简单：在Hugging Face平台搜索并下载，或使用Python的datasets库加载。数据集设计覆盖不同噪声、混响和麦克风配置，确保评估的全面性。</p>
 <blockquote>
-<p>可以参考下面的代码将hugging face中的validataion数据集以wav形式保存在本地，方便后续不同算法进行处理后，对处理结果进行评估。</p>
-</blockquote>
+<p>可以参考下面的代码将hugging face中的validataion数据集以wav形式保存在本地，方便后续不同算法进行处理后，对处理结果进行评估。</p></blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -4304,8 +4291,7 @@ chart.setOption({
 <p>计算这些指标需要工具和脚本。URGENT挑战的GitHub仓库（https://github.com/urgent-challenge/urgent2024_challenge）提供了evaluation_metrics文件夹下的实用脚本，如calculate_intrusive_se_metrics.py（处理PESQ、ESTOI、SDR、MCD、LSD等侵入式指标，支持无限SDR值处理），calculate_nonintrusive_dnsmos.py和calculate_nonintrusive_nisqa.py分别计算DNSMOS和NISQA。</p>
 <p><strong>计算步骤示例</strong>：</p>
 <blockquote>
-<p>参考evaluation_metrics/README.md</p>
-</blockquote>
+<p>参考evaluation_metrics/README.md</p></blockquote>
 <ol>
 <li><strong>数据准备</strong>对validation数据集中的noisy数据进行处理，得到enhanced的数据，按下面的目录结构进行组织
 <div class="highlight"><div class="chroma">

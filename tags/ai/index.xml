@@ -9,7 +9,7 @@
       <url>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.152.2</generator>
+    <generator>Hugo -- 0.147.9</generator>
     <language>zh</language>
     <copyright>See this site&amp;rsquo;s source code here, licensed under GPLv3 ·</copyright>
     <lastBuildDate>Thu, 02 Apr 2026 09:58:19 +0800</lastBuildDate>
@@ -25,8 +25,7 @@
 <p>最近一直在重度使用 Claude Code，也一直被各种新名词轰炸：vibe coding、spec coding、agent、openclaw、harness 等等。刚好看到一个介绍 Claude Code 工程原理的教程，对Agent Engneer有了一些认识，记录总结一下。</p>
 <blockquote>
 <p>教程地址：https://learn.shareai.run/en/<br>
-项目仓库：https://github.com/shareAI-lab/learn-claude-code</p>
-</blockquote>
+项目仓库：https://github.com/shareAI-lab/learn-claude-code</p></blockquote>
 <h2 id="课程介绍">课程介绍</h2>
 <p>该课程包含12个递进式课程，从简单循环到隔离化的自治执行，每个课程添加一个 harness 机制，每个机制有一句格言，非常推荐大家去学习：</p>
 <blockquote>
@@ -41,8 +40,7 @@
 <p><strong>s09</strong>   <em>任务太大一个人干不完, 要能分给队友</em> — 持久化队友 + 异步邮箱</p>
 <p><strong>s10</strong>   <em>队友之间要有统一的沟通规矩</em> — 一个 request-response 模式驱动所有协商</p>
 <p><strong>s11</strong>   <em>队友自己看看板, 有活就认领</em> — 不需要领导逐个分配, 自组织</p>
-<p><strong>s12</strong>   <em>各干各的目录, 互不干扰</em> — 任务管目标, worktree 管目录, 按 ID 绑定</p>
-</blockquote>
+<p><strong>s12</strong>   <em>各干各的目录, 互不干扰</em> — 任务管目标, worktree 管目录, 按 ID 绑定</p></blockquote>
 <h2 id="什么是agentharness">什么是Agent/Harness</h2>
 <h2 id="如何开发适用于自己工作流的agentharness">如何开发适用于自己工作流的Agent/Harness</h2>
 <ol>
@@ -63,8 +61,7 @@
 <li><strong>Claude Code (agentic harness)</strong>：负责「赋能」和「执行」，提供工具接口、上下文管理、终端环境，让推理转化为实际操作</li>
 </ul>
 <blockquote>
-<p>关系模式：Claude Code 相当于「外壳/操作系统」，Claude 模型是其中的「智能核心」。模型提出计划，Claude Code 通过工具和环境落实这些计划。</p>
-</blockquote>
+<p>关系模式：Claude Code 相当于「外壳/操作系统」，Claude 模型是其中的「智能核心」。模型提出计划，Claude Code 通过工具和环境落实这些计划。</p></blockquote>
 <hr>
 <p>Agent 开发不过是将自身能力的一次实体化。如同那句话所说：大模型是放大器，自身能力决定了 Agent 的上限。这个时代对人的要求，反而更高了。只有人本身把工作流想清楚了，才有可以设计出高效合理的Agent流程。</p>
 <p>当整个系统的短板是人的时候，再也没有借口可找。</p>

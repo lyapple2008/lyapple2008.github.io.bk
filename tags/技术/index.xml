@@ -9,7 +9,7 @@
       <url>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
       <link>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
     </image>
-    <generator>Hugo -- 0.152.2</generator>
+    <generator>Hugo -- 0.147.9</generator>
     <language>zh</language>
     <copyright>See this site&amp;rsquo;s source code here, licensed under GPLv3 ·</copyright>
     <lastBuildDate>Sun, 22 Feb 2026 09:43:54 +0800</lastBuildDate>
@@ -20,8 +20,7 @@
       <pubDate>Sun, 22 Feb 2026 09:43:54 +0800</pubDate>
       <guid>https://lyapple2008.github.io/posts/2026-todo/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;记录跟踪2026年要做的事情和正在做的事情。&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;记录跟踪2026年要做的事情和正在做的事情。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;目标&#34;&gt;目标&lt;/h2&gt;
 &lt;ul&gt;
@@ -53,8 +52,7 @@ chart.setOption({
 &lt;li&gt;
 &lt;p&gt;探索可能&lt;/p&gt;</description>
       <content:encoded><![CDATA[<blockquote>
-<p>记录跟踪2026年要做的事情和正在做的事情。</p>
-</blockquote>
+<p>记录跟踪2026年要做的事情和正在做的事情。</p></blockquote>
 <hr>
 <h2 id="目标">目标</h2>
 <ul>
@@ -109,24 +107,26 @@ chart.setOption({
 </ul>
 <h2 id="一些随想">一些随想</h2>
 <blockquote>
-<p>记录一些生活工作中一些小感受和小想法</p>
-</blockquote>
+<p>记录一些生活工作中一些小感受和小想法</p></blockquote>
+<ul>
+<li>2026.07.04</li>
+</ul>
+<blockquote>
+<p>慢下来才能更快。</p></blockquote>
 <ul>
 <li>2026.05.24</li>
 </ul>
 <blockquote>
 <p>You can outsource your thinking, but you can&rsquo;t outsource your understanding.<br>
 思考可以外包，但理解不能外包<br>
-虽然现在AI进展神速，但是工作/学习的底层逻辑没有变化，AI只是加速了知识的获取和帮忙个人思考，对事情的理解过程还是存在于个人的大脑，这个是AI没法替你完成的。</p>
-</blockquote>
+虽然现在AI进展神速，但是工作/学习的底层逻辑没有变化，AI只是加速了知识的获取和帮忙个人思考，对事情的理解过程还是存在于个人的大脑，这个是AI没法替你完成的。</p></blockquote>
 <ul>
 <li>2026.03.29</li>
 </ul>
 <blockquote>
 <p>每天记录和量化进度，本身就是一种负担，而且对于效率提高帮助不大，也不利于长期任务，与其每天盯着任务进度，
 不如现在开始试下，里程碑式的工作方法，给自己一段时间设定一些目标，到期后来检查完成情况，中间如何只记录
-据有里程碑意义的事件。</p>
-</blockquote>
+据有里程碑意义的事件。</p></blockquote>
 ]]></content:encoded>
     </item>
     <item>
@@ -185,8 +185,7 @@ $$</p>
 </div>
 </div>
 <blockquote>
-<p>spectrum_prev_process_[i] 为前一帧信号的幅度谱，filter_[i]为前帧的Wiener滤波器增益，两者相乘后就是估计的纯净语音信号，因此prev_tsa就是前一帧的TSA (time-smoothed a priori SNR)</p>
-</blockquote>
+<p>spectrum_prev_process_[i] 为前一帧信号的幅度谱，filter_[i]为前帧的Wiener滤波器增益，两者相乘后就是估计的纯净语音信号，因此prev_tsa就是前一帧的TSA (time-smoothed a priori SNR)</p></blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -206,8 +205,7 @@ $$</p>
 </div>
 </div>
 <blockquote>
-<p>只有当信号幅度大于噪声幅度时，才认为有语音信号存在，避免负增益</p>
-</blockquote>
+<p>只有当信号幅度大于噪声幅度时，才认为有语音信号存在，避免负增益</p></blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -217,8 +215,7 @@ $$</p>
 </div>
 </div>
 <blockquote>
-<p>0.98 是平滑因子，表示以历史先验估计为主，防止突变</p>
-</blockquote>
+<p>0.98 是平滑因子，表示以历史先验估计为主，防止突变</p></blockquote>
 <ol start="2">
 <li>基本增益计算</li>
 </ol>
@@ -705,8 +702,7 @@ $$</p>
 <li>语音信号：存在能量集中（共振峰），几何均值 ≪ 算数均值，Flatness 接近 0</li>
 </ol>
 <blockquote>
-<p>因此谱平坦度 = 能量分布的“均匀性量尺” → 能直接用来做语音/噪声分类特征！</p>
-</blockquote>
+<p>因此谱平坦度 = 能量分布的“均匀性量尺” → 能直接用来做语音/噪声分类特征！</p></blockquote>
 <ul>
 <li>代码实现</li>
 </ul>
@@ -784,8 +780,7 @@ $$</p>
 <h2 id="indicator2-spectral-difference-谱模板差异">indicator2: Spectral Difference 谱模板差异</h2>
 <p>Spectral Difference频谱差异是用于衡量当前帧的频谱与已学习噪声模板之间的差异程度。其基本思想是：</p>
 <blockquote>
-<p>如果当前帧的频谱结构与噪声模板相似，则可能是噪声；如果差异大，则可能是语音。</p>
-</blockquote>
+<p>如果当前帧的频谱结构与噪声模板相似，则可能是噪声；如果差异大，则可能是语音。</p></blockquote>
 <ol>
 <li>总体计算公式
 $$
@@ -1158,8 +1153,7 @@ $$</p>
 <p>考虑连续观察大量值 {x₁, x₂, &hellip;, xₙ}，估计值 Q 如果在一个固定位置附近波动，那它一定满足：
 平均上调量 ≈ 平均下调量，也就是说，在那个点：</p>
 <blockquote>
-<p>上调概率 × 上调步长 = 下调概率 × 下调步长</p>
-</blockquote>
+<p>上调概率 × 上调步长 = 下调概率 × 下调步长</p></blockquote>
 <p>其中：</p>
 <ul>
 <li>上调概率 p_up = P(x &gt; Q)</li>
@@ -1170,8 +1164,7 @@ $$</p>
 </ul>
 <p>✅ 说明这个估计最终会逼近 25% 分位数！</p>
 <blockquote>
-<p>这个分位数的实现真是妙了呀，避免了常规分位计算需要排序的问题，同时还可以实时更新。👍</p>
-</blockquote>
+<p>这个分位数的实现真是妙了呀，避免了常规分位计算需要排序的问题，同时还可以实时更新。👍</p></blockquote>
 <h3 id="多分位数估计分时更新">多分位数估计分时更新</h3>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1263,8 +1256,7 @@ $$</p>
 <h3 id="利用密度估计实现自适应步长">利用”密度“估计实现自适应步长</h3>
 <p>分位数估计器在更新的时候，其更新步长与这个density_变量直接相关，现在我们来看下webrtc的实现是如何做到自适应步长的。</p>
 <blockquote>
-<p>density_[j]表示: 当前分位数估计点附近的”局部密度估计“，近似表示这个log频谱点的概率密度函数值。</p>
-</blockquote>
+<p>density_[j]表示: 当前分位数估计点附近的”局部密度估计“，近似表示这个log频谱点的概率密度函数值。</p></blockquote>
 <p>现实场景中，噪声频点能量分布是变化的，当低噪声变化时，噪声频点能量分布密集；当语音变化时，噪声频点能量分布稀疏。因此需要估计分布密度，以调整步长动态性，防止在高密度或低密度区域过度抖动或者太慢反应</p>
 <ul>
 <li>density_是如何计算的</li>
@@ -1317,8 +1309,7 @@ $$</p>
   </tbody>
 </table>
 <blockquote>
-<p>density_[j] 趋近于“单位宽度窗口”内命中次数的平均值 —— 表示在分位点附近的信号频谱密集程度。</p>
-</blockquote>
+<p>density_[j] 趋近于“单位宽度窗口”内命中次数的平均值 —— 表示在分位点附近的信号频谱密集程度。</p></blockquote>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -1782,14 +1773,12 @@ llvm-objdump -d 目标文件
       <guid>https://lyapple2008.github.io/posts/202208/2022-08-24-android%E4%B8%AD%E5%87%A0%E7%A7%8Dsdkversion%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
       <description>&lt;h1 id=&#34;android中几种sdkversion的区别&#34;&gt;Android中几种sdkVersion的区别&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;p&gt;最近遇到一个由于升级了targetSdkVersion而引起的线上crash，之前一直对于Android里面几个sdkVersion的含义和作用很模糊，正好这次把这几个不同的sdkVersion理清楚。&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;最近遇到一个由于升级了targetSdkVersion而引起的线上crash，之前一直对于Android里面几个sdkVersion的含义和作用很模糊，正好这次把这几个不同的sdkVersion理清楚。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;!-- {% asset_img 001.png %} --&gt;
 &lt;img src=&#34;https://lyapple2008.github.io/images/2022-08-24-001.png&#34;/&gt;</description>
       <content:encoded><![CDATA[<h1 id="android中几种sdkversion的区别">Android中几种sdkVersion的区别</h1>
 <blockquote>
-<p>最近遇到一个由于升级了targetSdkVersion而引起的线上crash，之前一直对于Android里面几个sdkVersion的含义和作用很模糊，正好这次把这几个不同的sdkVersion理清楚。</p>
-</blockquote>
+<p>最近遇到一个由于升级了targetSdkVersion而引起的线上crash，之前一直对于Android里面几个sdkVersion的含义和作用很模糊，正好这次把这几个不同的sdkVersion理清楚。</p></blockquote>
 <!-- {% asset_img 001.png %} -->
 <img src="/images/2022-08-24-001.png"/>
 <ul>
