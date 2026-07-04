@@ -12,7 +12,7 @@
     <generator>Hugo -- 0.147.9</generator>
     <language>zh</language>
     <copyright>See this site&amp;rsquo;s source code here, licensed under GPLv3 ·</copyright>
-    <lastBuildDate>Mon, 20 Apr 2026 15:02:03 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 04 Jul 2026 10:23:20 +0800</lastBuildDate>
     <atom:link href="https://lyapple2008.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【置顶】2026</title>
@@ -127,6 +127,513 @@ chart.setOption({
 <p>每天记录和量化进度，本身就是一种负担，而且对于效率提高帮助不大，也不利于长期任务，与其每天盯着任务进度，
 不如现在开始试下，里程碑式的工作方法，给自己一段时间设定一些目标，到期后来检查完成情况，中间如何只记录
 据有里程碑意义的事件。</p></blockquote>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Mel Spectrogram 原理与实践</title>
+      <link>https://lyapple2008.github.io/posts/202607/mel_spectrogram/</link>
+      <pubDate>Sat, 04 Jul 2026 10:23:20 +0800</pubDate>
+      <guid>https://lyapple2008.github.io/posts/202607/mel_spectrogram/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Mel Spectrogram 是语音识别、音频分类、音乐信息检索里非常常见的输入特征。它做的事情可以简单理解为：把一段一维波形，变成一张“符合人耳听觉习惯”的时间-频率能量图。&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<blockquote>
+<p>Mel Spectrogram 是语音识别、音频分类、音乐信息检索里非常常见的输入特征。它做的事情可以简单理解为：把一段一维波形，变成一张“符合人耳听觉习惯”的时间-频率能量图。</p></blockquote>
+<hr>
+<h2 id="1-从一段声音开始">1. 从一段声音开始</h2>
+<p>计算机拿到的音频通常是一串采样点：</p>
+<p><img alt="waveform" loading="lazy" src="/images/2026-07/waveform.png"></p>
+<p>这串数字描述了空气振动随时间变化的幅度。问题是，直接看波形很难回答这些问题：</p>
+<ul>
+<li>这段声音里有哪些频率？</li>
+<li>某个频率是在什么时候出现的？</li>
+<li>对人耳来说，哪些变化更重要？</li>
+</ul>
+<p>所以我们需要一种更适合分析声音的表示。</p>
+
+<div class="mermaid">graph LR
+    A[原始波形 waveform] --&gt; B[分帧 window]
+    B --&gt; C[FFT]
+    C --&gt; D[线性频谱 spectrogram]
+    D --&gt; E[Mel 滤波器组]
+    E --&gt; F[Mel Spectrogram]
+    F --&gt; G[log 压缩]
+    G --&gt; H[Log-Mel 特征]</div>
+<hr>
+<h2 id="2-为什么不能只做一次-fft">2. 为什么不能只做一次 FFT？</h2>
+<p>FFT 可以告诉我们“一整段声音里有哪些频率”，但它会丢掉时间信息。</p>
+<p>比如一段音频里先说 “a”，后说 “i”。如果直接对整段音频做 FFT，我们只能知道整段音频总体有哪些频率，不知道这些频率分别出现在什么时候。</p>
+<p>语音是随时间变化的信号，所以更常用的是 STFT（Short-Time Fourier Transform，短时傅里叶变换）。</p>
+<p>STFT 的做法是：</p>
+<ol>
+<li>把音频切成很多短帧，比如每帧 25ms。</li>
+<li>相邻帧之间有重叠，比如每 10ms 移动一次。</li>
+<li>对每一帧分别做 FFT。</li>
+<li>把每一帧的频谱按时间排起来。</li>
+</ol>
+<p><img alt="幅度谱计算过程" loading="lazy" src="/images/2026-07/%E5%B9%85%E5%BA%A6%E8%B0%B1%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B.png"></p>
+<p>这张“横轴是时间，纵轴是频率，颜色表示能量”的图，就是 Spectrogram（声谱图）。</p>
+<hr>
+<h2 id="3-stft-到底在算什么">3. STFT 到底在算什么？</h2>
+<p>假设输入音频是 $x[n]$，第 $m$ 帧的起点是 $mH$，其中 $H$ 是 hop length。每帧先乘一个窗函数 $w[n]$，再做 FFT：</p>
+<p>$$
+X(m, k) = \sum_{n=0}^{N-1} x[n + mH] \cdot w[n] \cdot e^{-j2\pi kn/N}
+$$</p>
+<p>其中：</p>
+<table>
+  <thead>
+      <tr>
+          <th>符号</th>
+          <th>含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>$N$</td>
+          <td>FFT 点数，也通常是窗口大小附近的值</td>
+      </tr>
+      <tr>
+          <td>$H$</td>
+          <td>帧移，决定相邻帧间隔</td>
+      </tr>
+      <tr>
+          <td>$m$</td>
+          <td>第几帧，也就是时间维索引</td>
+      </tr>
+      <tr>
+          <td>$k$</td>
+          <td>第几个频率 bin</td>
+      </tr>
+      <tr>
+          <td>$w[n]$</td>
+          <td>窗函数，常用 Hann window</td>
+      </tr>
+  </tbody>
+</table>
+<p>FFT 输出的是复数，实际做特征时通常取幅度谱或功率谱：</p>
+<p>$$
+P(m, k) = |X(m, k)|^2
+$$</p>
+<p>到这里得到的是普通线性频谱。它的频率刻度是线性的，比如 0Hz、100Hz、200Hz、300Hz &hellip;</p>
+<hr>
+<h2 id="4-为什么要用-mel-频率">4. 为什么要用 Mel 频率？</h2>
+<p>人耳对频率的感知不是线性的。</p>
+<p>我们对低频变化更敏感，对高频变化相对迟钝。比如：</p>
+<ul>
+<li>300Hz 到 400Hz 的变化，人耳容易感觉明显。</li>
+<li>8000Hz 到 8100Hz 的变化，人耳通常没那么敏感。</li>
+</ul>
+<p>这就像看地图：市区街道很密，需要细看；荒野区域可以粗略一些。Mel 频率就是一种“听觉地图投影”：低频区域分辨率高，高频区域分辨率低。</p>
+<p>常用的 Hz 到 Mel 转换公式是：</p>
+<p>$$
+m = 2595 \log_{10}(1 + \frac{f}{700})
+$$</p>
+<p>反过来：</p>
+<p>$$
+f = 700(10^{m/2595} - 1)
+$$</p>
+<p><img alt="frequency to mel frequency" loading="lazy" src="/images/2026-07/linear_fs_to_mel_fs.png"></p>
+<p>大致效果如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">Hz 线性刻度:
+</span></span><span class="line"><span class="cl">0      1000      2000      3000      4000      5000      6000      7000      8000
+</span></span><span class="line"><span class="cl">|--------|---------|---------|---------|---------|---------|---------|---------|
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">Mel 滤波器中心频率:
+</span></span><span class="line"><span class="cl">0  90 190 300 430 580  760  980  1250  1600  2050  2650  3500  5000       8000
+</span></span><span class="line"><span class="cl">|--|--|---|---|----|----|----|----|-----|-----|-----|-----|------|----------|
+</span></span><span class="line"><span class="cl">低频更密，高频更稀</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<hr>
+<h2 id="5-mel-滤波器组是什么">5. Mel 滤波器组是什么？</h2>
+<p>Mel Spectrogram 的核心不是一个神秘算法，而是一组三角形滤波器。</p>
+<p>它们铺在线性频谱上，每个滤波器负责统计一小段频率范围内的能量。低频处滤波器更窄、更密；高频处滤波器更宽、更稀。</p>
+<p><img alt="标准梅尔滤波器" loading="lazy" src="/images/2026-07/%E6%A0%87%E5%87%86%E6%A2%85%E5%B0%94%E6%BB%A4%E6%B3%A2%E5%99%A8.png"></p>
+<p>如果线性功率谱是 $P(m, k)$，Mel 滤波器组是 $M(i, k)$，那么第 $i$ 个 Mel 频带的能量为：</p>
+<p>$$
+S(m, i) = \sum_k P(m, k) \cdot M(i, k)
+$$</p>
+<p>写成矩阵形式更直观：</p>
+<p>$$
+\text{MelPower} = \text{PowerSpectrogram} \times \text{MelFilterBank}^T
+$$</p>
+<p>最终通常再做 log 压缩：</p>
+<p>$$
+\text{LogMel}(m, i) = \log(S(m, i) + \epsilon)
+$$</p>
+<p>加上 $\epsilon$ 是为了避免 $\log(0)$。</p>
+<h3 id="whisper-中的-mel-filter-bank">Whisper 中的 Mel filter bank</h3>
+<p>Whisper 使用的 Mel filter bank 并不是在推理时临时手写生成的。OpenAI Whisper 里预先保存了 <code>mel_filters.npz</code>，其中 80 维版本的生成方式等价于：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">librosa</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">mel</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sr</span><span class="o">=</span><span class="mi">16000</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">n_fft</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">n_mels</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>这里没有显式写出的默认参数也很重要：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">htk</span><span class="o">=</span><span class="kc">False</span>
+</span></span><span class="line"><span class="cl"><span class="n">norm</span><span class="o">=</span><span class="s2">&#34;slaney&#34;</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p><img alt="面积归一化的梅尔滤波器" loading="lazy" src="/images/2026-07/%E9%9D%A2%E7%A7%AF%E5%BD%92%E4%B8%80%E5%8C%96%E7%9A%84%E6%A2%85%E5%B0%94%E6%BB%A4%E6%B3%A2%E5%99%A8.png"></p>
+<p>也就是说，Whisper 使用的是 Slaney 风格的 Mel 标尺，并且对 Mel filter 做了面积归一化。whisper.cpp 在模型转换时会把这组预计算好的 filter bank 写入 ggml 模型文件，运行时只是加载并使用这些系数。</p>
+<p>面积归一化的含义是：三角滤波器不再追求每个峰值都等于 1，而是让每个滤波器覆盖区域的面积更接近一致。因为 Mel 滤波器在 Hz 轴上越往高频越宽，如果所有三角形峰值都固定为 1，高频滤波器会覆盖更多 FFT bin，自然累加出更大的能量。这会给高频 Mel band 带来额外偏置。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">不归一化：
+</span></span><span class="line"><span class="cl">高频 filter 更宽 -&gt; 累加更多频点 -&gt; 输出偏大
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">面积归一化：
+</span></span><span class="line"><span class="cl">高频 filter 更宽 -&gt; 峰值相应降低 -&gt; 各频带能量更可比</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>因此，<code>norm=&quot;slaney&quot;</code> 的好处不是让图形看起来更整齐，而是让 Mel 频带更接近“对一个频率区间的加权平均能量”，而不是简单“加权求和”。这能减少由于滤波器宽度不同造成的能量偏差，也保证推理时的输入特征分布和 Whisper 训练时保持一致。</p>
+<hr>
+<h2 id="6-为什么模型喜欢-log-mel">6. 为什么模型喜欢 Log-Mel？</h2>
+<p>很多 ASR、音频分类模型并不直接吃原始波形，而是吃 Log-Mel 特征。原因主要有几个。</p>
+<h3 id="61-更接近人耳听觉">6.1 更接近人耳听觉</h3>
+<p>语音识别的目标不是还原波形，而是识别“人听到的内容”。Mel 刻度把频率轴变成更接近人耳感知的尺度，对语音任务很自然。</p>
+<h3 id="62-降低输入维度">6.2 降低输入维度</h3>
+<p>以 16kHz 音频、400 点 FFT 为例，线性频谱有 201 个频率 bin。经过 Mel 滤波器组后，常见配置只保留 80 个 Mel bins。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">线性功率谱:  201 维 / frame
+</span></span><span class="line"><span class="cl">Mel 特征:     80 维 / frame</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>这相当于把不必要的频率细节做了一次听觉意义上的压缩。</p>
+<h3 id="63-log-压缩更适合学习">6.3 log 压缩更适合学习</h3>
+<p>声音能量的动态范围很大。一个很响的声音可能比很轻的声音能量大几百倍甚至几千倍。直接用线性能量，模型容易被大能量区域支配。</p>
+<p>log 压缩可以把乘法比例变成加法差异：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">energy:  1      10      100      1000
+</span></span><span class="line"><span class="cl">log:     0      2.3     4.6      6.9</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>这也更接近人耳对响度的感知方式。</p>
+<hr>
+<h2 id="7-常见参数怎么选">7. 常见参数怎么选？</h2>
+<p>语音任务里最常见的配置：</p>
+<table>
+  <thead>
+      <tr>
+          <th>参数</th>
+          <th>常见值</th>
+          <th>说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>sample_rate</td>
+          <td>16000</td>
+          <td>ASR 常用 16kHz</td>
+      </tr>
+      <tr>
+          <td>win_length</td>
+          <td>400</td>
+          <td>25ms，$16000 \times 0.025 = 400$</td>
+      </tr>
+      <tr>
+          <td>hop_length</td>
+          <td>160</td>
+          <td>10ms，$16000 \times 0.01 = 160$</td>
+      </tr>
+      <tr>
+          <td>n_fft</td>
+          <td>512</td>
+          <td>FFT 点数，通常不小于 win_length</td>
+      </tr>
+      <tr>
+          <td>n_mels</td>
+          <td>80</td>
+          <td>Whisper、Paraformer 等常见取值</td>
+      </tr>
+      <tr>
+          <td>f_min</td>
+          <td>0</td>
+          <td>最低频率</td>
+      </tr>
+      <tr>
+          <td>f_max</td>
+          <td>8000</td>
+          <td>16kHz 采样时 Nyquist 频率</td>
+      </tr>
+  </tbody>
+</table>
+<p>帧长和帧移的意义：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">16kHz 音频:
+</span></span><span class="line"><span class="cl">1 秒 = 16000 个采样点
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">win_length = 400  -&gt; 每帧 25ms
+</span></span><span class="line"><span class="cl">hop_length = 160  -&gt; 每 10ms 产生一帧
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">所以 1 秒音频大约产生 100 帧特征。</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>如果最终特征维度是 80，那么 1 秒音频大约变成：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">100 frames x 80 mel bins</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>这已经很像一张小图片了。横轴是时间，纵轴是 Mel 频率，像素值是 log energy。</p>
+<hr>
+<h2 id="8-实践用-librosa-计算-mel-spectrogram">8. 实践：用 librosa 计算 Mel Spectrogram</h2>
+<p>先安装依赖：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install librosa matplotlib soundfile</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">show_mel_filters_by_librosa</span><span class="p">(</span><span class="n">n_fft</span><span class="p">,</span> <span class="n">n_mel</span><span class="p">,</span> <span class="n">sample_rate</span><span class="p">,</span> <span class="n">htk</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="s1">&#39;slaney&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="kn">import</span> <span class="nn">librosa</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">filters</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">mel</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">sr</span><span class="o">=</span><span class="n">sample_rate</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">n_fft</span><span class="o">=</span><span class="n">n_fft</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">n_mels</span><span class="o">=</span><span class="n">n_mel</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">htk</span><span class="o">=</span><span class="n">htk</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">norm</span><span class="o">=</span><span class="n">norm</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">frequency_bins</span> <span class="o">=</span> <span class="n">librosa</span><span class="o">.</span><span class="n">fft_frequencies</span><span class="p">(</span><span class="n">sr</span><span class="o">=</span><span class="n">sample_rate</span><span class="p">,</span> <span class="n">n_fft</span><span class="o">=</span><span class="n">n_fft</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_mel</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">frequency_bins</span><span class="p">,</span> <span class="n">filters</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Mel Filter Bank by librosa&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Weight&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sample_rate</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">img</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">filters</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">origin</span><span class="o">=</span><span class="s1">&#39;lower&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">aspect</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">extent</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">sample_rate</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n_mel</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Mel Filter Bank Matrix by librosa&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Frequency (Hz)&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Mel filter index&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Weight&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">filters</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<hr>
+<h2 id="9-与-asr-前端的关系">9. 与 ASR 前端的关系</h2>
+<p>在 ASR 系统里，Mel Spectrogram 通常是声学前端的第一步。</p>
+
+<div class="mermaid">graph LR
+    A[PCM / WAV] --&gt; B[Log-Mel / FBank]
+    B --&gt; C[CMVN]
+    C --&gt; D[LFR / stacking]
+    D --&gt; E[Encoder]
+    E --&gt; F[CTC / Attention / RNN-T]
+    F --&gt; G[文本]</div>
+<p>不同系统叫法可能略有差异：</p>
+<table>
+  <thead>
+      <tr>
+          <th>名称</th>
+          <th>常见含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Mel Spectrogram</td>
+          <td>Mel 频带能量图，通常可能还没取 log</td>
+      </tr>
+      <tr>
+          <td>Log-Mel</td>
+          <td>取 log 或 dB 后的 Mel 特征</td>
+      </tr>
+      <tr>
+          <td>FBank</td>
+          <td>Filter Bank 特征，在 ASR 中通常就是 Log-Mel filterbank</td>
+      </tr>
+      <tr>
+          <td>MFCC</td>
+          <td>在 Log-Mel 后再做 DCT 得到的倒谱特征</td>
+      </tr>
+  </tbody>
+</table>
+<p>现代深度学习 ASR 更常用 Log-Mel / FBank，而不是 MFCC。因为神经网络可以自己学习频带之间的组合关系，不一定需要 DCT 做进一步压缩。</p>
+<hr>
+<h2 id="10-常见坑">10. 常见坑</h2>
+<h3 id="101-采样率要对齐">10.1 采样率要对齐</h3>
+<p>模型训练用 16kHz，推理也应该用 16kHz。采样率不一致会导致频率轴整体错位。</p>
+<h3 id="102-power-和-amplitude-不要混">10.2 power 和 amplitude 不要混</h3>
+<p>幅度谱是：</p>
+<p>$$
+|X|
+$$</p>
+<p>功率谱是：</p>
+<p>$$
+|X|^2
+$$</p>
+<p><code>librosa.feature.melspectrogram(..., power=2.0)</code> 用的是功率谱。不同框架如果这里不一致，特征数值会明显不同。</p>
+<h3 id="103-loglndb-的差异">10.3 log、ln、dB 的差异</h3>
+<p>有些实现用自然对数：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">eps</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>有些实现用 dB：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="mi">10</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">eps</span><span class="p">)</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>它们表达的信息相近，但数值尺度不同。部署模型时要和训练阶段保持一致。</p>
+<h3 id="104-shape-方向要确认">10.4 shape 方向要确认</h3>
+<p><code>librosa</code> 常见输出是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">(mel_bins, frames)</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>ASR runtime 常见输入是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">(frames, mel_bins)</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>这里错了，模型不会报特别明显的错误，但识别结果会很离谱。</p>
+<hr>
+<h2 id="11-总结">11. 总结</h2>
+<p>Mel Spectrogram 可以理解成三层变换：</p>
+<ol>
+<li><strong>STFT</strong>：把波形变成时间-频率图。</li>
+<li><strong>Mel 滤波器组</strong>：把线性频率轴变成更接近人耳的 Mel 频率轴。</li>
+<li><strong>log 压缩</strong>：把巨大能量范围压缩到更适合模型学习的尺度。</li>
+</ol>
+<p>最终得到的 Log-Mel 特征，是一张“人耳友好 + 模型友好”的声音图片。它既保留了语音随时间变化的频率结构，又比原始波形更稳定、更低维、更容易被神经网络使用。</p>
+<hr>
+<h2 id="参考">参考</h2>
+<ul>
+<li><a href="https://medium.com/@kunalkushwahatg/exploring-mel-spectrograms-a-powerful-feature-extraction-tool-for-audio-signals-3b68ff6fcf96">Exploring Mel Spectrograms: A Powerful Feature Extraction Tool for Audio Signals</a></li>
+<li><a href="https://medium.com/@kunalkushwahatg/zooming-in-understanding-the-short-time-fourier-transform-27c58f6a08ee">Zooming In: Understanding the Short-Time Fourier Transform</a></li>
+<li><a href="https://librosa.org/doc/main/generated/librosa.feature.melspectrogram.html">librosa.feature.melspectrogram</a></li>
+</ul>
 ]]></content:encoded>
     </item>
     <item>
@@ -4122,272 +4629,6 @@ chart.setOption({
 <p>对于实时语音降噪场景，隐状态管理是关键，需要仔细设计状态传递逻辑，确保模型能够正确利用历史信息。</p>
 <p>通过合理使用ORT，可以充分发挥深度学习语音降噪模型的性能，实现高效、稳定的实时推理。</p>
 <p>另外，ORT还有很多高级特性，大家可以自己摸索尝试下。</p>
-<img src="/images/To-Be-Continued.jpeg"/>]]></content:encoded>
-    </item>
-    <item>
-      <title>语音增强算法评估指南</title>
-      <link>https://lyapple2008.github.io/posts/202508/2025-08-11-%E9%9F%B3%E9%A2%91%E7%AE%97%E6%B3%95%E8%AF%84%E4%BC%B0/</link>
-      <pubDate>Mon, 11 Aug 2025 22:27:28 +0800</pubDate>
-      <guid>https://lyapple2008.github.io/posts/202508/2025-08-11-%E9%9F%B3%E9%A2%91%E7%AE%97%E6%B3%95%E8%AF%84%E4%BC%B0/</guid>
-      <description>&lt;h1 id=&#34;语音增强算法评估指南&#34;&gt;语音增强算法评估指南&lt;/h1&gt;
-&lt;p&gt;如今语音增强算法已成为智能设备、视频会议和助听器等应用的核心，它能从嘈杂环境中“拯救”清晰的语音信号，但如何判断一个算法的好坏？这就是评估的意义所在。今天，我们来聊聊语音增强算法的评估体系，通过一个国际挑战赛作为切入点，带你一步步了解关键指标和计算方法。无论你是初学者还是从业者，这篇文章都能帮你理清思路。&lt;/p&gt;</description>
-      <content:encoded><![CDATA[<h1 id="语音增强算法评估指南">语音增强算法评估指南</h1>
-<p>如今语音增强算法已成为智能设备、视频会议和助听器等应用的核心，它能从嘈杂环境中“拯救”清晰的语音信号，但如何判断一个算法的好坏？这就是评估的意义所在。今天，我们来聊聊语音增强算法的评估体系，通过一个国际挑战赛作为切入点，带你一步步了解关键指标和计算方法。无论你是初学者还是从业者，这篇文章都能帮你理清思路。</p>
-<h2 id="前言为什么需要评估语音增强算法">前言：为什么需要评估语音增强算法？</h2>
-<p>想象一下，你开发了一个语音增强模型，自认为它能完美去除背景噪音。但在实际应用中，用户反馈“声音听起来怪怪的”或“某些噪音下完全失效”。这就是为什么评估至关重要：它提供了一个客观、量化的标准，帮助开发者识别算法的优缺点、优化性能，并与其他方法进行公平比较。</p>
-<p>评估的作用主要体现在三个方面：</p>
-<ul>
-<li><strong>指导开发</strong>：通过指标反馈，迭代模型设计，避免主观偏见。</li>
-<li><strong>基准比较</strong>：在竞赛或论文中，用统一标准衡量不同算法的进步。</li>
-<li><strong>实际部署</strong>：确保算法在真实场景（如移动端或低信噪比环境）下的鲁棒性和通用性。</li>
-</ul>
-<p>没有评估，算法开发就像盲人摸象；有了评估，它就成了科学工程。接下来，我们以NeurIPS 2024竞赛轨道下的URGENT 2024挑战为例，深入探讨评估体系。这个挑战聚焦于构建通用语音增强模型，强调在不同噪声、采样率和麦克风配置下的表现。</p>
-<h2 id="urgent-2024挑战评估体系的典范">URGENT 2024挑战：评估体系的典范</h2>
-<p><a href="https://urgent-challenge.github.io/urgent2024/">URGENT 2024（Universality, Robustness, and Generalizability for EnhancemeNT）</a>挑战旨在解决传统语音增强研究的痛点：许多算法只针对特定条件优化，缺乏跨场景泛化能力。挑战要求参赛者使用统一的公共数据集训练单一模型，处理各种失真（如噪声、混响），并支持不同输入格式（如单/多通道、不同采样率）。</p>
-<p>这个挑战的亮点在于其全面评估框架，包括非侵入式（无参考信号）和侵入式（需参考信号）指标，以及下游任务相关指标（如词错误率WER）。它还引入主观MOS（Mean Opinion Score）评分作为最终盲测环节的补充。挑战提供ESPnet工具包的基线模型，鼓励数据增强，但严格限制训练数据来源，确保公平性。</p>
-<p>通过这个挑战，我们可以看到评估不仅是“打分”，而是推动行业向真实场景迈进的基准。接下来，重点介绍挑战中使用的核心客观指标：PESQ、ESTOI、SDR、MCD、LSD、DNSMOS和NISQA。</p>
-<h2 id="评估指标详解每个指标都在测什么">评估指标详解：每个指标都在测什么？</h2>
-<p>语音增强评估指标大致分为侵入式（需要干净参考信号）和非侵入式（无需参考，模拟真实场景）。URGENT 2024挑战选用这些指标来全面考察算法的语音质量、可懂度和保真度。下面逐一解释：</p>
-<ul>
-<li>
-<p><strong>PESQ (Perceptual Evaluation of Speech Quality)</strong>：这是一个侵入式指标，通过比较增强后的语音与参考干净信号，评估感知质量。它关注失真和噪声对人类听觉的影响，得分范围通常为-0.5到4.5（越高越好）。在语音增强中，PESQ常用于客观测试算法的整体质量，尤其适合电话或VoIP场景。</p>
-</li>
-<li>
-<p><strong>ESTOI (Extended Short-Time Objective Intelligibility)</strong>：侵入式指标，专注于评估增强语音的可懂度。它分析短时段信号，预测听者在噪声下的理解能力，得分从0到1（越高表示更易懂）。这个指标特别适用于低信噪比环境，帮助算法优化对人类认知的友好度。</p>
-</li>
-<li>
-<p><strong>SDR (Signal-to-Distortion Ratio)</strong>：侵入式指标，计算期望信号能量与失真（包括噪声和伪影）能量的比率，通常以dB为单位（越高越好）。它评估增强信号的整体保真度，在多通道或复杂噪声场景中非常实用。</p>
-</li>
-<li>
-<p><strong>MCD (Mel-Cepstral Distortion)</strong>：侵入式指标，量化增强信号与参考信号在梅尔倒谱系数上的差异（越低越好）。它聚焦谱失真，提供对感知质量的洞察，常用于评估算法对语音频谱的保留能力。</p>
-</li>
-<li>
-<p><strong>LSD (Log-Spectral Distance)</strong>：侵入式指标，测量增强和参考信号功率谱的对数差异（越低越好）。它评估谱准确性，帮助理解算法如何保留原始语音特征，适用于频域分析。</p>
-</li>
-<li>
-<p><strong>DNSMOS (Deep Noise Suppression Mean Opinion Score)</strong>：非侵入式指标，无需参考信号，使用深度学习模型预测语音质量（模拟人类评分，范围1-5）。它基于人类评级训练，适用于真实场景评估，尤其当干净参考不可用时。</p>
-</li>
-<li>
-<p><strong>NISQA (Non-Intrusive Speech Quality Assessment)</strong>：同样是非侵入式指标，使用机器学习预测感知质量，无需参考。它评估整体语音质量，在参考信号缺失的实际部署中大放异彩。</p>
-</li>
-</ul>
-<p>这些指标组合使用，能从质量、可懂度和失真等多维度评估算法。URGENT挑战强调，非侵入式指标如DNSMOS和NISQA更贴近现实，因为真实环境中往往没有干净参考。</p>
-<h2 id="评测数据集从哪里获取如何使用">评测数据集：从哪里获取，如何使用？</h2>
-<p>要实际计算这些指标，需要可靠的数据集。URGENT 2024挑战通过其GitHub仓库提供官方评测数据集，托管在Hugging Face上，便于下载和使用。</p>
-<ul>
-<li><strong>官方评测数据集</strong>：包括验证集、非盲测集和盲测集，地址：https://huggingface.co/datasets/urgent-challenge/urgent2024_official。这些数据集包含各种失真条件下的语音样本，适合测试算法的通用性。</li>
-<li><strong>MOS数据集</strong>：额外提供带人类标注MOS分数的语音质量评估数据集，地址：https://huggingface.co/datasets/urgent-challenge/urgent2024_mos。用于主观指标验证。</li>
-</ul>
-<p>访问方式简单：在Hugging Face平台搜索并下载，或使用Python的datasets库加载。数据集设计覆盖不同噪声、混响和麦克风配置，确保评估的全面性。</p>
-<blockquote>
-<p>可以参考下面的代码将hugging face中的validataion数据集以wav形式保存在本地，方便后续不同算法进行处理后，对处理结果进行评估。</p></blockquote>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">soundfile</span> <span class="k">as</span> <span class="nn">sf</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># ===== 参数 =====</span>
-</span></span><span class="line"><span class="cl"><span class="n">DATASET_NAME</span> <span class="o">=</span> <span class="s2">&#34;urgent-challenge/urgent2024_official&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="n">SPLIT</span> <span class="o">=</span> <span class="s2">&#34;validation&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="n">SAVE_DIR</span> <span class="o">=</span> <span class="s2">&#34;../data/validation&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="n">NUM_PROC</span> <span class="o">=</span> <span class="mi">8</span>  <span class="c1"># 并行进程数，可以改成你的 CPU 核心数</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># ===== 目录准备 =====</span>
-</span></span><span class="line"><span class="cl"><span class="n">clean_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">SAVE_DIR</span><span class="p">,</span> <span class="s2">&#34;clean&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">noisy_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">SAVE_DIR</span><span class="p">,</span> <span class="s2">&#34;noisy&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">clean_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">noisy_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># ===== 加载数据 =====</span>
-</span></span><span class="line"><span class="cl"><span class="n">dataset</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="n">DATASET_NAME</span><span class="p">,</span> <span class="n">SPLIT</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># ===== 保存函数 =====</span>
-</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">save_audio</span><span class="p">(</span><span class="n">example</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">    <span class="n">uid</span> <span class="o">=</span> <span class="n">example</span><span class="p">[</span><span class="s2">&#34;id&#34;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1"># noisy</span>
-</span></span><span class="line"><span class="cl">    <span class="n">noisy</span> <span class="o">=</span> <span class="n">example</span><span class="p">[</span><span class="s2">&#34;noisy_audio&#34;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="n">noisy_samples</span><span class="p">,</span> <span class="n">noisy_sr</span> <span class="o">=</span> <span class="n">noisy</span><span class="p">[</span><span class="s2">&#34;array&#34;</span><span class="p">],</span> <span class="n">noisy</span><span class="p">[</span><span class="s2">&#34;sampling_rate&#34;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1"># clean</span>
-</span></span><span class="line"><span class="cl">    <span class="n">clean</span> <span class="o">=</span> <span class="n">example</span><span class="p">[</span><span class="s2">&#34;clean_audio&#34;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="n">clean_samples</span><span class="p">,</span> <span class="n">clean_sr</span> <span class="o">=</span> <span class="n">clean</span><span class="p">[</span><span class="s2">&#34;array&#34;</span><span class="p">],</span> <span class="n">clean</span><span class="p">[</span><span class="s2">&#34;sampling_rate&#34;</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1"># 确保采样率一致</span>
-</span></span><span class="line"><span class="cl">    <span class="k">assert</span> <span class="n">noisy_sr</span> <span class="o">==</span> <span class="n">clean_sr</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&#34;Sample rate mismatch: noisy=</span><span class="si">{</span><span class="n">noisy_sr</span><span class="si">}</span><span class="s2">, clean=</span><span class="si">{</span><span class="n">clean_sr</span><span class="si">}</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1"># 保存文件路径</span>
-</span></span><span class="line"><span class="cl">    <span class="n">noisy_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">noisy_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">uid</span><span class="si">}</span><span class="s2">.wav&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">clean_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">clean_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">uid</span><span class="si">}</span><span class="s2">.wav&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1"># 写文件</span>
-</span></span><span class="line"><span class="cl">    <span class="n">sf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">noisy_path</span><span class="p">,</span> <span class="n">noisy_samples</span><span class="p">,</span> <span class="n">noisy_sr</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">sf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">clean_path</span><span class="p">,</span> <span class="n">clean_samples</span><span class="p">,</span> <span class="n">clean_sr</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">{</span><span class="s2">&#34;noisy_path&#34;</span><span class="p">:</span> <span class="n">noisy_path</span><span class="p">,</span> <span class="s2">&#34;clean_path&#34;</span><span class="p">:</span> <span class="n">clean_path</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># ===== 多进程导出 =====</span>
-</span></span><span class="line"><span class="cl"><span class="n">dataset</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="n">save_audio</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="n">num_proc</span><span class="o">=</span><span class="n">NUM_PROC</span><span class="p">,</span>      <span class="c1"># 开启多进程</span>
-</span></span><span class="line"><span class="cl">    <span class="n">desc</span><span class="o">=</span><span class="s2">&#34;Exporting audio&#34;</span><span class="p">,</span> <span class="c1"># tqdm 进度条描述</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span></span></span></code></pre></td></tr></table>
-</div>
-</div>
-<h2 id="指标计算实践一步步上手">指标计算实践：一步步上手</h2>
-<p>计算这些指标需要工具和脚本。URGENT挑战的GitHub仓库（https://github.com/urgent-challenge/urgent2024_challenge）提供了evaluation_metrics文件夹下的实用脚本，如calculate_intrusive_se_metrics.py（处理PESQ、ESTOI、SDR、MCD、LSD等侵入式指标，支持无限SDR值处理），calculate_nonintrusive_dnsmos.py和calculate_nonintrusive_nisqa.py分别计算DNSMOS和NISQA。</p>
-<p><strong>计算步骤示例</strong>：</p>
-<blockquote>
-<p>参考evaluation_metrics/README.md</p></blockquote>
-<ol>
-<li><strong>数据准备</strong>对validation数据集中的noisy数据进行处理，得到enhanced的数据，按下面的目录结构进行组织
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">📁 /path/to/your/data/
-</span></span><span class="line"><span class="cl">├── 📁 enhanced/
-</span></span><span class="line"><span class="cl">│   ├── 🔈 fileid_1.wav
-</span></span><span class="line"><span class="cl">│   ├── 🔈 fileid_2.wav
-</span></span><span class="line"><span class="cl">│   └── ...
-</span></span><span class="line"><span class="cl">└── 📁 clean/
-</span></span><span class="line"><span class="cl">    ├── 🔈 fileid_1.wav
-</span></span><span class="line"><span class="cl">    ├── 🔈 fileid_2.wav
-</span></span><span class="line"><span class="cl">    └── ...</span></span></code></pre></td></tr></table>
-</div>
-</div>
-</li>
-<li><strong>生成scp文件</strong> 为clean数据和enhance数据生成对应的scp文件，在scp文件中包含两列信息，一列是一个唯一的文件id，一列是文件路径，如下
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span><span class="lnt">9
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># enhanced.scp
-</span></span><span class="line"><span class="cl">fileid_1 /path/to/your/data/enhanced/fileid_1.flac
-</span></span><span class="line"><span class="cl">fileid_2 /path/to/your/data/enhanced/fileid_2.flac
-</span></span><span class="line"><span class="cl">...
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"># reference.scp
-</span></span><span class="line"><span class="cl">fileid_1 /path/to/your/data/clean/fileid_1.flac
-</span></span><span class="line"><span class="cl">fileid_2 /path/to/your/data/clean/fileid_2.flac
-</span></span><span class="line"><span class="cl">...</span></span></code></pre></td></tr></table>
-</div>
-</div>
-</li>
-<li><strong>运行脚本</strong>：例如，对于侵入式指标，运行<code>calculate_intrusive_se_metrics.py</code>输入增强文件和参考文件，输出PESQ等分数。非侵入式如DNSMOS可直接输入增强语音。</li>
-<li><strong>示例代码片段</strong>：
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nv">nj</span><span class="o">=</span><span class="m">8</span>  <span class="c1"># Number of parallel CPU jobs for speedup</span>
-</span></span><span class="line"><span class="cl"><span class="nv">python</span><span class="o">=</span>python3
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">output_prefix</span><span class="o">=</span>metrics_score
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># PESQ, ESTOI, SDR, MCD, LSD</span>
-</span></span><span class="line"><span class="cl"><span class="si">${</span><span class="nv">python</span><span class="si">}</span> calculate_intrusive_se_metrics.py <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>   --ref_scp reference.scp <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>   --inf_scp enhanced_webrtc.scp <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>   --output_dir <span class="s2">&#34;</span><span class="si">${</span><span class="nv">output_prefix</span><span class="si">}</span><span class="s2">&#34;</span>/scoring_webrtc <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>   --nj <span class="si">${</span><span class="nv">nj</span><span class="si">}</span> <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>   --chunksize <span class="m">60</span></span></span></code></pre></td></tr></table>
-</div>
-</div>
-对于批量计算，仓库脚本支持文件夹输入。</li>
-</ol>
-<p>在实践中，建议结合主观听测（如MOS）验证客观指标，避免“高分低体验”的情况。</p>
-<h2 id="结语评估驱动创新">结语：评估驱动创新</h2>
-<p>语音增强算法评估不是终点，而是起点。通过URGENT 2024这样的挑战，我们看到评估体系在推动算法向通用、鲁棒方向演进。未来，随着更多非侵入式指标和多模态数据的融入，评估将更贴近真实世界。</p>
-<p>最后我们来看下之前介绍的WebRTC NS是什么水平吧，最终的指标如下所示。</p>
-<p><img alt="webrtc ns算法评估指标" loading="lazy" src="/images/2025-08-11/validation_webrtc_ns.png"></p>
-<p><img alt="noisy" loading="lazy" src="/images/2025-08-11/validation_noisy.png"></p>
-<p>可以看到WebRTC NS的评估指标分数只比noisy的分数好一点点，可见还有很大的上升空间。传统算法或多或少都会基于一些假设，而这些假设不只小范围内是生效的，这造成了传统算法的局限性。近年深度学习基于数据驱动的方法，进一步突破这些局限性，极大提高了音频算法的效果上线。下期预告，让我们迈上深度学习时代吧。</p>
 <img src="/images/To-Be-Continued.jpeg"/>]]></content:encoded>
     </item>
   </channel>
