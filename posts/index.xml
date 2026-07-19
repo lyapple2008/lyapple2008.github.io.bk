@@ -134,9 +134,11 @@ chart.setOption({
       <link>https://lyapple2008.github.io/posts/202607/2026-07-15-%E6%9C%AC%E5%9C%B0ai%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%96%B9%E6%A1%88/</link>
       <pubDate>Wed, 15 Jul 2026 22:52:35 +0800</pubDate>
       <guid>https://lyapple2008.github.io/posts/202607/2026-07-15-%E6%9C%AC%E5%9C%B0ai%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%96%B9%E6%A1%88/</guid>
-      <description>&lt;blockquote&gt;
+      <description>&lt;p&gt;&lt;img alt=&#34;尝试本地部署？&#34; loading=&#34;lazy&#34; src=&#34;https://lyapple2008.github.io/images/2026-07/%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2.jpg&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
 &lt;p&gt;如果把个人可以买到的设备限制在最多 128GB 统一内存，什么开源模型最适合 AI Coding？买 Mac Studio、AMD 大内存小主机、DGX Spark 或多显卡工作站，和直接调用在线 API 相比，哪一种更快、更便宜？&lt;/p&gt;</description>
-      <content:encoded><![CDATA[<blockquote>
+      <content:encoded><![CDATA[<p><img alt="尝试本地部署？" loading="lazy" src="/images/2026-07/%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2.jpg"></p>
+<blockquote>
 <p>如果把个人可以买到的设备限制在最多 128GB 统一内存，什么开源模型最适合 AI Coding？买 Mac Studio、AMD 大内存小主机、DGX Spark 或多显卡工作站，和直接调用在线 API 相比，哪一种更快、更便宜？</p></blockquote>
 <p>这篇文章只讨论 <strong>AI Coding Agent</strong>：模型需要读取代码仓库、调用终端、修改多个文件、执行测试，并根据报错继续迭代。普通聊天、知识问答和只补全下一行代码的 FIM 模型不在本文范围内。</p>
 <p>为了让比较有实际采购意义，本文增加两个约束：</p>
