@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Qwen3-Coder-Next on BeYoung</title>
+    <link>https://lyapple2008.github.io/tags/qwen3-coder-next/</link>
+    <description>Recent content in Qwen3-Coder-Next on BeYoung</description>
+    <image>
+      <title>BeYoung</title>
+      <url>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- 0.147.9</generator>
+    <language>zh</language>
+    <copyright>See this site&amp;rsquo;s source code here, licensed under GPLv3 ·</copyright>
+    <lastBuildDate>Wed, 15 Jul 2026 22:52:35 +0800</lastBuildDate>
+    <atom:link href="https://lyapple2008.github.io/tags/qwen3-coder-next/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Token在燃烧？尝试本地部署？</title>
+      <link>https://lyapple2008.github.io/posts/202607/2026-07-15-%E6%9C%AC%E5%9C%B0ai%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%96%B9%E6%A1%88/</link>
+      <pubDate>Wed, 15 Jul 2026 22:52:35 +0800</pubDate>
+      <guid>https://lyapple2008.github.io/posts/202607/2026-07-15-%E6%9C%AC%E5%9C%B0ai%E5%A4%A7%E6%A8%A1%E5%9E%8B%E6%96%B9%E6%A1%88/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;如果把个人可以买到的设备限制在最多 128GB 统一内存，什么开源模型最适合 AI Coding？买 Mac Studio、AMD 大内存小主机、DGX Spark 或多显卡工作站，和直接调用在线 API 相比，哪一种更快、更便宜？&lt;/p&gt;</description>
+      <content:encoded><![CDATA[<blockquote>
+<p>如果把个人可以买到的设备限制在最多 128GB 统一内存，什么开源模型最适合 AI Coding？买 Mac Studio、AMD 大内存小主机、DGX Spark 或多显卡工作站，和直接调用在线 API 相比，哪一种更快、更便宜？</p></blockquote>
+<p>这篇文章只讨论 <strong>AI Coding Agent</strong>：模型需要读取代码仓库、调用终端、修改多个文件、执行测试，并根据报错继续迭代。普通聊天、知识问答和只补全下一行代码的 FIM 模型不在本文范围内。</p>
+<p>为了让比较有实际采购意义，本文增加两个约束：</p>
+<ol>
+<li>本地设备的统一内存或可用于推理的总高速内存不超过 <strong>128GB</strong>；</li>
+<li>所有本地方案运行同一个开源模型，在线方案也尽量调用同名模型，避免把模型能力差异误算成硬件差异。</li>
+</ol>
+<p>资料和价格更新至 <strong>2026 年 7 月 19 日</strong>。硬件价格按市场数量级估算，API 价格来自官方页面，实际采购价、汇率和服务价格可能变化。</p>
+<h2 id="一先说结论">一、先说结论</h2>
+<p>在 128GB 上限内，我选择 <strong>Qwen3-Coder-Next</strong> 作为本地 AI Coding 的比较样本。它不是所有维度都绝对最强，但在“开源许可、Coding Agent 能力、模型尺寸和本地推理效率”这几个条件同时成立时，是目前最有代表性的高端本地模型之一。</p>
+<p>我的结论是：</p>
+<ol>
+<li><strong>只为降低 Token 费用，不值得专门购买本地硬件。</strong> 同名模型的 Qwen Cloud API 在短上下文下，重度个人使用约 ¥216/月；一台 ¥2万～¥5万元的本地设备通常需要很多年才能靠 API 费差价回本。</li>
+<li><strong>已有 64GB 以上 Mac 或 48GB 显存工作站时，本地部署很有价值。</strong> Qwen3-Coder-Next 4bit 约需 46GB，模型完整装入后可以达到可交互的 Agent 速度。</li>
+<li><strong>64GB 是能用，96GB～128GB 才是舒服。</strong> 64GB 在加载 4bit 权重后，留给操作系统、运行时和 KV Cache 的空间有限；96GB～128GB 更适合长上下文和并行工具任务。</li>
+<li><strong>128GB 容量不等于高性能。</strong> Ryzen AI Max+ 395 和 DGX Spark 都能装入模型，但生成速度会受到约 256～273GB/s 内存带宽限制；专业显卡带宽更高，但价格也高得多。</li>
+<li><strong>个人最合理的模式仍然是混合使用。</strong> 敏感代码、离线任务和高频小修改走本地；长上下文、紧急任务和复杂重构走 API。</li>
+</ol>
+<h2 id="二为什么选择-qwen3-coder-next">二、为什么选择 Qwen3-Coder-Next</h2>
+<p><a href="https://huggingface.co/Qwen/Qwen3-Coder-Next">Qwen3-Coder-Next</a> 是专门面向 Coding Agent 和本地开发的 MoE 模型，采用 Apache-2.0 许可证。官方模型卡给出的核心参数如下：</p>
+<ul>
+<li>总参数量 80B，每个 Token 激活约 3B；</li>
+<li>原生上下文 262,144 Token；</li>
+<li>只支持非思考模式；</li>
+<li>支持函数调用和 OpenAI 兼容服务；</li>
+<li>可接入 Qwen Code、Claude Code、Codex、Cline、Kilo 等 Coding 工具；</li>
+<li>支持 llama.cpp、MLX-LM、Ollama、SGLang 和 vLLM 等后端。</li>
+</ul>
+<p>公开 Coding 基准如下：</p>
+<table>
+  <thead>
+      <tr>
+          <th>基准</th>
+          <th style="text-align: right">成绩</th>
+          <th>主要考察内容</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>SWE-bench Verified</td>
+          <td style="text-align: right">70.6</td>
+          <td>修复真实 GitHub Issue</td>
+      </tr>
+      <tr>
+          <td>SWE-bench Pro</td>
+          <td style="text-align: right">44.3</td>
+          <td>更困难、更抗数据污染的软件工程任务</td>
+      </tr>
+      <tr>
+          <td>Terminal-Bench 2.0</td>
+          <td style="text-align: right">36.2</td>
+          <td>终端操作、工具调用和长链路 Agent 能力</td>
+      </tr>
+  </tbody>
+</table>
+<p>这些成绩会受到 Agent 框架、提示词、工具集和推理参数影响，不能理解为在任何 IDE 中都有固定成功率。不过它们至少说明，这个模型的目标不是生成几个函数，而是完成仓库级软件工程任务。</p>
+<h3 id="为什么不选择更大的模型">为什么不选择更大的模型</h3>
+<p>总参数更大的模型不一定适合本次硬件约束。例如 GLM-5.2 的最低实用量化也需要约 223GB～245GB 总内存，128GB 设备只能依赖大量 SSD 或远程卸载。它虽然能“启动”，但权重会频繁跨层级搬运，无法获得正常的 AI Coding 交互体验。</p>
+<p>Qwen3-Coder-Next 的优势正好相反：总参数 80B，但每 Token 只激活约 3B。根据 <a href="https://unsloth.ai/docs/models/qwen3-coder-next">Unsloth 的本地运行说明</a>：</p>
+<table>
+  <thead>
+      <tr>
+          <th>量化精度</th>
+          <th style="text-align: right">模型占用</th>
+          <th style="text-align: right">适合的本地内存</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>3bit</td>
+          <td style="text-align: right">低于 4bit，具体随量化格式变化</td>
+          <td style="text-align: right">48GB 紧凑部署</td>
+      </tr>
+      <tr>
+          <td>4bit</td>
+          <td style="text-align: right">约 46GB</td>
+          <td style="text-align: right">64GB～96GB</td>
+      </tr>
+      <tr>
+          <td>8bit</td>
+          <td style="text-align: right">约 85GB</td>
+          <td style="text-align: right">96GB～128GB</td>
+      </tr>
+      <tr>
+          <td>BF16</td>
+          <td style="text-align: right">约 160GB，另需运行时空间</td>
+          <td style="text-align: right">超出本文上限</td>
+      </tr>
+  </tbody>
+</table>
+<p>本文默认选择 <strong>4bit</strong>。它能在 64GB 设备上运行，又比 3bit 更稳；8bit 虽然更接近原始模型，但在 96GB 设备上只剩很少空间给 KV Cache，综合体验未必更好。</p>
+<h2 id="三ai-coding-性能不能只看-tokens">三、AI Coding 性能不能只看 Token/s</h2>
+<p>Coding Agent 的完整链路通常是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">理解需求 -&gt; 搜索仓库 -&gt; 阅读文件 -&gt; 规划修改 -&gt; 编辑代码
+</span></span><span class="line"><span class="cl">        -&gt; 执行命令 -&gt; 分析报错 -&gt; 再次修改 -&gt; 运行测试</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>因此需要同时比较四种性能：</p>
+<ul>
+<li><strong>任务成功率</strong>：能否最终通过测试，而不是只输出看起来正确的代码；</li>
+<li><strong>首 Token 延迟</strong>：提交任务后多久开始响应；</li>
+<li><strong>生成速度</strong>：模型持续输出时的 Token/s；</li>
+<li><strong>总完成时间</strong>：包括读取上下文、工具调用、失败重试和人工纠错。</li>
+</ul>
+<p>本地部署最容易只关注生成速度，但 AI Coding 中经常更慢的是长提示词的 Prefill。一次输入 50K Token 的仓库上下文，即使后续输出很快，也可能在开始生成前等待很久。</p>
+<p>另一个常见误区是把“支持 256K 上下文”理解成“应该默认开启 256K”。上下文越长，KV Cache、Prefill 时间和内存碎片越大。个人使用建议从 <strong>16K 或 32K</strong> 开始，让 Agent 通过代码搜索按需读取文件，再根据项目逐步提高。</p>
+<h2 id="四本地部署方案对比">四、本地部署方案对比</h2>
+<p>下面所有方案都以 Qwen3-Coder-Next 4bit、单用户 AI Coding 为基础。速度等级是综合容量、内存带宽、推理后端和是否发生卸载后的相对判断，不是厂商保证值。</p>
+<table>
+  <thead>
+      <tr>
+          <th>本地方案</th>
+          <th style="text-align: right">可用内存</th>
+          <th>模型状态</th>
+          <th>交互性能</th>
+          <th style="text-align: right">采购成本粗估</th>
+          <th>核心瓶颈</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>64GB Mac Studio</td>
+          <td style="text-align: right">64GB 统一内存</td>
+          <td>4bit 可完整装入，余量较小</td>
+          <td>中～高</td>
+          <td style="text-align: right">¥2.5万～¥3.5万</td>
+          <td>KV Cache 余量、Metal 后端、546GB/s 带宽</td>
+      </tr>
+      <tr>
+          <td>96GB Mac Studio M3 Ultra</td>
+          <td style="text-align: right">96GB 统一内存</td>
+          <td>4bit 宽裕，8bit 紧张</td>
+          <td>高</td>
+          <td style="text-align: right">¥4.5万～¥6万元</td>
+          <td>价格、无 CUDA、长上下文 Prefill</td>
+      </tr>
+      <tr>
+          <td>Ryzen AI Max+ 395 128GB</td>
+          <td style="text-align: right">128GB 统一内存</td>
+          <td>4bit/8bit 均可装入</td>
+          <td>中</td>
+          <td style="text-align: right">¥2万～¥3.5万元</td>
+          <td>LPDDR5x 带宽、ROCm/后端成熟度</td>
+      </tr>
+      <tr>
+          <td>DGX Spark / GB10 128GB</td>
+          <td style="text-align: right">128GB 一致性内存</td>
+          <td>4bit/8bit 均可装入</td>
+          <td>中</td>
+          <td style="text-align: right">¥3.5万～¥4.5万元</td>
+          <td>273GB/s 内存带宽、ARM64 兼容性</td>
+      </tr>
+      <tr>
+          <td>双 RTX 3090 工作站</td>
+          <td style="text-align: right">48GB 显存 + 系统内存</td>
+          <td>4bit 极紧，宜 3bit 或少量卸载</td>
+          <td>中～高</td>
+          <td style="text-align: right">¥1.2万～¥2万元</td>
+          <td>跨卡通信、显存余量、功耗散热</td>
+      </tr>
+      <tr>
+          <td>RTX 5090 + 128GB RAM</td>
+          <td style="text-align: right">32GB 显存 + 128GB RAM</td>
+          <td>4bit 需 CPU/GPU 混合卸载</td>
+          <td>中</td>
+          <td style="text-align: right">¥2.5万～¥3.5万元</td>
+          <td>PCIe 搬运、系统内存带宽</td>
+      </tr>
+      <tr>
+          <td>RTX PRO 6000 Blackwell</td>
+          <td style="text-align: right">96GB 显存</td>
+          <td>4bit 很宽裕，8bit 可用</td>
+          <td>很高</td>
+          <td style="text-align: right">通常超过 ¥10万元</td>
+          <td>采购价格、功耗、并发时 KV Cache</td>
+      </tr>
+  </tbody>
+</table>
+<p>Unsloth 给出的经验是：量化模型完整放入计算设备后，可期待 20+ Token/s；一旦模型不能完整装入而需要分层卸载，速度会明显下降。这个数字是模型级经验，不是对每一种硬件的实测承诺。</p>
+<h3 id="1-64gb-mac-studio能用但要控制上下文">1. 64GB Mac Studio：能用，但要控制上下文</h3>
+<p>Mac 的 CPU 和 GPU 共用统一内存，不存在传统 PC 上“系统有 64GB，但显卡只能用 24GB”的硬边界。Qwen3-Coder-Next 4bit 约 46GB，64GB Mac 可以完整加载，并通过 llama.cpp、MLX-LM、Ollama 或 LM Studio 提供本地 API。</p>
+<p>它的主要瓶颈不是计算单元数量，而是 <strong>剩余内存和内存带宽</strong>：</p>
+<ul>
+<li>权重加载后只剩约 18GB，操作系统、运行时和 KV Cache 都要使用这部分空间；</li>
+<li>上下文开得过大时容易触发内存压力和 Swap；</li>
+<li>发生 SSD Swap 后，速度会从可交互迅速下降；</li>
+<li>Metal 对桌面推理很成熟，但新模型的高级优化通常晚于 CUDA 后端。</li>
+</ul>
+<p>因此 64GB 更适合 4bit + 16K～32K 上下文，不适合追求 256K 满上下文。</p>
+<h3 id="2-96gb-mac-studio-m3-ultramac-路线的性能型选择">2. 96GB Mac Studio M3 Ultra：Mac 路线的性能型选择</h3>
+<p><a href="https://www.apple.com/mac-studio/specs/">Apple 的技术规格</a>显示，M3 Ultra 的统一内存带宽为 819GB/s。96GB 配置运行 46GB 的 4bit 模型时，可以给 KV Cache 和其他应用留下较大空间，比 64GB 配置更适合作为长期运行的本地 Coding 服务。</p>
+<p>8bit 约需 85GB，看起来也能加载，但只剩约 11GB，容易被系统和长上下文吃完。实际使用更建议继续选择高质量 4bit，把容量留给上下文。</p>
+<p>主要瓶颈是：</p>
+<ul>
+<li>没有 CUDA，无法使用只提供 CUDA Kernel 的最新优化；</li>
+<li>单用户速度不错，但多人并发能力不如专业 GPU 服务；</li>
+<li>长上下文仍受 KV Cache 和 Prefill 时间限制；</li>
+<li>设备价格远高于调用同名 API 的费用。</li>
+</ul>
+<h3 id="3-ryzen-ai-max-395-128gb容量优先的-pc-小主机">3. Ryzen AI Max+ 395 128GB：容量优先的 PC 小主机</h3>
+<p><a href="https://frame.work/desktop">Framework Desktop</a> 等设备可配置 128GB LPDDR5x-8000 统一内存，官方称最多可提供 96GB 图形可寻址内存，采用 256-bit 内存总线。Qwen3-Coder-Next 4bit 可以宽裕运行，8bit 也有机会完整装入。</p>
+<p>这条路线的优点是容量大、体积小、功耗低，并且保留 Linux/Windows 环境。主要瓶颈是：</p>
+<ul>
+<li>统一内存带宽明显低于 M3 Ultra 和高端独立显卡；</li>
+<li>ROCm、Vulkan、llama.cpp 对新架构的优化程度不完全一致；</li>
+<li>“模型能装入”不代表 GPU 能以独显级速度完成推理；</li>
+<li>Windows、Linux 和不同驱动版本的实际表现可能差异较大。</li>
+</ul>
+<p>它适合把“运行更大模型和更长上下文”放在第一位的人，不适合单纯追求最快 Token/s。</p>
+<h3 id="4-dgx-spark128gb--cuda但不是大显存显卡的速度">4. DGX Spark：128GB + CUDA，但不是大显存显卡的速度</h3>
+<p><a href="https://www.nvidia.com/en-us/products/workstations/dgx-spark/">NVIDIA DGX Spark</a> 使用 GB10 Grace Blackwell Superchip，提供 128GB 一致性内存和 NVIDIA AI 软件栈。它的价值是小体积、CUDA 环境和大容量可以同时获得，部署容器、NIM、PyTorch、SGLang 和 vLLM 类工具更接近 NVIDIA 服务器工作流。</p>
+<p>它的核心瓶颈是约 <strong>273GB/s 内存带宽</strong>。这远低于 RTX 5090 和 RTX PRO 6000，因此不能因为名字中有“DGX”就预期获得数据中心 GPU 的生成速度。其他限制还包括 ARM64 环境的软件兼容、部分 Python Wheel 和第三方工具需要重新验证。</p>
+<p>DGX Spark 更适合学习和验证 CUDA 部署栈，未必是单用户桌面 AI Coding 的最高性价比方案。</p>
+<h3 id="5-双-rtx-3090最便宜的-48gb-cuda-路线">5. 双 RTX 3090：最便宜的 48GB CUDA 路线</h3>
+<p>两张 RTX 3090 合计有 48GB 显存，接近 4bit 模型约 46GB 的大小。它的显存带宽高、CUDA 生态成熟，二手整机价格也低于新款大内存设备。</p>
+<p>问题是两张显卡的显存不会自动变成一块无缝的 48GB：</p>
+<ul>
+<li>推理框架必须支持 Tensor Split 或 Tensor Parallel；</li>
+<li>4bit 权重几乎占满显存，KV Cache 余量很小；</li>
+<li>跨卡通信受 PCIe 或 NVLink 限制；</li>
+<li>两张卡的额定功耗合计可达约 700W；</li>
+<li>二手显卡还存在显存稳定性和维修历史风险。</li>
+</ul>
+<p>更现实的做法是使用 3bit，或者把少量层和 KV Cache 放到系统内存。代价是量化质量或速度下降。</p>
+<h3 id="6-rtx-5090--128gb-系统内存显卡快卸载慢">6. RTX 5090 + 128GB 系统内存：显卡快，卸载慢</h3>
+<p>RTX 5090 有 32GB 显存，无法完整装下约 46GB 的 4bit 模型。llama.cpp 可以把一部分层留在系统内存，从而让模型运行起来。</p>
+<p>这条路线的瓶颈非常明确：CPU 中的权重要经过系统内存和 PCIe，不能享受显卡本地 GDDR7 的完整带宽。模型越多层卸载到 CPU，生成速度越接近系统内存方案，而不是 5090 的理论性能。</p>
+<p>如果已经拥有 5090，这是一条新增成本很低的尝试路线；如果准备新购设备专门运行 Qwen3-Coder-Next，则不如直接选择能完整容纳模型的硬件。</p>
+<h3 id="7-rtx-pro-6000-blackwell性能最好成本最差">7. RTX PRO 6000 Blackwell：性能最好，成本最差</h3>
+<p>RTX PRO 6000 Blackwell 提供 96GB GDDR7 ECC 显存和约 1792GB/s 带宽。Qwen3-Coder-Next 4bit 可以完整装入，并为 KV Cache 和并发保留大量空间，是本文本地方案中性能最接近理想状态的一种。</p>
+<p>它的主要瓶颈不是技术，而是价格：单卡价格已经超过大多数个人工作站。只有在多人共享、商业服务、模型微调、专业渲染等负载能够共同分摊成本时，才可能合理。</p>
+<h2 id="五推理后端怎么选">五、推理后端怎么选</h2>
+<table>
+  <thead>
+      <tr>
+          <th>设备</th>
+          <th>推荐后端</th>
+          <th>原因</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Apple Silicon</td>
+          <td>llama.cpp、MLX-LM、Ollama、LM Studio</td>
+          <td>Metal 和统一内存支持成熟</td>
+      </tr>
+      <tr>
+          <td>Ryzen AI Max</td>
+          <td>llama.cpp、ROCm 后端</td>
+          <td>能使用统一内存，需按系统验证兼容性</td>
+      </tr>
+      <tr>
+          <td>单机 NVIDIA</td>
+          <td>llama.cpp、SGLang、vLLM</td>
+          <td>CUDA 生态完整，服务化工具丰富</td>
+      </tr>
+      <tr>
+          <td>双 3090/多 GPU</td>
+          <td>llama.cpp Tensor Split、SGLang/vLLM Tensor Parallel</td>
+          <td>需要显式拆分模型和通信</td>
+      </tr>
+      <tr>
+          <td>DGX Spark</td>
+          <td>NVIDIA 容器、SGLang、vLLM、llama.cpp</td>
+          <td>适合复用 CUDA 服务部署流程</td>
+      </tr>
+  </tbody>
+</table>
+<p>个人桌面部署建议先使用 llama.cpp 或封装它的 Ollama/LM Studio。它们对 GGUF 量化和 CPU/GPU 混合卸载支持最好。团队共享、需要并发时，再考虑 SGLang 或 vLLM。</p>
+<p>无论使用哪一个后端，都应向 Coding 客户端暴露 OpenAI 兼容接口。这样可以把模型接入 OpenCode、Cline、Continue、Aider、Codex 或其他 Agent，而不必把工作流锁定在单一推理程序中。</p>
+<h2 id="六同名模型在线-api-方案">六、同名模型在线 API 方案</h2>
+<p><a href="https://www.qwencloud.com/models/qwen3-coder-next">Qwen Cloud 的 Qwen3-Coder-Next 页面</a>提供 OpenAI 兼容 API、函数调用、结构化输出和上下文缓存。官方公布的上下文上限约 262K，最大输入约 204.8K，最大输出约 65.5K。</p>
+<p>API 按单次请求的输入长度分档计价：</p>
+<table>
+  <thead>
+      <tr>
+          <th>单次请求输入长度</th>
+          <th style="text-align: right">输入价格</th>
+          <th style="text-align: right">输出价格</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>不超过 32K</td>
+          <td style="text-align: right">$0.3 / 百万 Token</td>
+          <td style="text-align: right">$1.5 / 百万 Token</td>
+      </tr>
+      <tr>
+          <td>32K～128K</td>
+          <td style="text-align: right">$0.5 / 百万 Token</td>
+          <td style="text-align: right">$2.5 / 百万 Token</td>
+      </tr>
+      <tr>
+          <td>128K～256K</td>
+          <td style="text-align: right">$0.8 / 百万 Token</td>
+          <td style="text-align: right">$4 / 百万 Token</td>
+      </tr>
+  </tbody>
+</table>
+<p>在线 API 的优势：</p>
+<ul>
+<li>无硬件投入，开通即可使用；</li>
+<li>不需要下载模型、处理驱动和量化兼容；</li>
+<li>由服务端承担扩容、故障恢复和推理优化；</li>
+<li>不需要为了适配 64GB 设备亲自选择量化和分配 KV Cache；服务端具体精度并未公开；</li>
+<li>长上下文不会挤占本机内存。</li>
+</ul>
+<p>API 的性能瓶颈则是：</p>
+<ul>
+<li>首 Token 延迟包含公网往返、排队和长提示词 Prefill；</li>
+<li>官方限制为 600 RPM、100 万 TPM，高并发时会触及配额；</li>
+<li>请求超过 32K 和 128K 后，输入、输出单价都会提高；</li>
+<li>速度和模型版本由服务商控制，无法固定推理 Kernel；</li>
+<li>私有代码需要离开本机，必须评估数据协议、地区和合规要求。</li>
+</ul>
+<h2 id="七api-月度成本">七、API 月度成本</h2>
+<p>为了避免只看“每百万 Token”却不知道一个月花多少，下面设置三种个人 AI Coding 用量：</p>
+<table>
+  <thead>
+      <tr>
+          <th>使用强度</th>
+          <th style="text-align: right">月输入</th>
+          <th style="text-align: right">月输出</th>
+          <th>典型场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>轻度</td>
+          <td style="text-align: right">10M</td>
+          <td style="text-align: right">2M</td>
+          <td>偶尔修 Bug、解释代码</td>
+      </tr>
+      <tr>
+          <td>中度</td>
+          <td style="text-align: right">30M</td>
+          <td style="text-align: right">6M</td>
+          <td>每个工作日使用 Agent</td>
+      </tr>
+      <tr>
+          <td>重度</td>
+          <td style="text-align: right">50M</td>
+          <td style="text-align: right">10M</td>
+          <td>多项目、高频仓库级任务</td>
+      </tr>
+  </tbody>
+</table>
+<p>按 1 美元约 7.2 元人民币计算，暂不计上下文缓存可能带来的进一步优惠：</p>
+<table>
+  <thead>
+      <tr>
+          <th>使用强度</th>
+          <th style="text-align: right">请求通常 ≤32K</th>
+          <th style="text-align: right">请求通常为 32K～128K</th>
+          <th style="text-align: right">请求通常为 128K～256K</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>轻度</td>
+          <td style="text-align: right">$6 / 约 ¥43</td>
+          <td style="text-align: right">$10 / 约 ¥72</td>
+          <td style="text-align: right">$16 / 约 ¥115</td>
+      </tr>
+      <tr>
+          <td>中度</td>
+          <td style="text-align: right">$18 / 约 ¥130</td>
+          <td style="text-align: right">$30 / 约 ¥216</td>
+          <td style="text-align: right">$48 / 约 ¥346</td>
+      </tr>
+      <tr>
+          <td>重度</td>
+          <td style="text-align: right">$30 / 约 ¥216</td>
+          <td style="text-align: right">$50 / 约 ¥360</td>
+          <td style="text-align: right">$80 / 约 ¥576</td>
+      </tr>
+  </tbody>
+</table>
+<p>这里的上下文档位是单次请求长度，不是月度 Token 总量。一个设计合理的 Coding Agent 会通过代码搜索、摘要和缓存尽量让请求留在 32K 内；如果每轮都把整个仓库重复发送到 128K 以上，不仅费用增加，首 Token 延迟也会变长。</p>
+<h2 id="八本地硬件的真实月成本">八、本地硬件的真实月成本</h2>
+<p>“本地 Token 免费”并不等于运行成本为零。把设备按 3 年折旧，并粗略加入每月 100 小时推理的电费，可以得到下面的数量级：</p>
+<table>
+  <thead>
+      <tr>
+          <th>设备</th>
+          <th style="text-align: right">一次性投入粗估</th>
+          <th style="text-align: right">三年折旧 + 电费/月</th>
+          <th>相对 API 的成本结论</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>已有 64GB/48GB 设备</td>
+          <td style="text-align: right">新增投入接近 0</td>
+          <td style="text-align: right">约 ¥20～¥200</td>
+          <td>最划算，适合直接尝试</td>
+      </tr>
+      <tr>
+          <td>二手双 RTX 3090</td>
+          <td style="text-align: right">¥1.2万～¥2万元</td>
+          <td style="text-align: right">约 ¥450～¥850</td>
+          <td>通常高于同名 API</td>
+      </tr>
+      <tr>
+          <td>Ryzen AI Max 128GB</td>
+          <td style="text-align: right">¥2万～¥3.5万元</td>
+          <td style="text-align: right">约 ¥580～¥1050</td>
+          <td>很难仅靠 Token 费回本</td>
+      </tr>
+      <tr>
+          <td>64GB Mac Studio</td>
+          <td style="text-align: right">¥2.5万～¥3.5万元</td>
+          <td style="text-align: right">约 ¥720～¥1050</td>
+          <td>购买理由应是隐私和日常生产力</td>
+      </tr>
+      <tr>
+          <td>DGX Spark 128GB</td>
+          <td style="text-align: right">¥3.5万～¥4.5万元</td>
+          <td style="text-align: right">约 ¥1000～¥1350</td>
+          <td>更适合 CUDA 研发和部署验证</td>
+      </tr>
+      <tr>
+          <td>96GB Mac Studio</td>
+          <td style="text-align: right">¥4.5万～¥6万元</td>
+          <td style="text-align: right">约 ¥1280～¥1750</td>
+          <td>单用户纯推理经济性较低</td>
+      </tr>
+      <tr>
+          <td>RTX PRO 6000 工作站</td>
+          <td style="text-align: right">通常超过 ¥10万元</td>
+          <td style="text-align: right">通常超过 ¥2900</td>
+          <td>需要团队或商业负载分摊</td>
+      </tr>
+  </tbody>
+</table>
+<p>假设重度使用的 API 费用为 ¥216～¥576/月：</p>
+<ul>
+<li>¥2万元设备的静态回本时间约为 2.9～7.7 年；</li>
+<li>¥3万元设备约为 4.3～11.6 年；</li>
+<li>¥5万元设备约为 7.2～19.3 年。</li>
+</ul>
+<p>这还没有计算 SSD、设备残值、维护时间、硬件故障和本地 4bit 量化的能力损失。只为了省 API 费购买新机器，经济上基本不成立。</p>
+<h2 id="九性能瓶颈总表">九、性能瓶颈总表</h2>
+<table>
+  <thead>
+      <tr>
+          <th>方案</th>
+          <th>首 Token</th>
+          <th>生成速度</th>
+          <th>长上下文</th>
+          <th>任务质量</th>
+          <th>最主要瓶颈</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>64GB Mac</td>
+          <td>本地短上下文快</td>
+          <td>可交互</td>
+          <td>受内存余量限制</td>
+          <td>4bit，接近但不等于原版</td>
+          <td>KV Cache 和 Swap</td>
+      </tr>
+      <tr>
+          <td>96GB M3 Ultra</td>
+          <td>较快</td>
+          <td>本地方案中较好</td>
+          <td>4bit 下较宽裕</td>
+          <td>4bit</td>
+          <td>Metal 生态、Prefill</td>
+      </tr>
+      <tr>
+          <td>Ryzen 128GB</td>
+          <td>较快</td>
+          <td>中等</td>
+          <td>容量宽裕</td>
+          <td>可选 4bit/8bit</td>
+          <td>内存带宽和软件优化</td>
+      </tr>
+      <tr>
+          <td>DGX Spark 128GB</td>
+          <td>较快</td>
+          <td>中等</td>
+          <td>容量宽裕</td>
+          <td>可选 4bit/8bit</td>
+          <td>273GB/s 带宽、ARM64</td>
+      </tr>
+      <tr>
+          <td>双 RTX 3090</td>
+          <td>较快</td>
+          <td>中～高</td>
+          <td>显存余量很小</td>
+          <td>3bit/4bit</td>
+          <td>跨卡通信和容量</td>
+      </tr>
+      <tr>
+          <td>5090 + CPU 卸载</td>
+          <td>较快</td>
+          <td>随卸载比例下降</td>
+          <td>使用 RAM 可扩展</td>
+          <td>4bit</td>
+          <td>PCIe 和 DDR 带宽</td>
+      </tr>
+      <tr>
+          <td>RTX PRO 6000</td>
+          <td>快</td>
+          <td>很高</td>
+          <td>4bit 下宽裕</td>
+          <td>4bit/8bit</td>
+          <td>价格和并发 KV Cache</td>
+      </tr>
+      <tr>
+          <td>Qwen Cloud API</td>
+          <td>受网络和排队影响</td>
+          <td>服务端通常稳定</td>
+          <td>无本机容量压力</td>
+          <td>精度与版本由服务商管理</td>
+          <td>网络、限流、隐私、长上下文价格</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="十不同用户应该怎么选">十、不同用户应该怎么选</h2>
+<table>
+  <thead>
+      <tr>
+          <th>用户情况</th>
+          <th>推荐方案</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>没有现成大内存硬件</td>
+          <td>直接使用 Qwen3-Coder-Next API</td>
+      </tr>
+      <tr>
+          <td>已有 64GB Apple Silicon</td>
+          <td>本地 4bit，默认 16K～32K 上下文</td>
+      </tr>
+      <tr>
+          <td>想买安静、省电、维护简单的主机</td>
+          <td>64GB/96GB Mac Studio</td>
+      </tr>
+      <tr>
+          <td>需要 128GB，偏好 Linux/Windows</td>
+          <td>Ryzen AI Max+ 395 主机</td>
+      </tr>
+      <tr>
+          <td>需要 128GB 和 CUDA 软件栈</td>
+          <td>DGX Spark/GB10</td>
+      </tr>
+      <tr>
+          <td>预算有限、能维护 Linux 和多显卡</td>
+          <td>二手双 RTX 3090，优先 3bit 或混合卸载</td>
+      </tr>
+      <tr>
+          <td>已有 RTX 5090</td>
+          <td>增加系统内存，用 llama.cpp 混合卸载，不必立刻换设备</td>
+      </tr>
+      <tr>
+          <td>小团队需要高并发</td>
+          <td>96GB 专业显卡或云 GPU 服务</td>
+      </tr>
+      <tr>
+          <td>代码绝对不能离开内网</td>
+          <td>本地 4bit；性能成本让位于隐私要求</td>
+      </tr>
+      <tr>
+          <td>个人追求综合性价比</td>
+          <td>本地处理敏感和高频任务，困难任务调用 API</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="十一我的推荐配置">十一、我的推荐配置</h2>
+<p>如果从零购买，我不会为了省 Token 费组建多卡服务器，而会在下面三种方案中选择：</p>
+<h3 id="方案-a不买硬件直接-api">方案 A：不买硬件，直接 API</h3>
+<p>适合大多数个人开发者。按实际用量付费，短上下文下即使重度使用也约 ¥216/月。省下的硬件预算可以购买很多年的 API，并且不需要维护模型和驱动。</p>
+<h3 id="方案-b已有-64gb-设备本地-4bit--api-兜底">方案 B：已有 64GB 设备，本地 4bit + API 兜底</h3>
+<p>这是性价比最高的本地路线。本地运行 Qwen3-Coder-Next 4bit，设置 16K～32K 上下文；同一个任务连续失败两次、上下文过长或需要更高成功率时，切换 Qwen Cloud API。</p>
+<h3 id="方案-c隐私优先新购-96gb128gb-设备">方案 C：隐私优先，新购 96GB～128GB 设备</h3>
+<p>Mac Studio 更安静省心，Ryzen AI Max 主机容量价格比更好，DGX Spark 的 CUDA 生态更完整。三者都应优先运行 4bit，而不是为了 8bit 把内存占满。额外容量应留给 KV Cache、IDE、编译和测试进程。</p>
+<h2 id="总结">总结</h2>
+<p>在统一内存不超过 128GB 的条件下，Qwen3-Coder-Next 是一个很合适的高端本地 AI Coding 样本：80B 总参数、3B 激活参数、4bit 约 46GB，既有较强的公开 Coding 成绩，也能在个人可以买到的设备上完整运行。</p>
+<p>不同本地方案的本质差异可以压缩成三句话：</p>
+<ul>
+<li><strong>Mac Studio</strong> 用高带宽统一内存换取安静、简单，但受 Metal 生态和不可升级限制；</li>
+<li><strong>Ryzen AI Max 与 DGX Spark</strong> 用 128GB 容量换取更大的模型空间，但性能瓶颈是内存带宽；</li>
+<li><strong>NVIDIA 多卡或专业显卡</strong> 速度和生态最好，但瓶颈转向显存容量、跨卡通信和采购成本。</li>
+</ul>
+<p>而 API 的瓶颈不是本地内存，而是网络延迟、限流、隐私和长上下文价格。以目前同名模型的价格看，个人新购硬件几乎不可能单靠节省 Token 费用回本。</p>
+<p>所以最终建议仍然是：</p>
+<blockquote>
+<p><strong>没有现成硬件就先用 API；已有 64GB 以上设备就部署本地 4bit；有隐私或离线刚需再购买 96GB～128GB 设备。不要为了“本地免费”忽略折旧、速度和任务成功率。</strong></p></blockquote>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li><a href="https://huggingface.co/Qwen/Qwen3-Coder-Next">Qwen3-Coder-Next 官方模型卡</a></li>
+<li><a href="https://unsloth.ai/docs/models/qwen3-coder-next">Qwen3-Coder-Next 本地运行、量化与内存要求</a></li>
+<li><a href="https://www.qwencloud.com/models/qwen3-coder-next">Qwen3-Coder-Next 官方 API 能力与价格</a></li>
+<li><a href="https://github.com/QwenLM/Qwen3-Coder">Qwen3-Coder GitHub</a></li>
+<li><a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a></li>
+<li><a href="https://github.com/vllm-project/vllm">vLLM</a></li>
+<li><a href="https://github.com/sgl-project/sglang">SGLang</a></li>
+<li><a href="https://www.apple.com/mac-studio/specs/">Apple Mac Studio 技术规格</a></li>
+<li><a href="https://frame.work/desktop">Framework Desktop Ryzen AI Max</a></li>
+<li><a href="https://www.nvidia.com/en-us/products/workstations/dgx-spark/">NVIDIA DGX Spark</a></li>
+<li><a href="https://www.nvidia.com/en-us/products/workstations/professional-desktop-gpus/rtx-pro-6000/">NVIDIA RTX PRO 6000 Blackwell</a></li>
+<li><a href="https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5090/">NVIDIA GeForce RTX 5090</a></li>
+</ul>
+]]></content:encoded>
+    </item>
+  </channel>
+</rss>
