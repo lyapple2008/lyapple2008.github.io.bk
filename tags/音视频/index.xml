@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>音视频 on BeYoung</title>
+    <link>https://lyapple2008.github.io/tags/%E9%9F%B3%E8%A7%86%E9%A2%91/</link>
+    <description>Recent content in 音视频 on BeYoung</description>
+    <image>
+      <title>BeYoung</title>
+      <url>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</url>
+      <link>https://lyapple2008.github.io/%3Clink%20or%20path%20of%20image%20for%20opengraph,%20twitter-cards%3E</link>
+    </image>
+    <generator>Hugo -- 0.147.9</generator>
+    <language>zh</language>
+    <copyright>See this site&amp;rsquo;s source code here, licensed under GPLv3 ·</copyright>
+    <lastBuildDate>Fri, 31 Jul 2026 22:04:00 +0800</lastBuildDate>
+    <atom:link href="https://lyapple2008.github.io/tags/%E9%9F%B3%E8%A7%86%E9%A2%91/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Speex 回声消除：从回声路径到 MDF/AUMDF</title>
+      <link>https://lyapple2008.github.io/posts/202607/speex-echo-cancellation/</link>
+      <pubDate>Fri, 31 Jul 2026 22:04:00 +0800</pubDate>
+      <guid>https://lyapple2008.github.io/posts/202607/speex-echo-cancellation/</guid>
+      <description>从声学回声模型、自适应滤波与 MDF/AUMDF 原理，深入到 SpeexDSP 1.2.1 mdf.c 工程实现的交互式中文导读。</description>
+    </item>
+  </channel>
+</rss>
