@@ -12,7 +12,7 @@
     <generator>Hugo -- 0.147.9</generator>
     <language>zh</language>
     <copyright>See this site&amp;rsquo;s source code here, licensed under GPLv3 ·</copyright>
-    <lastBuildDate>Sun, 30 Aug 2026 09:40:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 03 Sep 2026 22:30:00 +0800</lastBuildDate>
     <atom:link href="https://lyapple2008.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【置顶】2026</title>
@@ -127,6 +127,97 @@ chart.setOption({
 <p>每天记录和量化进度，本身就是一种负担，而且对于效率提高帮助不大，也不利于长期任务，与其每天盯着任务进度，
 不如现在开始试下，里程碑式的工作方法，给自己一段时间设定一些目标，到期后来检查完成情况，中间如何只记录
 据有里程碑意义的事件。</p></blockquote>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>读《富爸爸穷爸爸》：房子是资产吗，写代码是事业吗</title>
+      <link>https://lyapple2008.github.io/posts/202609/2026-09-03-%E5%AF%8C%E7%88%B8%E7%88%B8%E7%A9%B7%E7%88%B8%E7%88%B8%E8%AF%BB%E5%90%8E%E6%84%9F/</link>
+      <pubDate>Thu, 03 Sep 2026 22:30:00 +0800</pubDate>
+      <guid>https://lyapple2008.github.io/posts/202609/2026-09-03-%E5%AF%8C%E7%88%B8%E7%88%B8%E7%A9%B7%E7%88%B8%E7%88%B8%E8%AF%BB%E5%90%8E%E6%84%9F/</guid>
+      <description>清崎反复讲的其实就两对概念：资产与负债，职业与事业。近几年硬上车的房子，和 AI 冲击下的程序员岗位，把这两对概念从书里拽到了眼前。</description>
+      <content:encoded><![CDATA[<p>前阵子写<a href="/posts/202608/2026-08-30-40%E5%B9%B4%E6%88%BF%E8%B4%B7/">40 年房贷</a>的时候，已经把《富爸爸穷爸爸》里最刺耳的那句拿出来用过一次：很多人把负债当成了资产。书看完之后，觉得那句话只是入口。清崎翻来覆去讲的，其实就两对很容易混的概念——<strong>资产与负债</strong>，<strong>职业与事业</strong>。</p>
+<p>这两对概念都不新，新的是对照物变了。一套近几年硬上车、现在开始按月供过日子的房子，一份正在被 AI 改写的程序员工作，比书里那些美国出租屋和快餐店例子更近。下面就用这两件事把书读一遍。</p>
+<h2 id="一先把作者的尺子拿出来">一、先把作者的尺子拿出来</h2>
+<p>穷爸爸受过良好教育，稳定上班，讲究稳妥，觉得房子是最大的资产，债务是危险的。富爸爸学历一般，却反复强调一件事：先看钱往哪边流。</p>
+<p>他给的定义很短：</p>
+<ul>
+<li><strong>资产</strong>：把钱放进你口袋的东西。</li>
+<li><strong>负债</strong>：把钱从你口袋拿走的东西。</li>
+</ul>
+<p>职业和事业的区分也一样干脆：</p>
+<ul>
+<li><strong>职业</strong>：你在为别人的体系工作，收入和你的时间绑在一起。停下来，钱就停。</li>
+<li><strong>事业</strong>：你在搭自己的体系。体系一旦转起来，不必每一分钱都靠当天亲自上班换。</li>
+</ul>
+<p>书里最容易被读歪的，是后面那句口号：「富人买资产，穷人买负债。」它听起来像劝人别买房、别上班、赶紧去投资。我并不这么读。更有用的读法是：先把账记对，再决定自己愿意为哪一类东西付钱。记错账，后面所有努力都是在给一张错误的资产负债表添砖加瓦。</p>
+<h2 id="二资产与负债硬上车的房子和知道自己在做什么的房子">二、资产与负债：硬上车的房子，和知道自己在做什么的房子</h2>
+<h3 id="自住房首先是消费品">自住房首先是消费品</h3>
+<p>中产阶级最容易犯的错，是把自住房直接写进资产栏。房子在那里，房产证也在手里，市价曾经涨过，朋友同事都说「好歹有套房子」。可每个月的月供、物业、维修、税、保险，都在把现金抽走。在清崎的现金流游戏里，自住房写在负债栏，不是抬杠，是记账方法：先看钱往哪边流，再听升值故事。</p>
+<p>这几年国内的情况，把这个记账方法照得很清楚。</p>
+<p>2015 到 2021 年附近，买房有过很长一段「先上车，涨幅会覆盖一切」的窗口。后来窗口关了，逻辑却还在流传：不买就来不及、租房是给房东打工、有房才算在这个城市站稳。于是一批人不是因为马上要住，而是因为怕错过，在高位、高杠杆、甚至超出舒适现金流的前提下「硬上车」。首付掏空家庭储备，月供顶着收入上限，房子买在自己并不打算长住、也不打算经营的城市或地段。</p>
+<p>现在这些人面对的，往往不是「我拥有了一项资产」，而是：</p>
+<ul>
+<li>房价横盘或下跌，账面净资产起不来，有的还倒挂；</li>
+<li>月供、物业、空置、交易费用继续往外抽现金；</li>
+<li>工作、城市、家庭结构一变，这套房就从「安全感」变成「搬不走的锚」。</li>
+</ul>
+<p>房子还是那套房子。变的是：它不再自动把钱送进口袋。按清崎的尺子，它本来就不是资产；前些年它看起来像资产，只是因为上涨暂时盖住了现金流。</p>
+<h3 id="书里靠房地产致富的人并不是在上车">书里靠房地产致富的人，并不是在「上车」</h3>
+<p>这里必须把另一面也说清楚。清崎自己最爱举的例子，恰恰就是房地产。他买房、收租、做交换、用杠杆，反复讲「我就是靠这个富起来的」。如果只截前半句「自住房是负债」，后半句「房地产是致富工具」就会变成自相矛盾。</p>
+<p>矛盾只存在于没分清账的人身上。</p>
+<p>书里那些靠房地产致富的人，做的不是「有一套自己住的房子」。他们做的是一笔生意：</p>
+<ul>
+<li>买入之前就算清楚租金、空置、维修、税费、贷款利息，确认每月现金是正的；</li>
+<li>杠杆用在能生出现金的资产上，而不是用在「我得有套房」这个身份焦虑上；</li>
+<li>涨了是锦上添花，跌了也不至于靠卖房才能活下去，因为活下去靠的是现金流，不是价差。</li>
+</ul>
+<p>一句话：他们知道自己在买什么。买的是一台会吐现金的机器，不是一张证明自己已经成人、已经安家、已经没有被时代甩掉的证书。</p>
+<p>同样叫「买房」，一种是消费和身份，一种是经营。前者在供着的时候，你为房子工作；后者算得过来的时候，房子为你工作。近几年硬上车、不为居住、只为「别踏空」的人，大多走的是第一条路。现在开始背负房贷过日子，并不是市场突然跟他们作对，而是账从一开始就记在负债栏，只是上涨行情让人假装没看见。</p>
+<h3 id="愿意为负债付钱和把负债当成资产不是一回事">愿意为负债付钱，和把负债当成资产，不是一回事</h3>
+<p>我并不认为懂财务的人就不该买自住房。对很多中国家庭，房子同时承担居住、婚姻、子女教育和安全感，完全按美国那套「先买出租物业」来生活，既不现实，也不必要。</p>
+<p>更要紧的是承认：</p>
+<blockquote>
+<p>自住房是你愿意为之付钱的消费品。它可能在很多年以后变成净资产，但它在供着的时候，并不是资产。</p></blockquote>
+<p>愿意付，是因为你要住，而且现金流睡得着。不愿意，也可以继续租，把住房成本显式化。真正麻烦的，是第三种：不为住，只为上车，然后把月供解释成「我在投资」。那不是投资，是用未来几十年的工资，给过去某一年的恐惧买单。</p>
+<p>如果已经买了，也不必道德化成「当初真蠢」。更实际的是把账重新记一遍：这套房每个月拿走多少钱、自己还能剩多少、剩下的钱有没有在买真正的资产。认清它是负债，比继续讲「反正房子还在」更有用。</p>
+<h2 id="三职业与事业ai-正在改写程序员这份职业">三、职业与事业：AI 正在改写程序员这份职业</h2>
+<h3 id="程序员这份职业卖的是时间">程序员这份职业，卖的是时间</h3>
+<p>清崎说穷人和中产为工作赚钱，富人让钱为自己工作。落到程序员身上，职业路径很熟悉：学一门技术，进一家公司，靠职级和年限把时薪抬上去。代码写得越好，越容易被委以更重的模块；模块越重，越离不开你。看起来是成长，底层仍是同一件事——<strong>收入和你的在岗时间绑在一起</strong>。</p>
+<p>这没有原罪。职业是体面的，也是绝大多数人安身的方式。书里真正提醒的是：不要把职业误认成事业。职业给你发工资，事业给你一台可以离开你还能转一会儿的机器。很多程序员把「技术越来越精」当成事业，其实只是把职业做得更专业。专业很值钱，但它仍然是在为别人的体系工作。</p>
+<h3 id="ai-压缩的首先是职业本身">AI 压缩的，首先是职业本身</h3>
+<p>2023 年以来，这件事从抽象讨论变成了日常体验。AI Coding 已经能写模块、改测试、查日志、补文档；一个熟练的人带着它，产出可以是从前的数倍。我自己也写过<a href="/posts/202601/2026-02-01-%E5%85%B3%E4%BA%8Eaicoding%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E6%83%B3%E5%92%8C%E5%90%8E%E7%BB%AD%E7%9A%84%E8%A7%84%E5%88%92/">使用上的感受</a>：从「完了，失业要提前了」，到「稳了，还能苟几年」。苟得住的前提，其实已经变了——不是代码还只能人手写，而是使用者还要为质量兜底，还要会拆任务、会判断、会把系统拼起来。</p>
+<p>对职业的冲击是不均匀的。</p>
+<ul>
+<li><strong>被压得最明显的</strong>，是把「会写代码」本身当成稀缺能力的岗位。CRUD、模板页面、标准接入、重复劳动，正在迅速便宜。公司会发现：同样的功能，更少的人加上更好的工具就能交出来。</li>
+<li><strong>暂时还在的</strong>，是能定义问题、设计系统、对结果负责的人。AI 仍然像 L2 辅助驾驶，出了事故还是使用者负责。会用工具的人，把职业的单位时间产出抬高了；不会用的人，单位时间的市场定价在下降。</li>
+<li><strong>真正被改写的</strong>，是职业的 durabilty。以前一套技术可以吃十年，现在模型和工具半年一变。职业还在，但「靠同一份手艺吃到退休」这条路，比五年前窄了很多。</li>
+</ul>
+<p>所以 AI 不是简单消灭程序员，它是在拆掉程序员职业里最像「手艺」的那一层。手艺越标准，越容易被工具吃掉。留下的是判断、责任、对用户和业务的理解，以及把工具编进一套能持续产出的流程里。</p>
+<h3 id="事业不是辞职创业是让能力脱离工时">事业不是辞职创业，是让能力脱离工时</h3>
+<p>书里的事业，常被理解成开公司、当老板。程序员读到这里，很容易要么焦虑到去硬创业，要么直接把书关掉。我更愿意把事业理解得小一点、也更可执行一点：</p>
+<p><strong>事业是一套不完全依赖你当天坐在工位上的价值产出方式。</strong></p>
+<p>对程序员来说，它可以是：</p>
+<ul>
+<li>一个真实可用的产品，哪怕很小，但解决的是别人愿意反复使用的问题；</li>
+<li>一套自己能讲清楚、能复用、能交付的方法论或工具链；</li>
+<li>把 AI 当成杠杆之后，仍然属于你的判断力、审美、领域理解和客户关系；</li>
+<li>在职业内部，有意识地从「我是写这段代码的人」走到「我是对这个结果负责的人」。</li>
+</ul>
+<p>去年规划里写过，希望后面少做单点知识分享，多从打造一个真实可用的产品角度去写过程。现在回头看，那不只是内容策略，也是职业和事业的分界：分享知识点，是在展示职业能力；把一个能跑的东西做出来，是在搭一块可能离开工时还能存在的资产。</p>
+<p>Peter Steinberger 那种「一直在做各种小工具，某一天其中一件爆了」的路径，比「先辞职，再找一个事业」更接近程序员能走的路。事业往往不是某一天换身份换来的，是职业还在运转的时候，把多出来的判断力和工具杠杆，一点点砌进自己的体系。</p>
+<p>AI 在这里是双刃的。它让职业更难守——同样会写代码的人变多了，代码本身也便宜了。它也让事业更容易起步——一个人加一套 Agent，已经能做出从前需要一个小组才做得动的东西。差别仍然回到那把尺子：你是用 AI 把这份职业多撑几年，还是用 AI 给自己搭一台不完全靠上班钟点计费的机器。</p>
+<p>两种都合理。只靠职业活着的人，需要更诚实地看到：这份职业的安全垫，比我们入行时想象的更薄。想做事业的人，也不必把书读成「上班就是穷爸爸」。上班可以是现金流，事业可以是晚上和周末那点属于自己的体系。先有正的现金，再谈让钱为自己工作，这才是书里比较经得起现实磨损的部分。</p>
+<h2 id="四两对概念其实是同一件事">四、两对概念其实是同一件事</h2>
+<p>资产与负债看的是<strong>钱往哪边流</strong>。职业与事业看的是<strong>价值是否还绑在你的时间上</strong>。</p>
+<p>硬上车的房子，是把未来的工资预支成一项看起来像资产的负债。只守着「我会写代码」的职业，是把当下的时间卖给一项正在贬值的技能。两者的共同结构是：把安全感建立在一个名字好听、账却记反了的东西上。</p>
+<p>反过来也成立。一套算得清租金、自己知道在经营的房子，可以是资产。一份仍然在上班、但已经开始用 AI 做出产品、做出流程、做出可复用能力的程序员生涯，也可以慢慢长出事业的轮廓。名字不重要，流向才重要。</p>
+<p>书本身有很多经不起推敲的地方：案例太美国、叙事太鸡汤、对风险和运气的讨论不够。这些都不妨碍那两把尺子好用。读完之后我留给自己的，不是「以后只买资产、只做事业」这种大话，而是三个更小的问题：</p>
+<ol>
+<li>我现在以为的资产，每个月到底是给我钱，还是在拿我的钱？</li>
+<li>我现在以为的事业，离开我这个人加班，还能转多久？</li>
+<li>AI 和房贷这类新变量出现时，我是在加固原来的错账，还是借机把账改对？</li>
+</ol>
+<p>房子可以是家，代码可以是手艺。在把它们写进资产栏、写进事业栏之前，先看清楚钱和时间到底在为谁工作。</p>
 ]]></content:encoded>
     </item>
     <item>
@@ -2545,454 +2636,6 @@ $$</p>
 <p>现在是将想法落地最好的时代。以前你可能会卡在某个问题因为找不到有效的解答而不了了之，或者因为某个技术不懂而不能落地，但是现在你随时可以通过 AI 大模型得到你想要的答案，协助你实现自己的 idea。要像大神 Karpathy 一样，因为 token 没用完而感到焦虑，不停去跟 AI 交流、提问、讨论，落地想法。去尝试将 AI 嵌入到自己的工程流程中，这个我也还没找到方向，但是我觉得这个方向是没错的。狠狠地、使劲用起来吧。</p>
 <h2 id="项目链接">项目链接</h2>
 <p><a href="https://github.com/lyapple2008/DoubleSubtitleUseSystemAPI">DoubleSubtitleUseSystemAPI</a></p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>ASR任务初体验</title>
-      <link>https://lyapple2008.github.io/posts/202602/2026-02-14-asr%E4%BB%BB%E5%8A%A1%E5%88%9D%E4%BD%93%E9%AA%8C/</link>
-      <pubDate>Sat, 14 Feb 2026 17:59:07 +0800</pubDate>
-      <guid>https://lyapple2008.github.io/posts/202602/2026-02-14-asr%E4%BB%BB%E5%8A%A1%E5%88%9D%E4%BD%93%E9%AA%8C/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;这篇继续是开发日志，正在开发一款iOS端的实时双语字幕APP，由于需要用到语音识别，了解了下语音识别任务的现状和主流方案，为后面方案选择做准备。&lt;/p&gt;</description>
-      <content:encoded><![CDATA[<blockquote>
-<p>这篇继续是开发日志，正在开发一款iOS端的实时双语字幕APP，由于需要用到语音识别，了解了下语音识别任务的现状和主流方案，为后面方案选择做准备。</p></blockquote>
-<h3 id="模块流程">模块流程</h3>
-
-<div class="mermaid">graph LR
-    A[捕获系统播放音频] --&gt; B[语音识别ASR]
-    B --&gt; C[语言翻译]
-    B --&gt; D[双语字幕]
-    C --&gt; D</div>
-<h1 id="什么是asr任务">什么是ASR任务</h1>
-<p>ASR（Automatic Speech Recognition，自动语音识别）任务，指的是将连续的音频信号转换为对应的文本序列的过程。这是一种典型的序列到序列（Sequence-to-Sequence）的转换任务：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">audio (连续信号)  →  text (离散 token)</span></span></code></pre></td></tr></table>
-</div>
-</div>
-<p>从信号处理的角度来看，传统ASR需要解决以下核心问题：</p>
-<ol>
-<li><strong>声学建模</strong>：将音频特征映射到音素或字符</li>
-<li><strong>语言建模</strong>：捕捉词汇之间的概率关系</li>
-<li><strong>对齐问题</strong>：音频帧与输出token之间的对齐</li>
-</ol>
-<p>不过，在现代端到端深度学习方案中，这三个问题都被统一在一个神经网络中解决，不再需要独立的声学模型和语言模型。模型通过端到端训练自动学习如何从音频特征直接映射到文本输出。</p>
-<h1 id="与降噪任务的区别">与降噪任务的区别</h1>
-<p>在开发iOS双语字幕的过程中，我之前可能接触过降噪任务，这两者有本质区别：</p>
-<table>
-  <thead>
-      <tr>
-          <th>维度</th>
-          <th>降噪任务</th>
-          <th>ASR任务</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><strong>输入输出</strong></td>
-          <td>音频 → 音频</td>
-          <td>音频 → 文本</td>
-      </tr>
-      <tr>
-          <td><strong>任务类型</strong></td>
-          <td>信号回归</td>
-          <td>序列到序列</td>
-      </tr>
-      <tr>
-          <td><strong>评估指标</strong></td>
-          <td>SNR、PESQ</td>
-          <td>WER、CER</td>
-      </tr>
-      <tr>
-          <td><strong>难点</strong></td>
-          <td>保留语音质量</td>
-          <td>识别准确性</td>
-      </tr>
-      <tr>
-          <td><strong>模型结构</strong></td>
-          <td>Encoder</td>
-          <td>Encoder-Decoder</td>
-      </tr>
-  </tbody>
-</table>
-<p>简单来说：</p>
-<ul>
-<li><strong>降噪任务</strong>：输入一段有噪声的音频，输出干净的音频（同类转换）</li>
-<li><strong>ASR任务</strong>：输入音频，输出文字（跨模态转换）</li>
-</ul>
-<p>ASR的难点在于它需要&quot;理解&quot;音频内容并转换为语义符号，而不是简单地处理信号波形。同时，ASR任务的输入和输出也不像降噪任务那样是一一对应的关系，还需要处理对齐问题。</p>
-<h1 id="目前主流的实现方案">目前主流的实现方案</h1>
-<p>主流的ASR实现方案主要有三种：CTC、RNN-T和基于Attention的Seq2Seq。</p>
-<h2 id="ctc-connectionist-temporal-classification">CTC (Connectionist Temporal Classification)</h2>
-<p>CTC是一种经典的对齐方法，核心思想是<strong>不需要显式的对齐标签</strong>，而是通过&quot;blank&quot;机制自动学习对齐。</p>
-<p>CTC引入了空白符（blank）和折叠机制：</p>
-<ul>
-<li>重复的字符会被折叠（如 &ldquo;aaabbb&rdquo; → &ldquo;ab&rdquo;）</li>
-<li>blank符号不产生任何输出</li>
-<li>通过动态规划计算所有可能路径的概率</li>
-</ul>
-<p><a href="https://distill.pub/2017/ctc/">Sequence Modeling With CTC</a> 详细原理可参考这篇文章。</p>
-<p>训练阶段就是使目标token序列路径的概率最大，而推理阶段就是搜索概率最大的token路径并输出，这里通常有两种方法：</p>
-<table>
-  <thead>
-      <tr>
-          <th>方法</th>
-          <th>描述</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><strong>Greedy Search</strong></td>
-          <td>每一步都选择概率最大的token输出</td>
-      </tr>
-      <tr>
-          <td><strong>Beam Search</strong></td>
-          <td>每一步保留top-N概率的token结果，输出token序列路径概率最大的结果</td>
-      </tr>
-  </tbody>
-</table>
-<h2 id="rnn-t-recurrent-neural-network-transducer">RNN-T (Recurrent Neural Network Transducer)</h2>
-<p>RNN-T是CTC的扩展，引入了一个额外的预测网络（Prediction Network）来建模输出token之间的依赖关系。</p>
-<p>RNN-T由三部分组成：</p>
-<ol>
-<li><strong>编码器（Encoder）</strong>：将音频特征转换为声学表征</li>
-<li><strong>预测网络（Prediction Network）</strong>：基于已输出的token预测下一个token</li>
-<li><strong>联合网络（Joint Network）</strong>：结合Encoder和Prediction的输出，预测下一个token</li>
-</ol>
-<p>RNN-T在输出时，不仅会输入当前帧音频数据，还会输入历史输出作为参考</p>
-<h2 id="seq2seq-with-attention">Seq2Seq with Attention</h2>
-<p>基于Attention机制的序列到序列模型是目前最流行的方案，被广泛用于Whisper、Paraformer等现代ASR系统。</p>
-<h3 id="原理">原理</h3>
-<p>经典结构：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Encoder → Attention → Decoder → Output</span></span></code></pre></td></tr></table>
-</div>
-</div>
-<ul>
-<li><strong>Encoder</strong>：将音频特征编码为高维表征（通常使用Transformer或Conformer）</li>
-<li><strong>Attention</strong>：让Decoder在生成每个token时&quot;关注&quot;输入的不同部分</li>
-<li><strong>Decoder</strong>：自回归生成输出文本</li>
-</ul>
-<h3 id="优缺点">优缺点</h3>
-<p><strong>优点</strong>：</p>
-<ul>
-<li>可以建模任意长度序列的依赖关系</li>
-<li>识别准确率高</li>
-<li>易于添加语言模型集成</li>
-<li>适合大规模预训练</li>
-</ul>
-<p><strong>缺点</strong>：</p>
-<ul>
-<li>推理延迟较高（需要完整音频或较大chunk）</li>
-<li>流式识别实现复杂</li>
-<li>计算资源需求大</li>
-</ul>
-<h1 id="流式模型和非流式模型">流式模型和非流式模型</h1>
-<p>流式（Streaming）和非流式（Offline）是ASR系统根据实时性要求的两种设计模式。</p>
-<h2 id="什么是非流式模型">什么是非流式模型</h2>
-<p>非流式模型（Offline ASR）需要<strong>等待完整音频输入后才能开始识别</strong>。</p>
-<p>特点：</p>
-<ul>
-<li>输入：完整的音频文件或长音频段</li>
-<li>延迟：较高，需要等待音频结束</li>
-<li>准确率：通常较高，因为可以看到完整的上下文</li>
-<li>适用场景：视频字幕生成、会议转录、录音文件处理</li>
-</ul>
-<h2 id="什么是流式模型">什么是流式模型</h2>
-<p>流式模型（Streaming ASR）可以<strong>边接收音频输入边输出识别结果</strong>，实现实时识别。</p>
-<p>特点：</p>
-<ul>
-<li>输入：连续的音频流（通常是短片段，如30ms一帧）</li>
-<li>延迟：低，可以做到几百毫秒内输出</li>
-<li>准确率：通常略低于非流式，因为只有历史和部分未来上下文</li>
-<li>适用场景：实时语音对话、语音助手、直播字幕</li>
-</ul>
-<h2 id="技术实现差异">技术实现差异</h2>
-<table>
-  <thead>
-      <tr>
-          <th>维度</th>
-          <th>流式模型</th>
-          <th>非流式模型</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><strong>上下文</strong></td>
-          <td>有限上下文（lookahead）</td>
-          <td>完整上下文</td>
-      </tr>
-      <tr>
-          <td><strong>延迟</strong></td>
-          <td>低（&lt;500ms）</td>
-          <td>高</td>
-      </tr>
-      <tr>
-          <td><strong>准确率</strong></td>
-          <td>略低</td>
-          <td>较高</td>
-      </tr>
-      <tr>
-          <td><strong>模型复杂度</strong></td>
-          <td>较高（需处理分段）</td>
-          <td>较低</td>
-      </tr>
-      <tr>
-          <td><strong>内存占用</strong></td>
-          <td>较小</td>
-          <td>较大</td>
-      </tr>
-  </tbody>
-</table>
-<p>流式模型通常需要特殊设计，如：</p>
-<ul>
-<li><strong>Chunked Attention</strong>：将音频分成小块处理</li>
-<li><strong>CTC Prefix</strong>：使用CTC的前缀解码</li>
-<li><strong>Lookahead</strong>：只考虑有限的未来帧</li>
-</ul>
-<hr>
-<h1 id="自回归解码和非自回归解码">自回归解码和非自回归解码</h1>
-<p>解码方式决定了模型如何生成输出文本。</p>
-<h2 id="自回归解码-autoregressive-decoding">自回归解码 (Autoregressive Decoding)</h2>
-<p>自回归解码是目前最主流的方式，特点是<strong>逐 token 生成，每个 token 的生成依赖之前所有生成的 token</strong>。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">输出: &#34;hello world&#34;
-</span></span><span class="line"><span class="cl">生成过程:
-</span></span><span class="line"><span class="cl">  1. 生成 &#34;h&#34;
-</span></span><span class="line"><span class="cl">  2. 基于 &#34;h&#34; 生成 &#34;he&#34;
-</span></span><span class="line"><span class="cl">  3. 基于 &#34;he&#34; 生成 &#34;hel&#34;
-</span></span><span class="line"><span class="cl">  4. ...</span></span></code></pre></td></tr></table>
-</div>
-</div>
-<p>特点：</p>
-<ul>
-<li><strong>优点</strong>：生成质量高，可以建模长期依赖</li>
-<li><strong>缺点</strong>：串行生成，推理速度慢（O(n) 复杂度，n为输出长度）</li>
-<li>典型模型：Transformer Decoder、RNN-T</li>
-</ul>
-<h2 id="非自回归解码-non-autoregressive-decoding">非自回归解码 (Non-autoregressive Decoding)</h2>
-<p>非自回归解码是一种<strong>并行生成</strong>方式，一次性输出整个序列。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">输出: &#34;hello world&#34;
-</span></span><span class="line"><span class="cl">生成过程:
-</span></span><span class="line"><span class="cl">  1. 直接输出完整句子 &#34;hello world&#34;</span></span></code></pre></td></tr></table>
-</div>
-</div>
-<p>特点：</p>
-<ul>
-<li><strong>优点</strong>：并行生成，推理速度快（O(1) 复杂度）</li>
-<li><strong>缺点</strong>：难以建模输出token之间的依赖，生成质量可能较低</li>
-<li>典型实现：CTC、FastCorrect、Mask-Predict</li>
-</ul>
-<h2 id="对比">对比</h2>
-<table>
-  <thead>
-      <tr>
-          <th>维度</th>
-          <th>自回归解码</th>
-          <th>非自回归解码</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><strong>生成方式</strong></td>
-          <td>串行，逐token</td>
-          <td>并行，一次性输出</td>
-      </tr>
-      <tr>
-          <td><strong>推理速度</strong></td>
-          <td>慢</td>
-          <td>快</td>
-      </tr>
-      <tr>
-          <td><strong>生成质量</strong></td>
-          <td>高</td>
-          <td>略低</td>
-      </tr>
-      <tr>
-          <td><strong>依赖关系</strong></td>
-          <td>建模token间依赖</td>
-          <td>假设条件独立</td>
-      </tr>
-      <tr>
-          <td><strong>典型模型</strong></td>
-          <td>RNN-T、Seq2Seq</td>
-          <td>CTC、FastConformer</td>
-      </tr>
-  </tbody>
-</table>
-<h1 id="方案选择">方案选择</h1>
-<p>OK，前面了解了这么多，都是为了后续实现最小原型产品，选择语音识别方案做准备，目标不是要训练一个SOTA模型，因此这里暂时只是粗浅的了解。</p>
-<p>根据需求分析：</p>
-<ul>
-<li><strong>目标设备</strong>：iOS移动端（资源有限）</li>
-<li><strong>语言支持</strong>：多语言</li>
-<li><strong>实时性</strong>：实时输入音频，实时输出文字</li>
-</ul>
-<h2 id="选择优先级">选择优先级</h2>
-<ol>
-<li><strong>首先能跑</strong>：模型大小和计算量必须在移动端可承受范围内</li>
-<li><strong>然后多语言</strong>：需要支持多种语言识别</li>
-<li><strong>最后准确率</strong>：在功能可用后再优化性能</li>
-</ol>
-<h2 id="优先级一模型能在移动端跑起来">优先级一：模型能在移动端跑起来</h2>
-<h3 id="参数量选择">参数量选择</h3>
-<p>移动端资源有限，模型参数量直接决定了能否运行。这里暂时没有明确的数值界限，实际运行起来再看，后面也可以用量化技术缩小模型体积。</p>
-<p><strong>量化技术</strong>：INT8量化可将模型体积缩小约4倍，准确率损失通常&lt;5%；INT4可进一步缩小到1/8，但准确率下降更明显。</p>
-<h3 id="架构选择">架构选择</h3>
-<table>
-  <thead>
-      <tr>
-          <th>架构</th>
-          <th>计算量</th>
-          <th>内存占用</th>
-          <th>移动端适用性</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><strong>Transformer Encoder</strong></td>
-          <td>中</td>
-          <td>中</td>
-          <td>★★★★☆</td>
-      </tr>
-      <tr>
-          <td><strong>Conformer</strong></td>
-          <td>中高</td>
-          <td>中</td>
-          <td>★★★★☆</td>
-      </tr>
-      <tr>
-          <td><strong>RNN/LSTM</strong></td>
-          <td>低</td>
-          <td>低</td>
-          <td>★★★☆☆</td>
-      </tr>
-  </tbody>
-</table>
-<p><strong>建议</strong>：选择Encoder-only或轻量级的Conformer结构，参数量控制在50M以内。</p>
-<h2 id="优先级二支持多语言">优先级二：支持多语言</h2>
-<p>确认模型能在移动端运行后，需要考虑多语言支持能力。</p>
-<h3 id="不同模型架构的多语言能力">不同模型架构的多语言能力</h3>
-<table>
-  <thead>
-      <tr>
-          <th>模型架构</th>
-          <th>多语言支持</th>
-          <th>说明</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><strong>端到端Seq2Seq</strong></td>
-          <td>★★★★★</td>
-          <td>训练时使用多语言数据，自然支持多语言</td>
-      </tr>
-      <tr>
-          <td><strong>RNN-T</strong></td>
-          <td>★★★☆☆</td>
-          <td>可支持，但需要针对性训练多语言版本</td>
-      </tr>
-      <tr>
-          <td><strong>CTC</strong></td>
-          <td>★★☆☆☆</td>
-          <td>通常针对单一语言，多语言版本较少</td>
-      </tr>
-  </tbody>
-</table>
-<h3 id="结论">结论</h3>
-<p>需要支持多语言时，<strong>优先选择端到端Seq2Seq架构</strong>，这类模型的预训练版本通常已支持数十到上百种语言。</p>
-<h2 id="优先级三实时性要求">优先级三：实时性要求</h2>
-<p>实时字幕要求模型能够在接收音频的同时输出文字。</p>
-<h3 id="流式-vs-非流式">流式 vs 非流式</h3>
-<table>
-  <thead>
-      <tr>
-          <th>类型</th>
-          <th>延迟</th>
-          <th>实现难度</th>
-          <th>实时字幕适用性</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><strong>流式模型</strong></td>
-          <td>&lt;500ms</td>
-          <td>高</td>
-          <td>★★★★★</td>
-      </tr>
-      <tr>
-          <td><strong>非流式模型</strong></td>
-          <td>&gt;1s</td>
-          <td>低</td>
-          <td>★★☆☆☆</td>
-      </tr>
-  </tbody>
-</table>
-<p><strong>折中方案</strong>：使用非流式模型时，可通过&quot;分块处理&quot;策略模拟流式效果：</p>
-<ul>
-<li>将音频切分为固定长度的chunk（如1秒）</li>
-<li>逐块识别并拼接结果</li>
-<li>通过缓存历史上下文减少误差</li>
-</ul>
-<h3 id="解码方式">解码方式</h3>
-<table>
-  <thead>
-      <tr>
-          <th>解码方式</th>
-          <th>延迟</th>
-          <th>实现复杂度</th>
-          <th>实时性</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td><strong>非自回归（Greedy）</strong></td>
-          <td>低</td>
-          <td>简单</td>
-          <td>★★★★★</td>
-      </tr>
-      <tr>
-          <td><strong>非自回归（Beam Search）</strong></td>
-          <td>中</td>
-          <td>中</td>
-          <td>★★★★☆</td>
-      </tr>
-      <tr>
-          <td><strong>自回归</strong></td>
-          <td>高</td>
-          <td>复杂</td>
-          <td>★★☆☆☆</td>
-      </tr>
-  </tbody>
-</table>
-<p><strong>建议</strong>：实时场景优先选择<strong>非自回归解码</strong>（Greedy），延迟最低。</p>
-<h2 id="总结">总结</h2>
-<p><strong>核心理念</strong>：先完成端到端流程验证，再根据实际体验进行针对性优化。移动端ASR是一个迭代过程，不必追求一步到位。</p>
-<p>后续我会记录在iOS端的具体实现过程，各位道友记得点赞追番哦。</p>
-<p><img alt="各位道友记得一键三连" loading="lazy" src="/images/%E4%B8%80%E9%94%AE%E4%B8%89%E8%BF%9E.jpg"></p>
 ]]></content:encoded>
     </item>
   </channel>
