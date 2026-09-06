@@ -1,0 +1,179 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640">
+<rect width="100%" height="100%" fill="#FAF8F5"/>
+<text x="600.00" y="40.00" fill="#1F2937" font-size="22" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="600" text-anchor="middle" dy="0">Cache 分块：一次只请进来能住进 L1/L2 的三块</text>
+<rect x="40.00" y="160.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="68.00" y="160.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="96.00" y="160.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="124.00" y="160.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="152.00" y="160.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="180.00" y="160.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="40.00" y="188.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="68.00" y="188.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="96.00" y="188.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="124.00" y="188.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="152.00" y="188.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="180.00" y="188.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="40.00" y="216.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="68.00" y="216.00" width="25.00" height="25.00" fill="#3B82F6" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="96.00" y="216.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="124.00" y="216.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="152.00" y="216.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="180.00" y="216.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="40.00" y="244.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="68.00" y="244.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="96.00" y="244.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="124.00" y="244.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="152.00" y="244.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="180.00" y="244.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="40.00" y="272.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="68.00" y="272.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="96.00" y="272.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="124.00" y="272.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="152.00" y="272.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="180.00" y="272.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="40.00" y="300.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="68.00" y="300.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="96.00" y="300.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="124.00" y="300.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="152.00" y="300.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="180.00" y="300.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="40.00" y="328.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="68.00" y="328.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="96.00" y="328.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="124.00" y="328.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="152.00" y="328.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="180.00" y="328.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="40.00" y="356.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="68.00" y="356.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="96.00" y="356.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="124.00" y="356.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="152.00" y="356.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<rect x="180.00" y="356.00" width="25.00" height="25.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1" rx="3" ry="3"/>
+<text x="124.00" y="144.00" fill="#1F2937" font-size="16" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="600" text-anchor="middle" dy="0">A  按 Mᶜ × Kᶜ 切</text>
+<rect x="280.00" y="188.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="308.00" y="188.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="336.00" y="188.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="364.00" y="188.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="392.00" y="188.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="420.00" y="188.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="448.00" y="188.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="476.00" y="188.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="280.00" y="216.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="308.00" y="216.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="336.00" y="216.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="364.00" y="216.00" width="25.00" height="25.00" fill="#F59E0B" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="392.00" y="216.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="420.00" y="216.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="448.00" y="216.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="476.00" y="216.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="280.00" y="244.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="308.00" y="244.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="336.00" y="244.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="364.00" y="244.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="392.00" y="244.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="420.00" y="244.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="448.00" y="244.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="476.00" y="244.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="280.00" y="272.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="308.00" y="272.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="336.00" y="272.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="364.00" y="272.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="392.00" y="272.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="420.00" y="272.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="448.00" y="272.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="476.00" y="272.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="280.00" y="300.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="308.00" y="300.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="336.00" y="300.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="364.00" y="300.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="392.00" y="300.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="420.00" y="300.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="448.00" y="300.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="476.00" y="300.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="280.00" y="328.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="308.00" y="328.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="336.00" y="328.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="364.00" y="328.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="392.00" y="328.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="420.00" y="328.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="448.00" y="328.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<rect x="476.00" y="328.00" width="25.00" height="25.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1" rx="3" ry="3"/>
+<text x="392.00" y="172.00" fill="#1F2937" font-size="16" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="600" text-anchor="middle" dy="0">B  按 Kᶜ × Nᶜ 切</text>
+<rect x="580.00" y="160.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="608.00" y="160.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="636.00" y="160.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="664.00" y="160.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="692.00" y="160.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="720.00" y="160.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="748.00" y="160.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="776.00" y="160.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="580.00" y="188.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="608.00" y="188.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="636.00" y="188.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="664.00" y="188.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="692.00" y="188.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="720.00" y="188.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="748.00" y="188.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="776.00" y="188.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="580.00" y="216.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="608.00" y="216.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="636.00" y="216.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="664.00" y="216.00" width="25.00" height="25.00" fill="#10B981" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="692.00" y="216.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="720.00" y="216.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="748.00" y="216.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="776.00" y="216.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="580.00" y="244.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="608.00" y="244.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="636.00" y="244.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="664.00" y="244.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="692.00" y="244.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="720.00" y="244.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="748.00" y="244.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="776.00" y="244.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="580.00" y="272.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="608.00" y="272.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="636.00" y="272.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="664.00" y="272.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="692.00" y="272.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="720.00" y="272.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="748.00" y="272.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="776.00" y="272.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="580.00" y="300.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="608.00" y="300.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="636.00" y="300.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="664.00" y="300.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="692.00" y="300.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="720.00" y="300.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="748.00" y="300.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="776.00" y="300.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="580.00" y="328.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="608.00" y="328.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="636.00" y="328.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="664.00" y="328.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="692.00" y="328.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="720.00" y="328.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="748.00" y="328.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="776.00" y="328.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="580.00" y="356.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="608.00" y="356.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="636.00" y="356.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="664.00" y="356.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="692.00" y="356.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="720.00" y="356.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="748.00" y="356.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<rect x="776.00" y="356.00" width="25.00" height="25.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1" rx="3" ry="3"/>
+<text x="692.00" y="144.00" fill="#1F2937" font-size="16" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="600" text-anchor="middle" dy="0">C  当前输出块</text>
+<rect x="660.00" y="212.00" width="32.00" height="32.00" fill="none" stroke="#1F2937" stroke-width="2.2" rx="4" ry="4"/>
+<rect x="860.00" y="140.00" width="300.00" height="360.00" fill="#FFFFFF" stroke="#D1D5DB" stroke-width="1.2" rx="12" ry="12"/>
+<text x="1010.00" y="175.00" fill="#1F2937" font-size="16" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="600" text-anchor="middle" dy="0">怎么选块大小</text>
+<text x="880.00" y="215.00" fill="#1F2937" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="start" dy="0">P 核 L1D ≈ 128KB</text>
+<text x="880.00" y="247.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="start" dy="0">A panel 128×256×4B = 128KB</text>
+<text x="880.00" y="279.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="start" dy="0">B panel 256×256×4B → L2</text>
+<text x="880.00" y="311.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="start" dy="0">复用：A 留下，扫完所有 N 块</text>
+<text x="880.00" y="343.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="start" dy="0">再换下一块 A / 下一段 K</text>
+<text x="880.00" y="375.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="start" dy="0"></text>
+<text x="880.00" y="407.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="start" dy="0">块太小：循环开销吃收益</text>
+<text x="880.00" y="439.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="start" dy="0">块太大：挤出 L2，又回访存</text>
+<text x="600.00" y="610.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">单独给 ikj 套一层 64×64 分块，本机上并没有更快——预取器已经在喂顺序流。分块要和微核一起才值钱。</text>
+</svg>

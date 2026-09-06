@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600">
+<rect width="100%" height="100%" fill="#FAF8F5"/>
+<marker id="arr-1F2937" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1F2937"/></marker>
+<text x="600.00" y="40.00" fill="#1F2937" font-size="22" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="600" text-anchor="middle" dy="0">NEON：一次 FMA 吃 4 个 FP32</text>
+<rect x="50.00" y="80.00" width="260.00" height="110.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1.6" rx="12" ry="12"/>
+<text x="180.00" y="125.00" fill="#3B82F6" font-size="18" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="600" text-anchor="middle" dy="0">A[i, k]  广播</text>
+<text x="180.00" y="158.00" fill="#6B7280" font-size="13" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">同一个标量 × 整条向量</text>
+<line x1="320.00" y1="135.00" x2="390.00" y2="135.00" stroke="#1F2937" stroke-width="2" stroke-linecap="round" marker-end="url(#arr-1F2937)"/>
+<rect x="410.00" y="80.00" width="135.00" height="110.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1.5" rx="10" ry="10"/>
+<text x="477.00" y="125.00" fill="#F59E0B" font-size="20" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="700" text-anchor="middle" dy="0">b0</text>
+<text x="477.00" y="158.00" fill="#6B7280" font-size="12" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">32-bit</text>
+<rect x="560.00" y="80.00" width="135.00" height="110.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1.5" rx="10" ry="10"/>
+<text x="627.00" y="125.00" fill="#F59E0B" font-size="20" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="700" text-anchor="middle" dy="0">b1</text>
+<text x="627.00" y="158.00" fill="#6B7280" font-size="12" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">32-bit</text>
+<rect x="710.00" y="80.00" width="135.00" height="110.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1.5" rx="10" ry="10"/>
+<text x="777.00" y="125.00" fill="#F59E0B" font-size="20" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="700" text-anchor="middle" dy="0">b2</text>
+<text x="777.00" y="158.00" fill="#6B7280" font-size="12" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">32-bit</text>
+<rect x="860.00" y="80.00" width="135.00" height="110.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1.5" rx="10" ry="10"/>
+<text x="927.00" y="125.00" fill="#F59E0B" font-size="20" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="700" text-anchor="middle" dy="0">b3</text>
+<text x="927.00" y="158.00" fill="#6B7280" font-size="12" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">32-bit</text>
+<text x="710.00" y="215.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">B 的一行：128-bit 寄存器</text>
+<line x1="710.00" y1="200.00" x2="710.00" y2="250.00" stroke="#1F2937" stroke-width="2" stroke-linecap="round" marker-end="url(#arr-1F2937)"/>
+<text x="820.00" y="240.00" fill="#1F2937" font-size="16" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="600" text-anchor="middle" dy="0">vfmaq_f32</text>
+<rect x="410.00" y="260.00" width="135.00" height="110.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1.5" rx="10" ry="10"/>
+<text x="477.00" y="305.00" fill="#10B981" font-size="20" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="700" text-anchor="middle" dy="0">c0</text>
+<text x="477.00" y="338.00" fill="#6B7280" font-size="13" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">+= a×b</text>
+<rect x="560.00" y="260.00" width="135.00" height="110.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1.5" rx="10" ry="10"/>
+<text x="627.00" y="305.00" fill="#10B981" font-size="20" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="700" text-anchor="middle" dy="0">c1</text>
+<text x="627.00" y="338.00" fill="#6B7280" font-size="13" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">+= a×b</text>
+<rect x="710.00" y="260.00" width="135.00" height="110.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1.5" rx="10" ry="10"/>
+<text x="777.00" y="305.00" fill="#10B981" font-size="20" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="700" text-anchor="middle" dy="0">c2</text>
+<text x="777.00" y="338.00" fill="#6B7280" font-size="13" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">+= a×b</text>
+<rect x="860.00" y="260.00" width="135.00" height="110.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1.5" rx="10" ry="10"/>
+<text x="927.00" y="305.00" fill="#10B981" font-size="20" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="700" text-anchor="middle" dy="0">c3</text>
+<text x="927.00" y="338.00" fill="#6B7280" font-size="13" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">+= a×b</text>
+<rect x="50.00" y="260.00" width="260.00" height="220.00" fill="#FFFFFF" stroke="#D1D5DB" stroke-width="1.2" rx="12" ry="12"/>
+<text x="180.00" y="300.00" fill="#1F2937" font-size="16" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="600" text-anchor="middle" dy="0">和标量比</text>
+<text x="180.00" y="340.00" fill="#1F2937" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">吞吐 ×4（单条向量）</text>
+<text x="180.00" y="372.00" fill="#1F2937" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">P 核每周期多条 FMA</text>
+<text x="180.00" y="410.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">要靠寄存器分块</text>
+<text x="180.00" y="440.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">才能喂饱流水线</text>
+<text x="600.00" y="560.00" fill="#6B7280" font-size="15" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">本机单线程 NEON 微核 ≈ 51 GFLOPS，大约是 ikj 的两倍。</text>
+</svg>

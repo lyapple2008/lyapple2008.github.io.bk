@@ -16,9 +16,9 @@
     <atom:link href="http://localhost:1313/tags/%E8%AF%AD%E9%9F%B3%E8%AF%86%E5%88%AB/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>LowFrameRate在语音识别中的原理和作用</title>
-      <link>http://localhost:1313/posts/2026-01-30-lowframerate%E5%9C%A8%E8%AF%AD%E9%9F%B3%E8%AF%86%E5%88%AB%E4%B8%AD%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%9C%E7%94%A8/</link>
+      <link>http://localhost:1313/posts/202601/2026-01-30-lowframerate%E5%9C%A8%E8%AF%AD%E9%9F%B3%E8%AF%86%E5%88%AB%E4%B8%AD%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%9C%E7%94%A8/</link>
       <pubDate>Fri, 30 Jan 2026 23:10:57 +0800</pubDate>
-      <guid>http://localhost:1313/posts/2026-01-30-lowframerate%E5%9C%A8%E8%AF%AD%E9%9F%B3%E8%AF%86%E5%88%AB%E4%B8%AD%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%9C%E7%94%A8/</guid>
+      <guid>http://localhost:1313/posts/202601/2026-01-30-lowframerate%E5%9C%A8%E8%AF%AD%E9%9F%B3%E8%AF%86%E5%88%AB%E4%B8%AD%E7%9A%84%E5%8E%9F%E7%90%86%E5%92%8C%E4%BD%9C%E7%94%A8/</guid>
       <description>&lt;h1 id=&#34;low-frame-ratelfr在语音识别中的原理与作用&#34;&gt;Low Frame Rate（LFR）在语音识别中的原理与作用&lt;/h1&gt;
 &lt;h2 id=&#34;一什么是-low-frame-ratelfr&#34;&gt;一、什么是 Low Frame Rate（LFR）&lt;/h2&gt;
 &lt;p&gt;在自动语音识别（ASR）中，&lt;strong&gt;Low Frame Rate（低帧率，简称 LFR）&lt;strong&gt;是一种&lt;/strong&gt;时域特征重组织方法&lt;/strong&gt;，其核心思想是：&lt;/p&gt;</description>
@@ -116,10 +116,10 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">y = concat(x_t, x_{t+1}, ..., x_{t+m-1})
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">y = concat(x_t, x_{t+1}, ..., x_{t+m-1})</span></span></code></pre></td></tr></table>
 </div>
-</div><p>作用：</p>
+</div>
+<p>作用：</p>
 <ul>
 <li>显式引入短时上下文</li>
 <li>保留完整的频谱信息</li>
@@ -133,10 +133,10 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">t = 0, n, 2n, 3n, ...
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">t = 0, n, 2n, 3n, ...</span></span></code></pre></td></tr></table>
 </div>
-</div><p>作用：</p>
+</div>
+<p>作用：</p>
 <ul>
 <li>减少时间步数量</li>
 <li>控制计算量</li>
@@ -173,10 +173,10 @@
 </span></span><span class="line"><span class="cl">LFR 帧 (≈30ms step):
 </span></span><span class="line"><span class="cl">|---- LFR_0 ----|
 </span></span><span class="line"><span class="cl">          |---- LFR_1 ----|
-</span></span><span class="line"><span class="cl">                    |---- LFR_2 ----|
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">                    |---- LFR_2 ----|</span></span></code></pre></td></tr></table>
 </div>
-</div><p>或者画成块状：</p>
+</div>
+<p>或者画成块状：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -186,10 +186,10 @@
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">LFR_0: [ f0 | f1 | f2 | f3 ]
 </span></span><span class="line"><span class="cl">LFR_1:            [ f3 | f4 | f5 | f6 ]
-</span></span><span class="line"><span class="cl">LFR_2:                      [ f6 | f7 | f8 | f9 ]
-</span></span></code></pre></td></tr></table>
+</span></span><span class="line"><span class="cl">LFR_2:                      [ f6 | f7 | f8 | f9 ]</span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="五lfr-为什么可以降低计算量关键问题">五、LFR 为什么可以降低计算量（关键问题）</h2>
+</div>
+<h2 id="五lfr-为什么可以降低计算量关键问题">五、LFR 为什么可以降低计算量（关键问题）</h2>
 <p>一个常见疑问是：</p>
 <blockquote>
 <p><strong>LFR 并没有减少特征总数，为什么能提升性能？</strong></p></blockquote>
@@ -236,10 +236,10 @@
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Self-Attention: O(T² · D)
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Self-Attention: O(T² · D)</span></span></code></pre></td></tr></table>
 </div>
-</div><ul>
+</div>
+<ul>
 <li>T 减少 4 倍 → 计算量 ≈ 1/16</li>
 <li>D 增加 4 倍 → 抵消一部分</li>
 <li><strong>整体计算量仍显著下降</strong></li>

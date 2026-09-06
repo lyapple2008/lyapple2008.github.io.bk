@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640">
+<rect width="100%" height="100%" fill="#FAF8F5"/>
+<text x="600.00" y="40.00" fill="#1F2937" font-size="22" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="600" text-anchor="middle" dy="0">多线程：把 C 按行块切开，优先喂给 P 核</text>
+<rect x="50.00" y="70.00" width="620.00" height="40.00" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.4" rx="8" ry="8"/>
+<text x="80.00" y="96.00" fill="#2563EB" font-size="16" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="700" text-anchor="start" dy="0">P0</text>
+<text x="360.00" y="96.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">C 的一行块   MC × N</text>
+<rect x="50.00" y="116.00" width="620.00" height="40.00" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.4" rx="8" ry="8"/>
+<text x="80.00" y="142.00" fill="#2563EB" font-size="16" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="700" text-anchor="start" dy="0">P1</text>
+<text x="360.00" y="142.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">C 的一行块   MC × N</text>
+<rect x="50.00" y="162.00" width="620.00" height="40.00" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.4" rx="8" ry="8"/>
+<text x="80.00" y="188.00" fill="#2563EB" font-size="16" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="700" text-anchor="start" dy="0">P2</text>
+<text x="360.00" y="188.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">C 的一行块   MC × N</text>
+<rect x="50.00" y="208.00" width="620.00" height="40.00" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.4" rx="8" ry="8"/>
+<text x="80.00" y="234.00" fill="#2563EB" font-size="16" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="700" text-anchor="start" dy="0">P3</text>
+<text x="360.00" y="234.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">C 的一行块   MC × N</text>
+<rect x="50.00" y="254.00" width="620.00" height="40.00" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.4" rx="8" ry="8"/>
+<text x="80.00" y="280.00" fill="#2563EB" font-size="16" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="700" text-anchor="start" dy="0">P4</text>
+<text x="360.00" y="280.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">C 的一行块   MC × N</text>
+<rect x="50.00" y="300.00" width="620.00" height="40.00" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.4" rx="8" ry="8"/>
+<text x="80.00" y="326.00" fill="#2563EB" font-size="16" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="700" text-anchor="start" dy="0">P5</text>
+<text x="360.00" y="326.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">C 的一行块   MC × N</text>
+<rect x="50.00" y="346.00" width="620.00" height="40.00" fill="#F3F4F6" stroke="#9CA3AF" stroke-width="1.4" rx="8" ry="8"/>
+<text x="80.00" y="372.00" fill="#9CA3AF" font-size="16" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="700" text-anchor="start" dy="0">E0</text>
+<text x="360.00" y="372.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">C 的一行块   MC × N</text>
+<rect x="50.00" y="392.00" width="620.00" height="40.00" fill="#F3F4F6" stroke="#9CA3AF" stroke-width="1.4" rx="8" ry="8"/>
+<text x="80.00" y="418.00" fill="#9CA3AF" font-size="16" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="700" text-anchor="start" dy="0">E1</text>
+<text x="360.00" y="418.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">C 的一行块   MC × N</text>
+<rect x="50.00" y="438.00" width="620.00" height="40.00" fill="#F3F4F6" stroke="#9CA3AF" stroke-width="1.4" rx="8" ry="8"/>
+<text x="80.00" y="464.00" fill="#9CA3AF" font-size="16" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="700" text-anchor="start" dy="0">E2</text>
+<text x="360.00" y="464.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">C 的一行块   MC × N</text>
+<rect x="50.00" y="484.00" width="620.00" height="40.00" fill="#F3F4F6" stroke="#9CA3AF" stroke-width="1.4" rx="8" ry="8"/>
+<text x="80.00" y="510.00" fill="#9CA3AF" font-size="16" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="700" text-anchor="start" dy="0">E3</text>
+<text x="360.00" y="510.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">C 的一行块   MC × N</text>
+<rect x="720.00" y="70.00" width="430.00" height="200.00" fill="#FFFFFF" stroke="#D1D5DB" stroke-width="1.2" rx="12" ry="12"/>
+<text x="935.00" y="105.00" fill="#1F2937" font-size="16" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="600" text-anchor="middle" dy="0">QoS 为什么重要</text>
+<text x="935.00" y="145.00" fill="#2563EB" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="600" text-anchor="middle" dy="0">USER_INTERACTIVE</text>
+<text x="935.00" y="172.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">调度器偏向 6 个 P 核</text>
+<text x="935.00" y="210.00" fill="#9CA3AF" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="600" text-anchor="middle" dy="0">默认 / 后台</text>
+<text x="935.00" y="237.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">iOS 上容易落到 E 核</text>
+<rect x="720.00" y="300.00" width="430.00" height="230.00" fill="#FFFFFF" stroke="#D1D5DB" stroke-width="1.2" rx="12" ry="12"/>
+<text x="935.00" y="340.00" fill="#1F2937" font-size="16" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="600" text-anchor="middle" dy="0">本机 N = 1024</text>
+<text x="935.00" y="380.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">NEON 单线程   51 GFLOPS</text>
+<text x="935.00" y="412.00" fill="#1F2937" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">GCD 默认      276 GFLOPS</text>
+<text x="935.00" y="444.00" fill="#2563EB" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">GCD UI        280 GFLOPS</text>
+<text x="935.00" y="485.00" fill="#6B7280" font-size="13" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">桌面差距小，手机上会放大</text>
+</svg>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700">
+<rect width="100%" height="100%" fill="#FAF8F5"/>
+<text x="600.00" y="40.00" fill="#1F2937" font-size="22" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="600" text-anchor="middle" dy="0">M2 Pro 的两张地图：存储层次  ×  计算单元</text>
+<rect x="50.00" y="70.00" width="560.00" height="95.00" fill="#DBEAFE" stroke="#1E3A8A" stroke-width="0.8" rx="12" ry="12"/>
+<text x="74.00" y="110.00" fill="#1F2937" font-size="18" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="600" text-anchor="start" dy="0">寄存器  ·  几个周期</text>
+<text x="74.00" y="140.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="start" dy="0">累加器就住在这里</text>
+<rect x="50.00" y="180.00" width="560.00" height="95.00" fill="#BFDBFE" stroke="#1E3A8A" stroke-width="0.8" rx="12" ry="12"/>
+<text x="74.00" y="220.00" fill="#1F2937" font-size="18" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="600" text-anchor="start" dy="0">L1D   P 核 ~128KB / E 核 ~64KB</text>
+<text x="74.00" y="250.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="start" dy="0">cache line = 128B</text>
+<rect x="50.00" y="290.00" width="560.00" height="95.00" fill="#93C5FD" stroke="#1E3A8A" stroke-width="0.8" rx="12" ry="12"/>
+<text x="74.00" y="330.00" fill="#1F2937" font-size="18" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="600" text-anchor="start" dy="0">L2   性能簇 ~16MB / 能效簇 ~4MB</text>
+<text x="74.00" y="360.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="start" dy="0">分块大小主要看这一层</text>
+<rect x="50.00" y="400.00" width="560.00" height="95.00" fill="#60A5FA" stroke="#1E3A8A" stroke-width="0.8" rx="12" ry="12"/>
+<text x="74.00" y="440.00" fill="#1F2937" font-size="18" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="600" text-anchor="start" dy="0">SLC  ~16MB</text>
+<text x="74.00" y="470.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="start" dy="0">CPU / GPU / ANE 共享的最后一级</text>
+<rect x="50.00" y="510.00" width="560.00" height="110.00" fill="#1D4ED8" stroke="#1E3A8A" stroke-width="0.8" rx="12" ry="12"/>
+<text x="74.00" y="550.00" fill="#fff" font-size="18" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="600" text-anchor="start" dy="0">统一内存  16GB  ·  ~200 GB/s</text>
+<text x="74.00" y="580.00" fill="#DBEAFE" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="start" dy="0">没有 PCIe 拷贝，但仍有缓存归属</text>
+<rect x="680.00" y="70.00" width="470.00" height="115.00" fill="#BFDBFE" stroke="#3B82F6" stroke-width="1.6" rx="12" ry="12"/>
+<text x="702.00" y="115.00" fill="#1F2937" font-size="18" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="600" text-anchor="start" dy="0">标量 ALU</text>
+<text x="702.00" y="148.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="start" dy="0">一次 1 个 FP32</text>
+<rect x="680.00" y="205.00" width="470.00" height="115.00" fill="#CFFAFE" stroke="#0891B2" stroke-width="1.6" rx="12" ry="12"/>
+<text x="702.00" y="250.00" fill="#1F2937" font-size="18" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="600" text-anchor="start" dy="0">NEON  128-bit</text>
+<text x="702.00" y="283.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="start" dy="0">一次 4 个 FP32 FMA</text>
+<rect x="680.00" y="340.00" width="470.00" height="115.00" fill="#A7F3D0" stroke="#10B981" stroke-width="1.6" rx="12" ry="12"/>
+<text x="702.00" y="385.00" fill="#1F2937" font-size="18" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="600" text-anchor="start" dy="0">AMX  矩阵协处理器</text>
+<text x="702.00" y="418.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="start" dy="0">outer product，一块 C</text>
+<rect x="680.00" y="475.00" width="470.00" height="115.00" fill="#FDE68A" stroke="#F59E0B" stroke-width="1.6" rx="12" ry="12"/>
+<text x="702.00" y="520.00" fill="#1F2937" font-size="18" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="600" text-anchor="start" dy="0">GPU / ANE</text>
+<text x="702.00" y="553.00" fill="#6B7280" font-size="14" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="start" dy="0">大矩阵或固定网络层</text>
+<text x="600.00" y="670.00" fill="#6B7280" font-size="15" font-family="PingFang SC, Hiragino Sans GB, Helvetica Neue, sans-serif" font-weight="500" text-anchor="middle" dy="0">越往下容量越大、越慢。优化就是让热点数据尽量停在上面几层。</text>
+</svg>

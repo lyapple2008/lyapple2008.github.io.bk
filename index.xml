@@ -12,7 +12,7 @@
     <generator>Hugo -- 0.147.9</generator>
     <language>zh</language>
     <copyright>See this site&amp;rsquo;s source code here, licensed under GPLv3 ·</copyright>
-    <lastBuildDate>Thu, 03 Sep 2026 22:30:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 06 Sep 2026 21:30:00 +0800</lastBuildDate>
     <atom:link href="https://lyapple2008.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>【置顶】2026</title>
@@ -130,11 +130,604 @@ chart.setOption({
 ]]></content:encoded>
     </item>
     <item>
+      <title>矩阵乘法优化：从三层循环到 Apple Silicon</title>
+      <link>https://lyapple2008.github.io/posts/202609/2026-09-06-%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95%E4%BC%98%E5%8C%96/</link>
+      <pubDate>Sun, 06 Sep 2026 21:30:00 +0800</pubDate>
+      <guid>https://lyapple2008.github.io/posts/202609/2026-09-06-%E7%9F%A9%E9%98%B5%E4%B9%98%E6%B3%95%E4%BC%98%E5%8C%96/</guid>
+      <description>在 Mac mini M2 Pro 上把朴素 GEMM 从 2.5 GFLOPS 推到 Accelerate 的 2.7 TFLOPS。每一步先看数据怎么走，再改代码，最后对照这颗芯片的存储层次和 AMX。</description>
+      <content:encoded><![CDATA[<p>深度学习里最贵的那几下，多半是矩阵乘法。注意力的 $QK^{\top}$ 和 $PV$、全连接、卷积展开之后，都是</p>
+<p>$$C = AB,\qquad C_{ij}=\sum_k A_{ik},B_{kj}$$</p>
+<p>算力是 $O(n^3)$，访存是 $O(n^2)$。算术强度大约是 $n/6$（三个矩阵各扫一遍、FP32）。$n$ 小的时候吃带宽，$n$ 大的时候吃算力。优化不是把循环写得更花，而是让每个被请上芯片的数，多干几次活。</p>
+<p>这篇文章按「图示原理 → 硬件瓶颈 → 最短代码 → 本机数字」往下走。平台是眼前这台 <strong>Mac mini M2 Pro</strong>（6 个性能核 + 4 个能效核，16GB 统一内存）。编译器 Apple clang 21，<code>-O3 -ffast-math</code>，方阵 FP32，暖机后取中位数。iOS 和 macOS 共用同一套 Accelerate，后面会单独讲两堵不同的墙。</p>
+<p><img alt="一行乘一列，得到 C 的一个数" loading="lazy" src="/images/2026-09/gemm-overview.svg"></p>
+<h2 id="先看这颗芯片">先看这颗芯片</h2>
+<p>后面每一步都回扣这里。M2 Pro 上其实有两张地图：数据住在哪一层，以及谁来算。</p>
+<p><img alt="M2 Pro 存储层次与计算单元" loading="lazy" src="/images/2026-09/gemm-m2pro-hierarchy.svg"></p>
+<p>几个后面会反复用到的数：</p>
+<ul>
+<li>cache line <strong>128B</strong>，一行刚好 32 个 FP32</li>
+<li>P 核 L1D 大约 <strong>128KB</strong>，E 核大约 <strong>64KB</strong></li>
+<li>性能簇 L2 大约 <strong>16MB</strong>，能效簇大约 <strong>4MB</strong>，SLC 大约 <strong>16MB</strong></li>
+<li>统一内存带宽大约 <strong>200 GB/s</strong></li>
+<li>计算从下到上：标量 → NEON 128-bit → <strong>AMX</strong> → GPU / ANE</li>
+</ul>
+<p>macOS 和 iOS 的指令集是同源的。差的不是「会不会写 kernel」，是频率墙、热和 QoS。</p>
+<p>用 Roofline 把终点立住：naive 贴在带宽墙上，Accelerate 已经顶到 AMX 的算力墙。中间那些优化，就是把点往右上挪。</p>
+<p><img alt="本机 Roofline：naive 贴带宽墙，Accelerate 顶 AMX" loading="lazy" src="/images/2026-09/gemm-roofline.svg"></p>
+<p>阶梯是这样的：</p>
+
+<div class="mermaid">flowchart LR
+    naive[naive ijk] --&gt; ikj[循环交换 ikj]
+    ikj --&gt; tile[Cache 分块]
+    tile --&gt; pack[Packing]
+    pack --&gt; reg[寄存器分块]
+    reg --&gt; neon[NEON 微核]
+    neon --&gt; gcd[GCD 多线程]
+    gcd --&gt; amx[Accelerate / AMX]</div>
+<p>不是每一步都会更快。有的步是在给下一步铺路，单独拿出来测会变慢。这本身就是软硬件合在一起时该有的诚实。</p>
+<h2 id="1-naive-ijk按教科书写按列去跳">1. Naive ijk：按教科书写，按列去跳</h2>
+<p>图先看。内层循环沿 B 的列往下走：</p>
+<p><img alt="naive ijk 的访问轨迹：B 跨行走" loading="lazy" src="/images/2026-09/gemm-naive-ijk.svg"></p>
+<p>行主序里，<code>B[k, j]</code> 的下一拍是 <code>B[k+1, j]</code>，中间隔了整行。cache line 请来 32 个数，用完 1 个就丢掉。L1 帮不上忙，预取器也跟不住这种步长。</p>
+<p>卡在哪：不是乘法慢，是 <strong>B 的跨步访问把带宽浪费了</strong>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">float</span> <span class="n">s</span> <span class="o">=</span> <span class="mf">0.f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">s</span> <span class="o">+=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">B</span><span class="p">[</span><span class="n">k</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="n">j</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="n">C</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>本机数字：</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: right">N</th>
+          <th style="text-align: right">耗时</th>
+          <th style="text-align: right">GFLOPS</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: right">64</td>
+          <td style="text-align: right">0.072 ms</td>
+          <td style="text-align: right">7.28</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">256</td>
+          <td style="text-align: right">12.7 ms</td>
+          <td style="text-align: right">2.65</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">512</td>
+          <td style="text-align: right">82.5 ms</td>
+          <td style="text-align: right">3.25</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">1024</td>
+          <td style="text-align: right">850 ms</td>
+          <td style="text-align: right"><strong>2.53</strong></td>
+      </tr>
+  </tbody>
+</table>
+<p>$N$ 一大，立刻掉到 2～3 GFLOPS。这就是后面所有加速比的分母。</p>
+<h2 id="2-循环交换-ikj同一套乘法换一条路">2. 循环交换 ikj：同一套乘法，换一条路</h2>
+<p>把 $j$ 收到最里面。固定一个 $A_{ik}$，沿 B 的第 $k$ 行走过去，C 的第 $i$ 行就地累加。</p>
+<p><img alt="ikj：B 和 C 都变成顺序扫" loading="lazy" src="/images/2026-09/gemm-order-ikj.svg"></p>
+<p>对照更清楚。上面跨行跳，下面顺序扫，算的是同一件事：</p>
+<p><img alt="ijk 与 ikj 访问轨迹对照" loading="lazy" src="/images/2026-09/gemm-order-compare.svg"></p>
+<p>卡在哪：还是标量乘法，但 <strong>空间局部性回来了</strong>。128B 的 cache line 里 32 个 FP32 终于被用上。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">memset</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">n</span> <span class="o">*</span> <span class="n">n</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">float</span> <span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="n">k</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">C</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">B</span><span class="p">[</span><span class="n">k</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="n">j</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>本机数字（相对 naive）：</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: right">N</th>
+          <th style="text-align: right">ikj GFLOPS</th>
+          <th style="text-align: right">加速比</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: right">64</td>
+          <td style="text-align: right">23.8</td>
+          <td style="text-align: right">3.3×</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">256</td>
+          <td style="text-align: right">26.8</td>
+          <td style="text-align: right">10.1×</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">512</td>
+          <td style="text-align: right">28.3</td>
+          <td style="text-align: right">8.7×</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">1024</td>
+          <td style="text-align: right"><strong>28.9</strong></td>
+          <td style="text-align: right"><strong>11.4×</strong></td>
+      </tr>
+      <tr>
+          <td style="text-align: right">2048</td>
+          <td style="text-align: right">24.9</td>
+          <td style="text-align: right">—</td>
+      </tr>
+  </tbody>
+</table>
+<p>只换循环顺序，大矩阵直接快一个数量级。这是整篇文章里，<strong>代码改动最小、收益最稳</strong> 的一步。后面所有花活，都建立在「先别跟 cache line 作对」之上。</p>
+<h2 id="3-cache-分块一次只请得起三块">3. Cache 分块：一次只请得起三块</h2>
+<p>$N=1024$ 时，三个矩阵各 4MB，已经超出单核 L1，也挤得 L2 很满。ikj 靠预取还能维持 29 GFLOPS，但微核如果想把一块 A 反复乘很多块 B，这三块必须先住进缓存。</p>
+<p><img alt="一次只装进能住进 L1/L2 的 A、B、C 三块" loading="lazy" src="/images/2026-09/gemm-tiling.svg"></p>
+<p>块大小怎么反推：P 核 L1D 大约 128KB。一块 $128\times 256$ 的 FP32 panel 刚好 128KB，可以钉在 L1；对应的 B panel 放到 L2。A 留下，扫完所有 N 方向的块，再换下一段 K。这就是 Goto / BLIS 那套「外层大块 + 内层微核」的骨架。</p>
+<p>卡在哪：工作集超过缓存时，<strong>复用半径必须由块大小显式管住</strong>。预取器救得了顺序流，救不了「同时想记住三块还在长的矩阵」。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i0</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i0</span> <span class="o">+=</span> <span class="n">MC</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">k0</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">k0</span> <span class="o">+=</span> <span class="n">KC</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j0</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">j0</span> <span class="o">+=</span> <span class="n">NC</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="cm">/* 对 A[i0:i0+MC, k0:k0+KC] · B[k0:k0+KC, j0:j0+NC] 做 ikj */</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>本机上，单独给 ikj 套一层 64×64 分块，并没有更快：</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: right">N</th>
+          <th style="text-align: right">tiled</th>
+          <th style="text-align: right">ikj</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: right">256</td>
+          <td style="text-align: right">24.2</td>
+          <td style="text-align: right">26.8</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">512</td>
+          <td style="text-align: right">22.4</td>
+          <td style="text-align: right">28.3</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">1024</td>
+          <td style="text-align: right">20.2</td>
+          <td style="text-align: right">28.9</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">2048</td>
+          <td style="text-align: right">16.2</td>
+          <td style="text-align: right">24.9</td>
+      </tr>
+  </tbody>
+</table>
+<p>这不是分块错了。是 <strong>ikj 已经被预取器喂饱，多出来的三重分块循环在收税</strong>。分块的价值要等微核出现：只有当你真的会把同一块 A 连乘很多块 B，把它钉在 L1 才划算。下面两步会把这件事做实。</p>
+<h2 id="4-packing给微核铺一条直道">4. Packing：给微核铺一条直道</h2>
+<p>微核希望每次 load 都是连续的、宽度刚好是 NR。原矩阵里，一个 $K_c\times N_r$ 的 panel 每行只要 8 个数，行与行之间却隔着整行步长。</p>
+<p><img alt="panel 从原矩阵散落位置，打成连续条带" loading="lazy" src="/images/2026-09/gemm-packing.svg"></p>
+<p>卡在哪：即便块已经在缓存里，<strong>跨步 load 仍会打断微核的流水线，TLB 也更容易 miss</strong>。</p>
+<p>打包本身是一次 gather。只打包、微核仍是标量，拷贝成本会把收益吃光——本机 packed 标量核只有 <strong>7.5 GFLOPS</strong>，比 ikj 慢三倍。Packing 不是优化，是 <strong>给下一步快微核付的入场费</strong>。</p>
+<h2 id="5-寄存器分块c-的一小窗不要来回写">5. 寄存器分块：C 的一小窗不要来回写</h2>
+<p>微核窗口盖在 C 上。4×8 一共 32 个累加器，K 维走完再写回内存。</p>
+<p><img alt="4×8 微核窗口和寄存器累加器" loading="lazy" src="/images/2026-09/gemm-regblock.svg"></p>
+<p>卡在哪：没有这一层，每次 <code>c[j] += a * b[j]</code> 都要读 C、写 C。C 的流量从 $O(n^2)$ 变成跟着 $K$ 放大。寄存器分块把 C 的写回从「每个 k 一次」收成「每个微核一次」。</p>
+<p>本机 4×4 标量寄存器分块：</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: right">N</th>
+          <th style="text-align: right">GFLOPS</th>
+          <th style="text-align: right">相对 naive</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: right">64</td>
+          <td style="text-align: right">47.7</td>
+          <td style="text-align: right">6.6×</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">256</td>
+          <td style="text-align: right">31.3</td>
+          <td style="text-align: right">11.8×</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">1024</td>
+          <td style="text-align: right">29.9</td>
+          <td style="text-align: right">11.8×</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">2048</td>
+          <td style="text-align: right">10.7</td>
+          <td style="text-align: right">—</td>
+      </tr>
+  </tbody>
+</table>
+<p>小矩阵整表住在缓存里，寄存器分块几乎白捡一倍。$N=2048$ 时没有外层 cache 分块护着，窗口外的 A、B 重新开始流，数字掉下去。再一次：微核和分块是一对，拆开都不完整。</p>
+<h2 id="6-neon一次-fma-吃-4-个-fp32">6. NEON：一次 FMA 吃 4 个 FP32</h2>
+<p>Apple Silicon 的 P 核每个周期能发多条 128-bit FMA。标量循环喂不饱它们。一条 NEON 寄存器装 4 个 FP32，<code>vfmaq_f32</code> 做的是「广播一个 $A_{ik}$，乘 B 的一行向量，累加进 C」。</p>
+<p><img alt="128-bit 车道：广播 A × 向量 B → 累加 C" loading="lazy" src="/images/2026-09/gemm-neon.svg"></p>
+<p>卡在哪：算力墙从「标量 ALU」换成了 <strong>向量流水线</strong>。要喂饱它，pack 好的 A、B 和寄存器里的 C 必须同时在岗。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">float32x4_t</span> <span class="n">c0</span> <span class="o">=</span> <span class="nf">vdupq_n_f32</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">c1</span> <span class="o">=</span> <span class="nf">vdupq_n_f32</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">kc</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">float32x4_t</span> <span class="n">a</span> <span class="o">=</span> <span class="nf">vld1q_f32</span><span class="p">(</span><span class="n">Ap</span> <span class="o">+</span> <span class="n">k</span> <span class="o">*</span> <span class="mi">4</span><span class="p">);</span>     <span class="cm">/* 4 行 A */</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">float32x4_t</span> <span class="n">b0</span> <span class="o">=</span> <span class="nf">vld1q_f32</span><span class="p">(</span><span class="n">Bp</span> <span class="o">+</span> <span class="n">k</span> <span class="o">*</span> <span class="mi">8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">float32x4_t</span> <span class="n">b1</span> <span class="o">=</span> <span class="nf">vld1q_f32</span><span class="p">(</span><span class="n">Bp</span> <span class="o">+</span> <span class="n">k</span> <span class="o">*</span> <span class="mi">8</span> <span class="o">+</span> <span class="mi">4</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">c0</span> <span class="o">=</span> <span class="nf">vfmaq_laneq_f32</span><span class="p">(</span><span class="n">c0</span><span class="p">,</span> <span class="n">b0</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">c1</span> <span class="o">=</span> <span class="nf">vfmaq_laneq_f32</span><span class="p">(</span><span class="n">c1</span><span class="p">,</span> <span class="n">b1</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 其余 3 行同理 */</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>加上前面的分块和 packing，单线程微核在本机非常稳：</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: right">N</th>
+          <th style="text-align: right">NEON GFLOPS</th>
+          <th style="text-align: right">相对 ikj</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: right">64</td>
+          <td style="text-align: right">43.7</td>
+          <td style="text-align: right">1.8×</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">256</td>
+          <td style="text-align: right">50.2</td>
+          <td style="text-align: right">1.9×</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">512</td>
+          <td style="text-align: right">51.2</td>
+          <td style="text-align: right">1.8×</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">1024</td>
+          <td style="text-align: right"><strong>51.1</strong></td>
+          <td style="text-align: right">1.8×</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">2048</td>
+          <td style="text-align: right">49.6</td>
+          <td style="text-align: right">2.0×</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">4096</td>
+          <td style="text-align: right">45.6</td>
+          <td style="text-align: right">—</td>
+      </tr>
+  </tbody>
+</table>
+<p>大约 50 GFLOPS，几乎不随 $N$ 抖。说明微核已经把单核 NEON 的数据通路走顺了。6 个 P 核的 NEON 理论峰值大约在 600+ GFLOPS 这个量级，单核 50 离「喂饱一条核」还有距离，但已经不是访存在主导。</p>
+<h2 id="7-多线程先喂-p-核并看-qos">7. 多线程：先喂 P 核，并看 QoS</h2>
+<p>C 按行块切开，每块独立写自己的行，GCD concurrent 往外派。M2 Pro 是 6 个 P 核 + 4 个 E 核。默认队列不一定把活都堆在 P 核上；<code>QOS_CLASS_USER_INTERACTIVE</code> 会明确告诉调度器：这是前台要的算力。</p>
+<p><img alt="按行块切开，6 条 P 核 + 4 条 E 核" loading="lazy" src="/images/2026-09/gemm-threads.svg"></p>
+<p>卡在哪：单核 NEON 已经不算访存了，但 <strong>6 个 P 核还在闲着</strong>。另一侧，线程太细或矩阵太小，派发成本会高过计算。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">dispatch_queue_attr_t</span> <span class="n">attr</span> <span class="o">=</span> <span class="nf">dispatch_queue_attr_make_with_qos_class</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">DISPATCH_QUEUE_CONCURRENT</span><span class="p">,</span> <span class="n">QOS_CLASS_USER_INTERACTIVE</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nf">dispatch_apply</span><span class="p">((</span><span class="n">n</span> <span class="o">+</span> <span class="n">MC</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">MC</span><span class="p">,</span> <span class="nf">dispatch_queue_create</span><span class="p">(</span><span class="s">&#34;gemm&#34;</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="o">^</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">bi</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cm">/* 对第 bi 个 MC 行块跑 NEON 微核 */</span>
+</span></span><span class="line"><span class="cl"><span class="p">});</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>本机：</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: right">N</th>
+          <th style="text-align: right">单线程 NEON</th>
+          <th style="text-align: right">GCD 默认</th>
+          <th style="text-align: right">GCD UI</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: right">64</td>
+          <td style="text-align: right"><strong>43.7</strong></td>
+          <td style="text-align: right">27.6</td>
+          <td style="text-align: right">29.1</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">256</td>
+          <td style="text-align: right">50.2</td>
+          <td style="text-align: right">91.9</td>
+          <td style="text-align: right">90.9</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">512</td>
+          <td style="text-align: right">51.2</td>
+          <td style="text-align: right">189</td>
+          <td style="text-align: right">190</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">1024</td>
+          <td style="text-align: right">51.1</td>
+          <td style="text-align: right">276</td>
+          <td style="text-align: right"><strong>280</strong></td>
+      </tr>
+      <tr>
+          <td style="text-align: right">2048</td>
+          <td style="text-align: right">49.6</td>
+          <td style="text-align: right">329</td>
+          <td style="text-align: right"><strong>330</strong></td>
+      </tr>
+      <tr>
+          <td style="text-align: right">4096</td>
+          <td style="text-align: right">45.6</td>
+          <td style="text-align: right">278</td>
+          <td style="text-align: right"><strong>323</strong></td>
+      </tr>
+  </tbody>
+</table>
+<p>三件事：</p>
+<ol>
+<li>$N=64$ 时多线程是负优化，派发比计算还贵。</li>
+<li>大矩阵大约 5～6×，和 6 个 P 核对得上，E 核没帮上太多忙。</li>
+<li>桌面 Mac 上两种 QoS 几乎一样；$N=4096$ 才拉开一点。<strong>iOS 后台被降到 E 核时，这条缝会变成一道沟。</strong></li>
+</ol>
+<h2 id="8-accelerate手写到这里系统库还要快-50-倍">8. Accelerate：手写到这里，系统库还要快 50 倍</h2>
+<p>$N=1024$，手写多线程 NEON 是 280 GFLOPS。同一份数据交给 <code>cblas_sgemm</code>：</p>
+<p><strong>2708 GFLOPS，相对 naive 是 1072 倍。</strong></p>
+<p>差从哪来？Apple 在性能核旁边放了矩阵协处理器 AMX。它做的不是「一次 4 个数」，而是一列 × 一行，outer product 一次更新整块 C。</p>
+<p><img alt="AMX：outer product 一次写满一块 C" loading="lazy" src="/images/2026-09/gemm-amx-tile.svg"></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nf">cblas_sgemm</span><span class="p">(</span><span class="n">CblasRowMajor</span><span class="p">,</span> <span class="n">CblasNoTrans</span><span class="p">,</span> <span class="n">CblasNoTrans</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>本机 Accelerate：</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: right">N</th>
+          <th style="text-align: right">耗时</th>
+          <th style="text-align: right">GFLOPS</th>
+          <th style="text-align: right">相对 naive</th>
+          <th style="text-align: right">相对单核 NEON</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: right">64</td>
+          <td style="text-align: right">0.001 ms</td>
+          <td style="text-align: right">524</td>
+          <td style="text-align: right">72×</td>
+          <td style="text-align: right">12×</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">256</td>
+          <td style="text-align: right">0.033 ms</td>
+          <td style="text-align: right">1017</td>
+          <td style="text-align: right">383×</td>
+          <td style="text-align: right">20×</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">512</td>
+          <td style="text-align: right">0.121 ms</td>
+          <td style="text-align: right">2218</td>
+          <td style="text-align: right">682×</td>
+          <td style="text-align: right">43×</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">1024</td>
+          <td style="text-align: right">0.793 ms</td>
+          <td style="text-align: right"><strong>2708</strong></td>
+          <td style="text-align: right"><strong>1072×</strong></td>
+          <td style="text-align: right"><strong>53×</strong></td>
+      </tr>
+      <tr>
+          <td style="text-align: right">2048</td>
+          <td style="text-align: right">7.94 ms</td>
+          <td style="text-align: right">2163</td>
+          <td style="text-align: right">—</td>
+          <td style="text-align: right">44×</td>
+      </tr>
+      <tr>
+          <td style="text-align: right">4096</td>
+          <td style="text-align: right">69.7 ms</td>
+          <td style="text-align: right">1972</td>
+          <td style="text-align: right">—</td>
+          <td style="text-align: right">43×</td>
+      </tr>
+  </tbody>
+</table>
+<p>AMX 没有公开指令文档，Accelerate 在矩阵够大时会走它。$N=64$ 就已经 524 GFLOPS，说明阈值很低。$N$ 再大，数字从 2.7 TFLOPS 回到 2 TFLOPS 附近，开始碰到带宽、缓存归属和功耗墙。</p>
+<p>手写 NEON 很难追上，不是微核不够认真，是 <strong>单元就不一样</strong>。产品代码到这一步，默认答案就是调用系统库。</p>
+<h2 id="apple-silicon-上怎么选">Apple Silicon 上怎么选</h2>
+<p>通用 GEMM、网络里的一层、要不要上 GPU，不是同一条路。</p>
+<p><img alt="Mac / iOS 选型" loading="lazy" src="/images/2026-09/gemm-dispatch.svg"></p>
+<h3 id="统一内存不是免费午餐">统一内存不是免费午餐</h3>
+<p>独立显卡机器上，小 GEMM 先被 PCIe 拷贝淹死。Apple Silicon 省掉了这次拷贝，CPU、GPU、ANE 看见的是同一块统一内存。省的是搬，不是缓存颠簸。Metal 的 <code>MPSMatrixMultiplication</code> 有启动开销，小矩阵往往不如 Accelerate；大矩阵、批量、已经在 GPU 上的图，再值得过去。</p>
+<p><img alt="统一内存：没有 PCIe 拷贝，但仍有归属" loading="lazy" src="/images/2026-09/gemm-unified-memory.svg"></p>
+<h3 id="ane-不是通用-gemm">ANE 不是通用 GEMM</h3>
+<p>BNNS 吃 CPU 上的卷积和固定形状的网络层。Core ML 能把部分图卸到 ANE。ANE 喜欢静态形状、量化好的推理，不喜欢你随时改 $M,N,K$ 的通用乘法。动态 GEMM 留在 Accelerate 或 GPU。</p>
+<h3 id="sme-是公开的下一站">SME 是公开的下一站</h3>
+<p>M4 / A18 上 ARM 的 SME / SME2 把矩阵 tile（ZA）做成了公开指令。思路和 AMX 类似：向量外积填一块累加器。以后手写矩阵核有望不再依赖未文档化的协处理器，但今天这台 M2 Pro 上，公开可用、又真正快的，仍然是 Accelerate。</p>
+<h3 id="ios-和-mac-是同一套-api两堵不同的墙">iOS 和 Mac 是同一套 API，两堵不同的墙</h3>
+<p><img alt="桌面峰值 vs 手机墙" loading="lazy" src="/images/2026-09/gemm-ios-wall.svg"></p>
+<p>A14 起的 A 系同样有 AMX，调用方式也是 <code>cblas_sgemm</code> / BNNS。不要把桌面 2.7 TFLOPS 写进手机 SLA：几秒热节流、进后台被降 QoS、App 被挂起，都会让数字塌掉。前台、用户正在等的计算，显式用 <code>QOS_CLASS_USER_INTERACTIVE</code>；能接受慢的，别去抢 P 核。</p>
+<h2 id="本机总表">本机总表</h2>
+<p>平台：Mac mini M2 Pro，FP32，$C=AB$，行主序。单位 GFLOPS。空格是这一档太慢、没跑。</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">kernel</th>
+          <th style="text-align: right">64</th>
+          <th style="text-align: right">256</th>
+          <th style="text-align: right">512</th>
+          <th style="text-align: right">1024</th>
+          <th style="text-align: right">2048</th>
+          <th style="text-align: right">4096</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">naive ijk</td>
+          <td style="text-align: right">7.3</td>
+          <td style="text-align: right">2.7</td>
+          <td style="text-align: right">3.3</td>
+          <td style="text-align: right">2.5</td>
+          <td style="text-align: right"></td>
+          <td style="text-align: right"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">ikj</td>
+          <td style="text-align: right">23.8</td>
+          <td style="text-align: right">26.8</td>
+          <td style="text-align: right">28.3</td>
+          <td style="text-align: right">28.9</td>
+          <td style="text-align: right">24.9</td>
+          <td style="text-align: right"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">tiled（无微核）</td>
+          <td style="text-align: right">23.8</td>
+          <td style="text-align: right">24.2</td>
+          <td style="text-align: right">22.4</td>
+          <td style="text-align: right">20.2</td>
+          <td style="text-align: right">16.2</td>
+          <td style="text-align: right"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">寄存器分块</td>
+          <td style="text-align: right">47.7</td>
+          <td style="text-align: right">31.3</td>
+          <td style="text-align: right">30.2</td>
+          <td style="text-align: right">29.9</td>
+          <td style="text-align: right">10.7</td>
+          <td style="text-align: right"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">packed 标量</td>
+          <td style="text-align: right">6.7</td>
+          <td style="text-align: right">7.6</td>
+          <td style="text-align: right">7.5</td>
+          <td style="text-align: right">7.5</td>
+          <td style="text-align: right">7.5</td>
+          <td style="text-align: right"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">NEON 微核</td>
+          <td style="text-align: right">43.7</td>
+          <td style="text-align: right">50.2</td>
+          <td style="text-align: right">51.2</td>
+          <td style="text-align: right">51.1</td>
+          <td style="text-align: right">49.6</td>
+          <td style="text-align: right">45.6</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">GCD + NEON</td>
+          <td style="text-align: right">29.1</td>
+          <td style="text-align: right">90.9</td>
+          <td style="text-align: right">190</td>
+          <td style="text-align: right">280</td>
+          <td style="text-align: right">330</td>
+          <td style="text-align: right">323</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Accelerate</td>
+          <td style="text-align: right"><strong>524</strong></td>
+          <td style="text-align: right"><strong>1017</strong></td>
+          <td style="text-align: right"><strong>2218</strong></td>
+          <td style="text-align: right"><strong>2708</strong></td>
+          <td style="text-align: right"><strong>2163</strong></td>
+          <td style="text-align: right"><strong>1972</strong></td>
+      </tr>
+  </tbody>
+</table>
+<p>读这张表的方式：</p>
+<ul>
+<li><strong>ikj</strong> 是软件侧最值的一刀，大矩阵约 10×。</li>
+<li><strong>分块 / packing</strong> 单独看会变慢，它们是微核的前置条件，不是独立加速器。</li>
+<li><strong>NEON 微核</strong> 把单核钉在约 50 GFLOPS。</li>
+<li><strong>GCD</strong> 在矩阵够大时吃满 P 核，约 300 GFLOPS。</li>
+<li><strong>Accelerate</strong> 再往上一个数量级。那一跳不是循环技巧，是 AMX。</li>
+</ul>
+<p>对应回 Roofline：naive 贴着带宽墙；ikj 和 NEON 往右上走；多线程接近 NEON 多核屋顶；Accelerate 换了一块屋顶。</p>
+<h2 id="可以带走的几条">可以带走的几条</h2>
+<ol>
+<li>先画访问轨迹，再写优化。和 cache line 作对的循环，换顺序比换指令集更值钱。</li>
+<li>分块、packing、寄存器窗口、SIMD 是一套，不是四道独立菜。拆开测，有的步会倒退。</li>
+<li>Apple Silicon 上，教学写到 NEON 微核就够看懂；产品上的通用 GEMM，默认 <code>cblas_sgemm</code>。</li>
+<li>小矩阵别开线程，也别急着上 Metal。调用和同步比乘法贵。</li>
+<li>Mac 上量到的峰值，不能当 iOS 的承诺。同一套 ISA，墙不一样。</li>
+</ol>
+<p>公式只需要三个：$C_{ij}=\sum_k A_{ik}B_{kj}$，算术强度大约 $n/6$，以及 $\mathrm{GFLOPS}=2N^3/t$。其余的，都是让数据停在更靠近计算的那一层。</p>
+]]></content:encoded>
+    </item>
+    <item>
       <title>读《富爸爸穷爸爸》：房子是资产吗，写代码是事业吗</title>
       <link>https://lyapple2008.github.io/posts/202609/2026-09-03-%E5%AF%8C%E7%88%B8%E7%88%B8%E7%A9%B7%E7%88%B8%E7%88%B8%E8%AF%BB%E5%90%8E%E6%84%9F/</link>
       <pubDate>Thu, 03 Sep 2026 22:30:00 +0800</pubDate>
       <guid>https://lyapple2008.github.io/posts/202609/2026-09-03-%E5%AF%8C%E7%88%B8%E7%88%B8%E7%A9%B7%E7%88%B8%E7%88%B8%E8%AF%BB%E5%90%8E%E6%84%9F/</guid>
-      <description>清崎反复讲的其实就两对概念：资产与负债，职业与事业。近几年硬上车的房子，和 AI 冲击下的程序员岗位，把这两对概念从书里拽到了眼前。</description>
+      <description>硬上车的房子，现在开始按月供过日子；「会写代码」也正在被 AI 变便宜。富人买资产、穷人买负债——这句话常被读歪。真正好用的不是口号，是先把账记对。</description>
       <content:encoded><![CDATA[<p>前阵子写<a href="/posts/202608/2026-08-30-40%E5%B9%B4%E6%88%BF%E8%B4%B7/">40 年房贷</a>的时候，已经把《富爸爸穷爸爸》里最刺耳的那句拿出来用过一次：很多人把负债当成了资产。书看完之后，觉得那句话只是入口。清崎翻来覆去讲的，其实就两对很容易混的概念——<strong>资产与负债</strong>，<strong>职业与事业</strong>。</p>
 <p>这两对概念都不新，新的是对照物变了。一套近几年硬上车、现在开始按月供过日子的房子，一份正在被 AI 改写的程序员工作，比书里那些美国出租屋和快餐店例子更近。下面就用这两件事把书读一遍。</p>
 <h2 id="一先把作者的尺子拿出来">一、先把作者的尺子拿出来</h2>
@@ -2609,33 +3202,6 @@ $$</p>
 <hr>
 <p><strong>最后</strong>，如果你也被游戏广告折磨得不行，不妨试试这个思路——<strong>有时候最好的外挂，是用自己的技术绕过广告</strong>（而不是去黑游戏服务器）。</p>
 <p>祝大家拼图愉快，<strong>永不看广告</strong>！</p>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>基于iOS系统接口实现双语字幕App</title>
-      <link>https://lyapple2008.github.io/posts/202603/2026-03-09-%E5%9F%BA%E4%BA%8Eios%E7%B3%BB%E7%BB%9F%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0%E5%8F%8C%E8%AF%AD%E5%AD%97%E5%B9%95app/</link>
-      <pubDate>Mon, 09 Mar 2026 18:24:47 +0800</pubDate>
-      <guid>https://lyapple2008.github.io/posts/202603/2026-03-09-%E5%9F%BA%E4%BA%8Eios%E7%B3%BB%E7%BB%9F%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0%E5%8F%8C%E8%AF%AD%E5%AD%97%E5%B9%95app/</guid>
-      <description>&lt;p&gt;之前预告的 iOS 系统双语字幕 App，终于完成了。废话不多说，直接展示效果。目前的实现是通过 iOS 系统接口进行的，作为一个 baseline，后面也可以接入第三方开源方案。文末有项目链接，各位道友自取。&lt;/p&gt;</description>
-      <content:encoded><![CDATA[<p>之前预告的 iOS 系统双语字幕 App，终于完成了。废话不多说，直接展示效果。目前的实现是通过 iOS 系统接口进行的，作为一个 baseline，后面也可以接入第三方开源方案。文末有项目链接，各位道友自取。</p>
-<h2 id="模块流程">模块流程</h2>
-
-<div class="mermaid">graph LR
-    A[捕获系统播放音频] --&gt; B[语音识别ASR]
-    B --&gt; C[语言翻译]
-    B --&gt; D[双语字幕]
-    C --&gt; D</div>
-<h2 id="效果展示">效果展示</h2>
-<iframe width="100%" max-width="400" height="600" src="//player.bilibili.com/player.html?bvid=BV1irXGBtEnU&autoplay=0" frameborder="0" allowfullscreen></iframe>
-<h2 id="一些感想">一些感想</h2>
-<p>这也是第一个完全 AI Coding 的项目，有了 AI Coding 后有了一种自己无所不能的错觉。作为一个大龄程序员，已经放弃抵抗了，打不过咱就加入。</p>
-<h3 id="ai-是放大器">AI 是放大器</h3>
-<p>在做这个 Project 的过程中，对我来说最大的困难是 UI 部分。<a href="/posts/202601/2026-02-01-%E5%85%B3%E4%BA%8Eaicoding%E7%9A%84%E4%B8%80%E4%BA%9B%E6%84%9F%E6%83%B3%E5%92%8C%E5%90%8E%E7%BB%AD%E7%9A%84%E8%A7%84%E5%88%92/">关于 AICoding 的一些感想和后续的规划</a> 中提到的，AI 的能力约等于使用者自身的能力。最近听到&quot;AI 是放大器&quot;这个说法，这个比喻可真的是贴切形象了。假如 AI 可以放大 10 倍，如果应用在你熟悉的领域是 10 分，放大后就是 100 分；如果应用在你不熟悉的领域，比如 iOS 客户端开发，对我来说约等于 0 分，放大后也是约等于 0 分。那这个时候就看天吃饭了，AI 给什么就吃什么，就算有问题我也无法判断，更别说是纠正 AI 了。所以网上一堆零基础开发一个 App 上线并产生收入的，真的可能吗？难道我的使用姿势不对？</p>
-<h3 id="狠狠地用起来">狠狠地用起来</h3>
-<p>虽然对于自己不熟悉的领域，使用 AI 产生可用代码的偶然性挺大的，不过作为 AI 协作者，AI 在学习人类的代码，人类也可以学习 AI 的代码。在这个项目中，对于自己不熟悉的客户端 UI 部分的代码，我就会让 AI 给我讲解一遍，从语法到架构、为什么这么写。在提问 → 学习 → 再提问 → 再学习的不断迭代过程中，也在慢慢提高 AI 输出自己不熟悉代码的可控性和判断力。</p>
-<p>现在是将想法落地最好的时代。以前你可能会卡在某个问题因为找不到有效的解答而不了了之，或者因为某个技术不懂而不能落地，但是现在你随时可以通过 AI 大模型得到你想要的答案，协助你实现自己的 idea。要像大神 Karpathy 一样，因为 token 没用完而感到焦虑，不停去跟 AI 交流、提问、讨论，落地想法。去尝试将 AI 嵌入到自己的工程流程中，这个我也还没找到方向，但是我觉得这个方向是没错的。狠狠地、使劲用起来吧。</p>
-<h2 id="项目链接">项目链接</h2>
-<p><a href="https://github.com/lyapple2008/DoubleSubtitleUseSystemAPI">DoubleSubtitleUseSystemAPI</a></p>
 ]]></content:encoded>
     </item>
   </channel>
