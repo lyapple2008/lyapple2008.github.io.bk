@@ -723,6 +723,8 @@ chart.setOption({
 <li>Mac 上量到的峰值，不能当 iOS 的承诺。同一套 ISA，墙不一样。</li>
 </ol>
 <p>公式只需要三个：$C_{ij}=\sum_k A_{ik}B_{kj}$，算术强度大约 $n/6$，以及 $\mathrm{GFLOPS}=2N^3/t$。其余的，都是让数据停在更靠近计算的那一层。</p>
+<h2 id="项目链接">项目链接</h2>
+<p>文中各阶梯的 C 实现和 CMake bench 在 <a href="https://github.com/lyapple2008/gmm_opt">gmm_opt</a>。</p>
 ]]></content:encoded>
     </item>
     <item>
